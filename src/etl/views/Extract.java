@@ -5,17 +5,36 @@
  */
 package etl.views;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author suren
  */
 public class Extract extends javax.swing.JFrame {
 
+    //All declared variables
+    String selectedIndustry;
+    String selectedFileType;
+    String selectedFile;
+    JFileChooser sourceFileChooser;
+    
     /**
      * Creates new form Extract
      */
     public Extract() {
         initComponents();
+        selectedIndustry = "IT";
+        selectedFileType = "csv";
+        selectedFile = "";
+        sourceFileChooser = new JFileChooser();
+        
+        //Set the selected industry
+        itRadioBtn.setSelected(true);
+        //Set the selected File Type
+        csvRadioBtn.setSelected(true);
     }
 
     /**
@@ -39,10 +58,11 @@ public class Extract extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         newNameTxt = new javax.swing.JTextField();
-        sourceFilePicker = new javax.swing.JFileChooser();
-        defaultCheckBox = new javax.swing.JCheckBox();
+        defaultNameCKBox = new javax.swing.JCheckBox();
         extractBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
+        browseBtn = new javax.swing.JButton();
+        filePathTxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Extract");
@@ -60,20 +80,38 @@ public class Extract extends javax.swing.JFrame {
 
         fileType.add(execelRadioBtn);
         execelRadioBtn.setText("Excel");
+        execelRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excelRadioBtnHandler(evt);
+            }
+        });
 
         fileType.add(xmlRadioBtn);
         xmlRadioBtn.setText("XML");
+        xmlRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                xmlRadioBtnHandler(evt);
+            }
+        });
 
         fileType.add(csvRadioBtn);
         csvRadioBtn.setText("CSV");
+        csvRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                csvRadioBtnHandler(evt);
+            }
+        });
 
         jLabel3.setText("Source File");
 
         jLabel4.setText("New Table Name");
 
-        sourceFilePicker.setBorder(null);
-
-        defaultCheckBox.setText("Use Default Name");
+        defaultNameCKBox.setText("Use Default Name");
+        defaultNameCKBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defaultNameCKBoxActionPerformed(evt);
+            }
+        });
 
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +121,20 @@ public class Extract extends javax.swing.JFrame {
         });
 
         cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
+
+        browseBtn.setText("Browse");
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseBtnActionPerformed(evt);
+            }
+        });
+
+        filePathTxt.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,23 +143,6 @@ public class Extract extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(xmlRadioBtn)
-                            .addComponent(execelRadioBtn)
-                            .addComponent(csvRadioBtn)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(apparelRadioBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(itRadioBtn))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(53, 53, 53)
-                        .addComponent(sourceFilePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,10 +153,34 @@ public class Extract extends javax.swing.JFrame {
                                 .addComponent(cancelBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(newNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(defaultCheckBox)))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filePathTxt)
+                                    .addComponent(newNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(17, 17, 17)
+                                        .addComponent(defaultNameCKBox))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(xmlRadioBtn)
+                                    .addComponent(execelRadioBtn)
+                                    .addComponent(csvRadioBtn)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(apparelRadioBtn)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(itRadioBtn))))
+                            .addComponent(jLabel3))
+                        .addContainerGap(270, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,29 +199,139 @@ public class Extract extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(xmlRadioBtn)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(sourceFilePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(browseBtn)
+                    .addComponent(filePathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(newNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(defaultCheckBox))
+                    .addComponent(defaultNameCKBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(extractBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method extractBtnActionPerformed 
+    * Execute if user clicks on Extract Button
+    * Close the current window and open Data View window
+    * @param  Action Event
+    */
     private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
         dispose();
         new DataView().setVisible(true);
     }//GEN-LAST:event_extractBtnActionPerformed
+
+    /*
+    * @Method csvRadioBtnHandler 
+    * Execute if user clicks on CSV Radio Button
+    * Set the selected file type to CSV and reset the selected file if any
+    * @param  Action Event
+    */
+    private void csvRadioBtnHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_csvRadioBtnHandler
+        //Set the selected file type
+        selectedFileType = "csv";
+        resetSelectedSourceFile();
+    }//GEN-LAST:event_csvRadioBtnHandler
+    
+    /*
+    * @Method excelRadioBtnHandler 
+    * Execute if user clicks on Excel Radio Button
+    * Set the selected file type to Excel and reset the selected file if any
+    * @param  Action Event
+    */
+    private void excelRadioBtnHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelRadioBtnHandler
+        //Set the selected file type
+        selectedFileType = "xsls";
+        resetSelectedSourceFile();
+    }//GEN-LAST:event_excelRadioBtnHandler
+
+    /*
+    * @Method xmlRadioBtnHandler 
+    * Execute if user clicks on XML Radio Button
+    * Set the selected file type to XML and reset the selected file if any
+    * @param  Action Event
+    */
+    private void xmlRadioBtnHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xmlRadioBtnHandler
+        //Set the selected file type
+        selectedFileType = "xml";
+        resetSelectedSourceFile();
+    }//GEN-LAST:event_xmlRadioBtnHandler
+
+    /*
+    * @Method resetSelectedSourceFile 
+    * Reset the selected file if any asking user confirmation
+    */
+    private void resetSelectedSourceFile(){
+        //Check whether the file is selected 
+        if(!selectedFile.equals("")){
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, 
+                    "Would You Like to remove the selected file?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                //Reset the selected file variable
+                selectedFile = "";
+                //Reset the file path visible text box
+                filePathTxt.setText(selectedFile);
+                //Reset the jfilechooser's selected file
+                sourceFileChooser = new JFileChooser();
+            }
+        }
+    }
+    
+    /*
+    * @Method browseBtnActionPerformed 
+    * Execute if user clicks on Browser Button
+    * Set the selected file type and open JFileChooser
+    * @param  Action Event
+    */
+    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
+        //set the file types
+        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(selectedFileType, selectedFileType);
+        sourceFileChooser.setFileFilter(fileFilter);        
+        int result = sourceFileChooser.showOpenDialog(this);
+        //Detect user click on Open or Cancel Button of JFilePicker
+        if (result == JFileChooser.APPROVE_OPTION) {
+            selectedFile = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            filePathTxt.setText(selectedFile);
+        } else if (result == JFileChooser.CANCEL_OPTION) {
+            System.out.println("Cancel was selected");
+        }
+    }//GEN-LAST:event_browseBtnActionPerformed
+
+    /*
+    * @Method cancelBtnActionPerformed 
+    * Execute if user clicks on Cancel Button
+    * Close the current window
+    * @param  Action Event
+    */
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    /*
+    * @Method defaultNameCKBoxActionPerformed 
+    * Execute if user clicks on Use Default Name Check Box
+    * Enables and disables the checkbox
+    * @param  Action Event
+    */
+    private void defaultNameCKBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultNameCKBoxActionPerformed
+        if(defaultNameCKBox.isSelected()){
+            newNameTxt.setEnabled(false);
+        }
+        else {
+            newNameTxt.setEnabled(true);
+        }
+            
+    }//GEN-LAST:event_defaultNameCKBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,11 +370,13 @@ public class Extract extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton apparelRadioBtn;
+    private javax.swing.JButton browseBtn;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JRadioButton csvRadioBtn;
-    private javax.swing.JCheckBox defaultCheckBox;
+    private javax.swing.JCheckBox defaultNameCKBox;
     private javax.swing.JRadioButton execelRadioBtn;
     private javax.swing.JButton extractBtn;
+    private javax.swing.JTextField filePathTxt;
     private javax.swing.ButtonGroup fileType;
     private javax.swing.ButtonGroup industry;
     private javax.swing.JRadioButton itRadioBtn;
@@ -214,7 +385,6 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField newNameTxt;
-    private javax.swing.JFileChooser sourceFilePicker;
     private javax.swing.JRadioButton xmlRadioBtn;
     // End of variables declaration//GEN-END:variables
 }

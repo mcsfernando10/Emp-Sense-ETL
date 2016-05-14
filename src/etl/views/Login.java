@@ -109,6 +109,14 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method loginBtnActionPerformed 
+    * Execute if user clicks on Login Button
+    * Validate the empty fields
+    * Check whether the username and the password(encrypted) exists
+    * If user exists display Extract View with closing the current window
+    * @param  Action Event
+    */
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         if(usernameTxt.getText().length()==0)  
             // Checking for empty field
@@ -195,11 +203,23 @@ public class Login extends javax.swing.JFrame {
         });
     }
     
+    /*
+    * @Method validate_login 
+    * @Return boolean : user exists or not
+    * Check the user availability with sql database
+    * @param  Username and Password
+    */
     private boolean validate_login(String username,String password) {
-        try{          
-            Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/empsense?" + "user=root&password=root123");    
-            PreparedStatement pst = (PreparedStatement) conn.prepareStatement("Select * from login where username=? and password=?");
+        try{     
+            // MySQL database connection
+            Class.forName("com.mysql.jdbc.Driver");  
+            Connection conn = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/empsense?" + 
+                            "user=root&password=root123");    
+            String query = "Select * "
+                            + "from login "
+                            + "where username=? and password=?";
+            PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();                        
