@@ -5,6 +5,13 @@
  */
 package etl.views;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author suren
@@ -49,6 +56,11 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Password");
 
         loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,6 +108,26 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        if(usernameTxt.getText().length()==0)  // Checking for empty field
+            JOptionPane.showMessageDialog(null, "Empty fields detected ! Please fill up all fields");
+        else if(passwordTxt.getPassword().length==0)  // Checking for empty field
+            JOptionPane.showMessageDialog(null, "Empty fields detected ! Please fill up all fields");
+        else{
+            String user = usernameTxt.getText();   // Collecting the input
+            char[] pass = passwordTxt.getPassword(); // Collecting the input
+            String pwd = String.copyValueOf(pass);  // converting from array to string
+            if(validate_login(user,pwd)){
+                dispose();
+                new Extract().setVisible(true);
+            }               
+            else{
+                JOptionPane.showMessageDialog(null, "Incorrect Login Credentials");
+            }
+               
+        }  
+    }//GEN-LAST:event_loginBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -129,6 +161,25 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+    }
+    
+    private boolean validate_login(String username,String password) {
+        try{          
+            Class.forName("com.mysql.jdbc.Driver");  // MySQL database connection
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/empsense?" + "user=root&password=root123");    
+            PreparedStatement pst = (PreparedStatement) conn.prepareStatement("Select * from login where username=? and password=?");
+            pst.setString(1, username);
+            pst.setString(2, password);
+            ResultSet rs = pst.executeQuery();                        
+            if(rs.next())            
+                return true;    
+            else
+                return false;            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
