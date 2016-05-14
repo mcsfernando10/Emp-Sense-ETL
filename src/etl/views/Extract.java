@@ -76,6 +76,11 @@ public class Extract extends javax.swing.JFrame {
         defaultCheckBox.setText("Use Default Name");
 
         extractBtn.setText("Extract");
+        extractBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                extractBtnActionPerformed(evt);
+            }
+        });
 
         cancelBtn.setText("Cancel");
 
@@ -153,6 +158,11 @@ public class Extract extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
+        dispose();
+        new DataView().setVisible(true);
+    }//GEN-LAST:event_extractBtnActionPerformed
 
     /**
      * @param args the command line arguments

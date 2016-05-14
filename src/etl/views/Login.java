@@ -5,7 +5,8 @@
  */
 package etl.views;
 
-
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,23 +110,54 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        if(usernameTxt.getText().length()==0)  // Checking for empty field
-            JOptionPane.showMessageDialog(null, "Empty fields detected ! Please fill up all fields");
-        else if(passwordTxt.getPassword().length==0)  // Checking for empty field
-            JOptionPane.showMessageDialog(null, "Empty fields detected ! Please fill up all fields");
+        if(usernameTxt.getText().length()==0)  
+            // Checking for empty field
+            JOptionPane.showMessageDialog(null, 
+                    "Empty fields detected! Please fill up all fields");
+        else if(passwordTxt.getPassword().length==0)  
+            // Checking for empty field
+            JOptionPane.showMessageDialog(null, 
+                    "Empty fields detected! Please fill up all fields");
         else{
-            String user = usernameTxt.getText();   // Collecting the input
-            char[] pass = passwordTxt.getPassword(); // Collecting the input
-            String pwd = String.copyValueOf(pass);  // converting from array to string
-            if(validate_login(user,pwd)){
+            // Collecting the input
+            String user = usernameTxt.getText();   
+            char[] pass = passwordTxt.getPassword();
+            // converting from array to string
+            String pwd = String.copyValueOf(pass);  
+            String encryptedPassword = "";
+            try{
+                // Create MessageDigest instance for MD5
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                //Add password bytes to digest
+                md.update(pwd.getBytes());
+                //Get the hash's bytes
+                byte[] bytes = md.digest();
+                //This bytes[] has bytes in decimal format;
+                //Convert it to hexadecimal format
+                StringBuilder sb = new StringBuilder();
+                for(int i=0; i< bytes.length ;i++)
+                {
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
+                            .substring(1));
+                }
+                //Get complete hashed password in hex format to string variable
+                encryptedPassword = sb.toString();                
+            }
+            catch(NoSuchAlgorithmException e){
+                System.out.println("No Encryting algorithm");
+            }
+            
+            if(validate_login(user,encryptedPassword)){
                 dispose();
                 new Extract().setVisible(true);
             }               
             else{
-                JOptionPane.showMessageDialog(null, "Incorrect Login Credentials");
-            }
-               
+                JOptionPane.showMessageDialog(null, 
+                        "Incorrect Login Credentials");
+            }               
         }  
+        
+        
     }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
