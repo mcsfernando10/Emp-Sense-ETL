@@ -16,10 +16,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Extract extends javax.swing.JFrame {
 
     //All declared variables
-    String selectedIndustry;
-    String selectedFileType;
-    String selectedFile;
-    JFileChooser sourceFileChooser;
+    private String selectedIndustry;
+    private String selectedFileType;
+    private String selectedFilePath;
+    private JFileChooser sourceFileChooser;
     
     /**
      * Creates new form Extract
@@ -28,7 +28,7 @@ public class Extract extends javax.swing.JFrame {
         initComponents();
         selectedIndustry = "IT";
         selectedFileType = "csv";
-        selectedFile = "";
+        selectedFilePath = "";
         sourceFileChooser = new JFileChooser();
         
         //Set the selected industry
@@ -57,7 +57,7 @@ public class Extract extends javax.swing.JFrame {
         csvRadioBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        newNameTxt = new javax.swing.JTextField();
+        newTableNameTxt = new javax.swing.JTextField();
         defaultNameCKBox = new javax.swing.JCheckBox();
         extractBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
@@ -155,7 +155,7 @@ public class Extract extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(filePathTxt)
-                                    .addComponent(newNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
+                                    .addComponent(newTableNameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(17, 17, 17)
@@ -206,7 +206,7 @@ public class Extract extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(newNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newTableNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(defaultNameCKBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -222,12 +222,24 @@ public class Extract extends javax.swing.JFrame {
     /*
     * @Method extractBtnActionPerformed 
     * Execute if user clicks on Extract Button
-    * Close the current window and open Data View window
+    * Check whether user selected a source file or not
+    * Check whether user enter a table name if use default name option unchecked
+    * If validation completed:Close the current window and open Data View window
     * @param  Action Event
     */
     private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
-        dispose();
-        new DataView().setVisible(true);
+        if(selectedFilePath.equals("")){
+            JOptionPane.showMessageDialog(null, "Please select a source file");
+        } 
+        else if(!defaultNameCKBox.isSelected() && 
+                newTableNameTxt.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, 
+                    "Please please enter a name for table");
+        }
+        else{
+            dispose();
+            new DataView(selectedFilePath, selectedFileType).setVisible(true);
+        }        
     }//GEN-LAST:event_extractBtnActionPerformed
 
     /*
@@ -250,7 +262,7 @@ public class Extract extends javax.swing.JFrame {
     */
     private void excelRadioBtnHandler(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelRadioBtnHandler
         //Set the selected file type
-        selectedFileType = "xsls";
+        selectedFileType = "xsl";
         resetSelectedSourceFile();
     }//GEN-LAST:event_excelRadioBtnHandler
 
@@ -272,15 +284,15 @@ public class Extract extends javax.swing.JFrame {
     */
     private void resetSelectedSourceFile(){
         //Check whether the file is selected 
-        if(!selectedFile.equals("")){
+        if(!selectedFilePath.equals("")){
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog (null, 
                     "Would You Like to remove the selected file?","Warning",dialogButton);
             if(dialogResult == JOptionPane.YES_OPTION){
                 //Reset the selected file variable
-                selectedFile = "";
+                selectedFilePath = "";
                 //Reset the file path visible text box
-                filePathTxt.setText(selectedFile);
+                filePathTxt.setText(selectedFilePath);
                 //Reset the jfilechooser's selected file
                 sourceFileChooser = new JFileChooser();
             }
@@ -295,13 +307,14 @@ public class Extract extends javax.swing.JFrame {
     */
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         //set the file types
-        FileNameExtensionFilter fileFilter = new FileNameExtensionFilter(selectedFileType, selectedFileType);
+        FileNameExtensionFilter fileFilter = new 
+                    FileNameExtensionFilter(selectedFileType, selectedFileType);
         sourceFileChooser.setFileFilter(fileFilter);        
         int result = sourceFileChooser.showOpenDialog(this);
         //Detect user click on Open or Cancel Button of JFilePicker
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFile = sourceFileChooser.getSelectedFile().getAbsolutePath();
-            filePathTxt.setText(selectedFile);
+            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            filePathTxt.setText(selectedFilePath);
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("Cancel was selected");
         }
@@ -325,48 +338,13 @@ public class Extract extends javax.swing.JFrame {
     */
     private void defaultNameCKBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultNameCKBoxActionPerformed
         if(defaultNameCKBox.isSelected()){
-            newNameTxt.setEnabled(false);
+            newTableNameTxt.setEnabled(false);
         }
         else {
-            newNameTxt.setEnabled(true);
+            newTableNameTxt.setEnabled(true);
         }
             
     }//GEN-LAST:event_defaultNameCKBoxActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Extract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Extract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Extract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Extract.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Extract().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton apparelRadioBtn;
@@ -384,7 +362,7 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField newNameTxt;
+    private javax.swing.JTextField newTableNameTxt;
     private javax.swing.JRadioButton xmlRadioBtn;
     // End of variables declaration//GEN-END:variables
 }
