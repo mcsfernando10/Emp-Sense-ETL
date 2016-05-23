@@ -5,6 +5,8 @@
  */
 package etl.views;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -327,7 +329,39 @@ public class Extract extends javax.swing.JFrame {
     * @param  Action Event
     */
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        dispose();
+        //dispose();
+        /*PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
+        // execute a function that takes a string and returns a string
+        PyObject someFunc = interpreter.get("drumhead_height");
+        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
+        String realResult = (String) result.__tojava__(String.class);
+        System.out.println(realResult);*/
+        
+        /* working PythonInterpreter python = new PythonInterpreter();
+
+        int number1 = 10;
+        int number2 = 32;
+
+        python.set("number1", new PyInteger(number1));
+        python.set("number2", new PyInteger(number2));
+        python.exec("number3 = number1+number2");
+        PyObject number3 = python.get("number3");
+        System.out.println("val : "+number3.toString());*/
+        
+        try{
+ 
+        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
+        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
+        //out.write(prg);
+        //out.close();
+        int number1 = 10;
+        int number2 = 32;
+        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        //int ret = new Integer(in.readLine()).intValue();
+        System.out.println("value is : "+in.readLine());
+        }catch(Exception e){ System.out.println(e.toString());}
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     /*
@@ -346,6 +380,38 @@ public class Extract extends javax.swing.JFrame {
             
     }//GEN-LAST:event_defaultNameCKBoxActionPerformed
 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Extract().setVisible(true);
+            }
+        });
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton apparelRadioBtn;
     private javax.swing.JButton browseBtn;

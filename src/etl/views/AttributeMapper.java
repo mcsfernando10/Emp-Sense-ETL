@@ -5,6 +5,14 @@
  */
 package etl.views;
 
+import au.com.bytecode.opencsv.CSVReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author suren
@@ -14,8 +22,43 @@ public class AttributeMapper extends javax.swing.JFrame {
     /**
      * Creates new form AttributeMapper
      */
-    public AttributeMapper() {
+    private String filePath;
+    private String fileType;
+    public AttributeMapper(String selectedFilePath, String selectedFileType) {
         initComponents();
+        this.filePath = selectedFilePath;   
+        this.fileType = selectedFileType;
+        
+        try {
+            //Create the file 
+            FileReader selectedFile = new FileReader(filePath);
+            if(fileType.equals("csv")) {
+                CSVReader reader = new CSVReader(selectedFile);
+                //List<String[]> myEntries = reader.readAll();
+                //String[][] rowData = myEntries.toArray(new String[0][]);
+                // if the first line is the header 
+                String[] header = reader.readNext();
+                //JTable table = new JTable(rowData,header);
+                //this.add(table);
+                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(header);
+                genderComBox.setModel(model);
+                MaritalStatComBox.setModel(model);
+                jobRoleComBox.setModel(model);
+                salaryComBox.setModel(model);
+                noOfLeavesComBox.setModel(model);       
+                
+            }
+            else if(selectedFileType.equals("xml")){
+
+            }
+            else {
+
+            }
+        } catch (FileNotFoundException ex) {
+                Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     /**
@@ -28,20 +71,92 @@ public class AttributeMapper extends javax.swing.JFrame {
     private void initComponents() {
 
         attributeListPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        genderComBox = new javax.swing.JComboBox<>();
+        MaritalStatComBox = new javax.swing.JComboBox<>();
+        jobRoleComBox = new javax.swing.JComboBox<>();
+        salaryComBox = new javax.swing.JComboBox<>();
+        noOfLeavesComBox = new javax.swing.JComboBox<>();
+        doneBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Attribute Mapper");
-        setResizable(false);
+
+        jLabel1.setText("Gender");
+
+        jLabel2.setText("Marital Status");
+
+        jLabel3.setText("Salary");
+
+        jLabel4.setText("Job Role");
+
+        jLabel5.setText("No of Leaves");
+
+        genderComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        MaritalStatComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jobRoleComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        salaryComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        noOfLeavesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        doneBtn.setText("Done");
 
         javax.swing.GroupLayout attributeListPanelLayout = new javax.swing.GroupLayout(attributeListPanel);
         attributeListPanel.setLayout(attributeListPanelLayout);
         attributeListPanelLayout.setHorizontalGroup(
             attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 409, Short.MAX_VALUE)
+            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(doneBtn)
+                    .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(genderComBox, 0, 196, Short.MAX_VALUE)
+                        .addComponent(MaritalStatComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jobRoleComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(noOfLeavesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         attributeListPanelLayout.setVerticalGroup(
             attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 266, Short.MAX_VALUE)
+            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(genderComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(MaritalStatComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jobRoleComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(salaryComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(noOfLeavesComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(doneBtn)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -49,58 +164,34 @@ public class AttributeMapper extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addContainerGap()
                 .addComponent(attributeListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(attributeListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(attributeListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AttributeMapper.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AttributeMapper.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AttributeMapper.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AttributeMapper.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AttributeMapper().setVisible(true);
-            }
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> MaritalStatComBox;
     private javax.swing.JPanel attributeListPanel;
+    private javax.swing.JButton doneBtn;
+    private javax.swing.JComboBox<String> genderComBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JComboBox<String> jobRoleComBox;
+    private javax.swing.JComboBox<String> noOfLeavesComBox;
+    private javax.swing.JComboBox<String> salaryComBox;
     // End of variables declaration//GEN-END:variables
 }
