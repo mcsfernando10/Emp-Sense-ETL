@@ -5,6 +5,8 @@
  */
 package etl.views;
 
+import etl.constants.NumberConstants;
+import etl.constants.StringConstants;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -118,24 +120,24 @@ public class Login extends javax.swing.JFrame {
     * @param  Action Event
     */
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        if(usernameTxt.getText().length()==0)  
+        if(usernameTxt.getText().length() == NumberConstants.ZERO)  
             // Checking for empty field
             JOptionPane.showMessageDialog(null, 
-                    "Empty fields detected! Please fill up all fields");
-        else if(passwordTxt.getPassword().length==0)  
+                    StringConstants.EMPTY_FIELD);
+        else if(passwordTxt.getPassword().length == NumberConstants.ZERO)  
             // Checking for empty field
             JOptionPane.showMessageDialog(null, 
-                    "Empty fields detected! Please fill up all fields");
+                    StringConstants.EMPTY_FIELD);
         else{
             // Collecting the input
             String user = usernameTxt.getText();   
             char[] pass = passwordTxt.getPassword();
             // converting from array to string
             String pwd = String.copyValueOf(pass);  
-            String encryptedPassword = "";
+            String encryptedPassword = StringConstants.EMPTY_STRING;
             try{
                 // Create MessageDigest instance for MD5
-                MessageDigest md = MessageDigest.getInstance("MD5");
+                MessageDigest md = MessageDigest.getInstance(StringConstants.MD5_ENCRYPTION);
                 //Add password bytes to digest
                 md.update(pwd.getBytes());
                 //Get the hash's bytes
@@ -143,16 +145,16 @@ public class Login extends javax.swing.JFrame {
                 //This bytes[] has bytes in decimal format;
                 //Convert it to hexadecimal format
                 StringBuilder sb = new StringBuilder();
-                for(int i=0; i< bytes.length ;i++)
+                for(int i = NumberConstants.ZERO; i< bytes.length ;i++)
                 {
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16)
-                            .substring(1));
+                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 
+                            NumberConstants.SIXTEEN).substring(1));
                 }
                 //Get complete hashed password in hex format to string variable
                 encryptedPassword = sb.toString();                
             }
             catch(NoSuchAlgorithmException e){
-                System.out.println("No Encryting algorithm");
+                System.out.println(StringConstants.NO_ENCRYPTION_ALGO);
             }
             
             if(validate_login(user,encryptedPassword)){
@@ -161,7 +163,7 @@ public class Login extends javax.swing.JFrame {
             }               
             else{
                 JOptionPane.showMessageDialog(null, 
-                        "Incorrect Login Credentials");
+                        StringConstants.INCORRECT_CREDENTIALS);
             }               
         }  
         

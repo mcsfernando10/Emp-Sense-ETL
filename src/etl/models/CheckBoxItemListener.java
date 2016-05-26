@@ -16,7 +16,7 @@ import javax.swing.JTable;
  *
  * @author suren
  */
-public class MyItemListener implements ItemListener
+public class CheckBoxItemListener implements ItemListener
 {
     public static JTable table;
     public void itemStateChanged(ItemEvent e) {

@@ -5,25 +5,14 @@
  */
 package etl.views;
 
+import etl.constants.NumberConstants;
+import etl.constants.StringConstants;
 import etl.models.CheckBoxHeader;
-import etl.models.MyItemListener;
-import au.com.bytecode.opencsv.CSVReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import etl.models.CheckBoxItemListener;
+import etl.readers.ReadCSV;
+import etl.readers.ReadXML;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -41,179 +30,39 @@ public class DataView extends javax.swing.JFrame {
         this.filePath = selectedFilePath;   
         this.fileType = selectedFileType;
         
-        try {
-            //Create the file 
-            FileReader selectedFile = new FileReader(filePath);
-            if(fileType.equals("csv")) {
-                CSVReader reader = new CSVReader(selectedFile);
-                //List<String[]> myEntries = reader.readAll();
-                //String[][] rowData = myEntries.toArray(new String[0][]);
-                // if the first line is the header 
-                String[] header = reader.readNext();
-                //JTable table = new JTable(rowData,header);
-                //this.add(table);
-                List<String[]> myEntries = reader.readAll();
-                
-                DefaultTableModel model = new DefaultTableModel(header,0);
-                
-                for(int i=0;i<myEntries.size();i++){
-                    model.addRow(myEntries.get(i));
-                }
-                dataTableView.setModel(model);                
-                
-                //To add checkbox in table columns
-                for(int i=0;i<header.length;i++){
-                    MyItemListener.table = dataTableView;
-                    TableColumn tc = dataTableView.getColumnModel().getColumn(i);
-                    tc.setCellEditor(dataTableView.getDefaultEditor(String.class));
-                    tc.setCellRenderer(dataTableView.getDefaultRenderer(String.class));
-                    tc.setHeaderRenderer(new CheckBoxHeader(new MyItemListener(),header[i]));
-                }              
-                
-            }
-            else if(fileType.equals("xml")){
-                try{
-                    File fXmlFile = new File(filePath);
-                    DocumentBuilderFactory dbFactory = 
-                            DocumentBuilderFactory.newInstance();
-                    dbFactory.setIgnoringElementContentWhitespace(true);
-                    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                    Document doc = dBuilder.parse(fXmlFile);
-
-
-                    doc.getDocumentElement().normalize();
-
-                    //Get root node
-                    Node rootNode = doc.getFirstChild();
-                    //Get employee data nodes
-                    NodeList employeeNodesList = rootNode.getChildNodes(); 
-                    DefaultTableModel model = null;
-                    for(int i = 0;i<employeeNodesList.getLength();i++){
-                        if(employeeNodesList.item(i).
-                                getNodeType() == Node.ELEMENT_NODE){
-                            Node employeeNode = employeeNodesList.item(i);
-                    
-                            NodeList childNodes = employeeNode.getChildNodes();
-                            int count = 0;
-                            //for loop for count valid nodes(not containing spaces)
-                            for(int j = 0;j<childNodes.getLength();j++){
-                                //to remove #text nodes
-                                if(childNodes.item(j).getNodeType() == Node.ELEMENT_NODE)
-                                    count++;
-                            }
-                            //Create string array
-                            String[] headings = new String[count];
-
-                            //index to insert heading into correct place
-                            int index = 0;
-                            for(int j = 0;j<childNodes.getLength();j++){
-                                //to remove #text nodes
-                                if(childNodes.item(j).getNodeType()== Node.ELEMENT_NODE){
-                                    headings[index++] = childNodes.item(j).getNodeName();
-                                }                                    
-                            }
-                            model = new DefaultTableModel(headings,0); 
-                            break;
-                        }                        
-                    }
-                    
-                    //Set table rows
-                    String[] rowValues = null;
-                    for(int i = 0;i<employeeNodesList.getLength();i++){
-                        if(employeeNodesList.item(i).
-                                getNodeType() == Node.ELEMENT_NODE){
-                            Node employeeNode = employeeNodesList.item(i);
-                    
-                            NodeList childNodes = employeeNode.getChildNodes();
-                            int count = 0;
-                            //for loop for count valid nodes(not containing spaces)
-                            for(int j = 0;j<childNodes.getLength();j++){
-                                //to remove #text nodes
-                                if(childNodes.item(j).getNodeType() == Node.ELEMENT_NODE)
-                                    count++;
-                            }
-                            //Create string array for store row values
-                            rowValues = new String[count];
-
-                            //index to insert heading into correct place
-                            int index = 0;
-                            for(int j = 0;j<childNodes.getLength();j++){
-                                //to remove #text nodes
-                                if(childNodes.item(j).getNodeType()== Node.ELEMENT_NODE){
-                                    rowValues[index++] = childNodes.item(j).getTextContent();
-                                }                                    
-                            }
-                            model.addRow(rowValues);
-                        }                        
-                    }                   
-                    dataTableView.setModel(model);
-                    
-                    //Define headings as String array
-                    /*Node employeeNode = employeeNodesList.item(0);
-                    
-                    NodeList childNodes = employeeNode.getChildNodes();
-                    String[] headings = new String[childNodes.getLength()];
-                    
-                                           
-                    for(int i = 0;i<childNodes.getLength();i++){
-                        headings[i] = childNodes.item(i).getNodeName().toString();
-                        //System.out.println(childNodes.item(i).getNodeName().toString());
-                    }
-                    
-                    DefaultTableModel model = new DefaultTableModel(headings,0);
-                
-                    
-                    dataTableView.setModel(model);  */
-
-                    /*NodeList nList = doc.getElementsByTagName("staff");
-
-                    System.out.println("----------------------------");
-                    for (int temp = 0; temp < nList.getLength(); temp++) {
-
-                        Node nNode = nList.item(temp);
-                        NodeList childNodes = nNode.getChildNodes();
-                        
-                        String[] headings = new String[childNodes.getLength()];
-                        
-                        for(int i = 0;i<childNodes.getLength();i++){
-                            headings[i] = childNodes.item(i).getNodeName().toString();
-                        }
-
-                        System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-                        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                                Element eElement = (Element) nNode;
-
-                                System.out.println("Staff id : " + eElement.getAttribute("id"));
-                                System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
-                                System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
-                                System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
-                                System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
-
-                        }
-                    }*/
-                }
-                catch(FileNotFoundException ex) {
-                    Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SAXException ex) {
-                    Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ParserConfigurationException ex) {
-                    Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-            }
-            else {
-
-            }
-        }
-        catch(FileNotFoundException ex) {
-                    Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        switch(fileType){
+            case StringConstants.CSV_EXTENSION:
+                ReadCSV csvReader = new ReadCSV();
+                DefaultTableModel csvModel = csvReader.readCSVFrom(filePath); 
+                dataTableView.setModel(csvModel);
+                //addCheckBox();
+                break;
+            case StringConstants.XML_EXTENSION:
+                ReadXML xmlReader = new ReadXML();
+                DefaultTableModel xmlModel = xmlReader.readXMLFrom(filePath); 
+                dataTableView.setModel(xmlModel); 
+                //addCheckBox();
+                break;
+            case StringConstants.EXCEL_EXTENSION:
+                break;
+            case StringConstants.JSON_EXTENSION:
+                break;
+            case StringConstants.SQL_EXTENSION:
+                break;
+        }      
     }  
+    
+    private void addCheckBox(){
+        //To add checkbox in table columns
+        for(int i = NumberConstants.ZERO;i<dataTableView.getColumnCount();i++){
+            CheckBoxItemListener.table = dataTableView;
+            TableColumn tc = dataTableView.getColumnModel().getColumn(i);
+            tc.setCellEditor(dataTableView.getDefaultEditor(String.class));
+            tc.setCellRenderer(dataTableView.getDefaultRenderer(String.class));
+            tc.setHeaderRenderer(new CheckBoxHeader(
+                    new CheckBoxItemListener(),dataTableView.getColumnName(i)));
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
