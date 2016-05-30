@@ -10,9 +10,16 @@ import etl.constants.StringConstants;
 import etl.models.CheckBoxHeader;
 import etl.models.CheckBoxItemListener;
 import etl.readers.ReadCSV;
+import etl.readers.ReadExcel;
+import etl.readers.ReadJSON;
 import etl.readers.ReadXML;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 
 /**
  *
@@ -44,8 +51,14 @@ public class DataView extends javax.swing.JFrame {
                 //addCheckBox();
                 break;
             case StringConstants.EXCEL_EXTENSION:
+                ReadExcel excelReader = new ReadExcel();
+                DefaultTableModel excelModel = excelReader.readExcelFrom(filePath); 
+                dataTableView.setModel(excelModel);
                 break;
             case StringConstants.JSON_EXTENSION:
+                ReadJSON jsonReader = new ReadJSON();
+                DefaultTableModel jsonModel = jsonReader.readJSONFrom(filePath); 
+                dataTableView.setModel(jsonModel);
                 break;
             case StringConstants.SQL_EXTENSION:
                 break;
@@ -74,17 +87,18 @@ public class DataView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        extractBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTableView = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data View");
 
-        jButton1.setText("Extract");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        extractBtn.setText("Extract");
+        extractBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                extractBtnActionPerformed(evt);
             }
         });
 
@@ -109,27 +123,35 @@ public class DataView extends javax.swing.JFrame {
         dataTableView.setName(""); // NOI18N
         jScrollPane1.setViewportView(dataTableView);
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel1.setText("View of Selected Data");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(26, 26, 26))
+                .addComponent(extractBtn)
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                .addGap(24, 24, 24)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(extractBtn))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -149,15 +171,61 @@ public class DataView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-        new AttributeMapper(filePath,fileType).setVisible(true);        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
+        //dispose();
+        //new AttributeMapper(filePath,fileType).setVisible(true);        
+        try{
+ 
+        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
+        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
+        //out.write(prg);
+        //out.close();
+        
+        
+        /*PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
+        // execute a function that takes a string and returns a string
+        PyObject someFunc = interpreter.get("drumhead_height");
+        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
+        String realResult = (String) result.__tojava__(String.class);
+        System.out.println(realResult);*/
+        
+        /* working PythonInterpreter python = new PythonInterpreter();
+
+        int number1 = 10;
+        int number2 = 32;
+
+        python.set("number1", new PyInteger(number1));
+        python.set("number2", new PyInteger(number2));
+        python.exec("number3 = number1+number2");
+        PyObject number3 = python.get("number3");
+        System.out.println("val : "+number3.toString());*/ 
+        
+        int number1 = 10;
+        int number2 = 32;
+        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        //int ret = new Integer(in.readLine()).intValue();
+        System.out.println("value is : "+in.readLine());
+        }catch(Exception e){ System.out.println(e.toString());}
+        
+        /*PythonInterpreter interp = new PythonInterpreter();
+        interp.exec("nums = [1,2,3]");
+        PyObject nums = interp.get("nums");
+        System.out.println("nums: " + nums);
+        System.out.println("nums is of type: " + nums.getClass());*/
+        PythonInterpreter python = new PythonInterpreter();
+        python.set("path", new PyString(filePath));
+        python.exec("from numpy import genfromtxt\nmy_data = genfromtxt('path', delimiter=',')");
+        PyObject nums = python.get("my_data");
+        System.out.println("Data: " + nums);
+    }//GEN-LAST:event_extractBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dataTableView;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton extractBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

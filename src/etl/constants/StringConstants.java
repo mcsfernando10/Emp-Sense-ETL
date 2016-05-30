@@ -40,4 +40,7 @@ public class StringConstants {
     
     public static final String REMOVE_FILE = "Would You Like to remove the selected file?";
     public static final String WARNING = "Warning";
+    
+    //ReadJSON 
+    public static final String EMPLOYEES_TEXT = "Employees";
 }

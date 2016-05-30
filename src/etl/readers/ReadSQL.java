@@ -5,10 +5,15 @@
  */
 package etl.readers;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author suren
  */
 public class ReadSQL {
-    
+    public DefaultTableModel readSQLFrom(String filePath){
+        DefaultTableModel model = null;
+        return model;
+    }
 }

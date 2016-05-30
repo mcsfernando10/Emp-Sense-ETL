@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -22,8 +23,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author suren
  */
 public class ReadExcel {
-    public void readExcelFrom(String filePath){
+    public DefaultTableModel readExcelFrom(String filePath){
         FileInputStream file = null;
+        DefaultTableModel model = null;
         try {
             file = new FileInputStream(new File(filePath));
             //Create Workbook instance holding reference to .xlsx file
@@ -65,5 +67,6 @@ public class ReadExcel {
                 Logger.getLogger(ReadExcel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return model;
     }
 }
