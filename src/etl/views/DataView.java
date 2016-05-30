@@ -40,14 +40,20 @@ public class DataView extends javax.swing.JFrame {
         switch(fileType){
             case StringConstants.CSV_EXTENSION:
                 ReadCSV csvReader = new ReadCSV();
-                DefaultTableModel csvModel = csvReader.readCSVFrom(filePath); 
-                dataTableView.setModel(csvModel);
+                ReadCSV.selectedFilePath = filePath;
+                ReadCSV.tableView = dataTableView;
+                ReadCSV.progressBar = loadingProBar;
+                ReadCSV.extractBtn = extractBtn;
+                csvReader.start();
                 //addCheckBox();
                 break;
             case StringConstants.XML_EXTENSION:
                 ReadXML xmlReader = new ReadXML();
-                DefaultTableModel xmlModel = xmlReader.readXMLFrom(filePath); 
-                dataTableView.setModel(xmlModel); 
+                ReadXML.selectedFilePath = filePath;
+                ReadXML.tableView = dataTableView;
+                ReadXML.progressBar = loadingProBar;
+                ReadXML.extractBtn = extractBtn;
+                xmlReader.start();
                 //addCheckBox();
                 break;
             case StringConstants.EXCEL_EXTENSION:
@@ -57,8 +63,11 @@ public class DataView extends javax.swing.JFrame {
                 break;
             case StringConstants.JSON_EXTENSION:
                 ReadJSON jsonReader = new ReadJSON();
-                DefaultTableModel jsonModel = jsonReader.readJSONFrom(filePath); 
-                dataTableView.setModel(jsonModel);
+                ReadJSON.selectedFilePath = filePath;
+                ReadJSON.tableView = dataTableView;
+                ReadJSON.progressBar = loadingProBar;
+                ReadJSON.extractBtn = extractBtn;
+                jsonReader.start();
                 break;
             case StringConstants.SQL_EXTENSION:
                 break;
@@ -91,6 +100,7 @@ public class DataView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTableView = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        loadingProBar = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data View");
@@ -135,8 +145,9 @@ public class DataView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(loadingProBar, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,9 +158,11 @@ public class DataView extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loadingProBar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(extractBtn))
         );
@@ -209,15 +222,15 @@ public class DataView extends javax.swing.JFrame {
         System.out.println("value is : "+in.readLine());
         }catch(Exception e){ System.out.println(e.toString());}
         
-        /*PythonInterpreter interp = new PythonInterpreter();
+        PythonInterpreter interp = new PythonInterpreter();
         interp.exec("nums = [1,2,3]");
         PyObject nums = interp.get("nums");
         System.out.println("nums: " + nums);
-        System.out.println("nums is of type: " + nums.getClass());*/
+        System.out.println("nums is of type: " + nums.getClass());
         PythonInterpreter python = new PythonInterpreter();
         python.set("path", new PyString(filePath));
-        python.exec("from numpy import genfromtxt\nmy_data = genfromtxt('path', delimiter=',')");
-        PyObject nums = python.get("my_data");
+        python.exec("import numpy");
+        //PyObject nums = python.get("my_data");
         System.out.println("Data: " + nums);
     }//GEN-LAST:event_extractBtnActionPerformed
 
@@ -228,5 +241,6 @@ public class DataView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar loadingProBar;
     // End of variables declaration//GEN-END:variables
 }

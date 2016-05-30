@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,50 +27,93 @@ import org.json.simple.parser.ParseException;
  *
  * @author suren
  */
-public class ReadJSON {
-    public DefaultTableModel readJSONFrom(String filePath){
-        FileReader fileReader = null;
-        DefaultTableModel model = null;
+public class ReadJSON implements Runnable{
+    //Public variables
+    public static String selectedFilePath;
+    public static JTable tableView;
+    public static JProgressBar progressBar;
+    public static JButton extractBtn;
+    //Private variables
+    private Thread thread;
+    private FileReader selectedFile;
+    private DefaultTableModel model;
+    private JSONArray employeeList;
+    
+    public DefaultTableModel createTableModel(){
         JSONParser parser = new JSONParser();
         try {                  
-            fileReader = new FileReader(filePath);  
-            Object obj = parser.parse(fileReader);
+            selectedFile = new FileReader(selectedFilePath);  
+            Object obj = parser.parse(selectedFile);
             JSONObject jsonObject = (JSONObject) obj;
             //Retrieve employee list
-            JSONArray employeeList = 
+            employeeList = 
                     (JSONArray) jsonObject.get(StringConstants.EMPLOYEES_TEXT);
             //Create header of table
             JSONObject firstEmployee = 
                     (JSONObject) employeeList.get(NumberConstants.ZERO);
             Set<String> objectKeys = firstEmployee.keySet();
             String[] header = objectKeys.toArray(new String[objectKeys.size()]); 
-            model = new DefaultTableModel(header,NumberConstants.ZERO);
-            
-            //populate data table rows
-            for(int i = NumberConstants.ZERO; i < employeeList.size(); i++){
-                JSONObject employeeObject = (JSONObject) employeeList.get(i);
-                Set<String> currentObjKeys = employeeObject.keySet();
-                String[] keys = 
-                        currentObjKeys.toArray(new String[currentObjKeys.size()]);
-                String[] values = new String[keys.length];
-                for(int j = NumberConstants.ZERO; j < keys.length; j++){
-                    values[j] = (String) employeeObject.get(keys[j]);
-                }
-                model.addRow(values);
-            }           
+            model = new DefaultTableModel(header,NumberConstants.ZERO);            
+            return model;                            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadJSON.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ReadJSON.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
+        } catch (IOException | ParseException ex) {
             Logger.getLogger(ReadJSON.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                fileReader.close();
+                selectedFile.close();
             } catch (IOException ex) {
                 Logger.getLogger(ReadJSON.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return model;
+    }
+    
+    /*
+    * @Method fillTable 
+    * Fill Table with Reading line by line of the CSV File
+    */   
+    public void fillTable(){
+        int size = employeeList.size();
+        //populate data table rows
+        for(int i = NumberConstants.ZERO; i < size; i++){
+            JSONObject employeeObject = (JSONObject) employeeList.get(i);
+            Set<String> currentObjKeys = employeeObject.keySet();
+            String[] keys = 
+                    currentObjKeys.toArray(new String[currentObjKeys.size()]);
+            String[] values = new String[keys.length];
+            for(int j = NumberConstants.ZERO; j < keys.length; j++){
+                values[j] = (String) employeeObject.get(keys[j]);
+            }
+            model.addRow(values);
+            int value = ((i+1)/size)*100;
+            progressBar.setValue(value);
+            progressBar.setString(value + "%"); 
+        }
+        JOptionPane.showMessageDialog(null, "Data Loading Successful");
+        progressBar.setVisible(false);
+        extractBtn.setEnabled(true);
+        extractBtn.setEnabled(true);
+    }
+
+    @Override
+    public void run() {
+        extractBtn.setEnabled(false);
+        DefaultTableModel jsonModel = createTableModel();
+        tableView.setModel(jsonModel);    
+        fillTable();
+    }
+    
+    /*
+    * @Method start 
+    * Initialize thread if not initialized and start it
+    */ 
+    public void start(){
+        extractBtn.setEnabled(false);
+        if (thread == null)
+        {
+           thread = new Thread (this);
+           thread.start ();
+        }
     }
 }
