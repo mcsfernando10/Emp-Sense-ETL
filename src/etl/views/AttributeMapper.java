@@ -5,13 +5,13 @@
  */
 package etl.views;
 
-import au.com.bytecode.opencsv.CSVReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import etl.constants.StringConstants;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import javax.swing.DefaultComboBoxModel;
+import org.python.core.PyObject;
+import org.python.core.PyString;
+import org.python.util.PythonInterpreter;
 
 /**
  *
@@ -22,43 +22,93 @@ public class AttributeMapper extends javax.swing.JFrame {
     /**
      * Creates new form AttributeMapper
      */
-    private String filePath;
-    private String fileType;
-    public AttributeMapper(String selectedFilePath, String selectedFileType) {
+    private final String filePath;
+    private final String fileType;
+    private final String[] header;
+    public AttributeMapper(String selectedFilePath, String selectedFileType, 
+            String[] headers) {
         initComponents();
         this.filePath = selectedFilePath;   
         this.fileType = selectedFileType;
+        this.header = headers;
         
-        try {
-            //Create the file 
-            FileReader selectedFile = new FileReader(filePath);
-            if(fileType.equals("csv")) {
-                CSVReader reader = new CSVReader(selectedFile);
-                //List<String[]> myEntries = reader.readAll();
-                //String[][] rowData = myEntries.toArray(new String[0][]);
-                // if the first line is the header 
-                String[] header = reader.readNext();
-                //JTable table = new JTable(rowData,header);
-                //this.add(table);
-                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>(header);
-                genderComBox.setModel(model);
-                MaritalStatComBox.setModel(model);
-                jobRoleComBox.setModel(model);
-                salaryComBox.setModel(model);
-                noOfLeavesComBox.setModel(model);       
+        switch(fileType){
+            case StringConstants.CSV_EXTENSION:                
+                setComboboxModels();
+                break;
+            case StringConstants.XML_EXTENSION:
+                setComboboxModels();
+                break;
+            case StringConstants.EXCEL_EXTENSION:
                 
-            }
-            else if(selectedFileType.equals("xml")){
+                break;
+            case StringConstants.JSON_EXTENSION:
+                setComboboxModels();
+                break;
+            case StringConstants.SQL_EXTENSION:
+                break;
+        }
+    }
+    
+    private void setComboboxModels(){
+        DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> model4 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> model5 = new DefaultComboBoxModel<>(header);
+        genderComBox.setModel(model1);
+        MaritalStatComBox.setModel(model2);
+        jobRoleComBox.setModel(model3);
+        salaryComBox.setModel(model4);
+        noOfLeavesComBox.setModel(model5);
+    }
+    
+    public void pythonCodeExecute(){
+        try{
+ 
+        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
+        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
+        //out.write(prg);
+        //out.close();
+        
+        
+        /*PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
+        // execute a function that takes a string and returns a string
+        PyObject someFunc = interpreter.get("drumhead_height");
+        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
+        String realResult = (String) result.__tojava__(String.class);
+        System.out.println(realResult);*/
+        
+        /* working PythonInterpreter python = new PythonInterpreter();
 
-            }
-            else {
+        int number1 = 10;
+        int number2 = 32;
 
-            }
-        } catch (FileNotFoundException ex) {
-                Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DataView.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        python.set("number1", new PyInteger(number1));
+        python.set("number2", new PyInteger(number2));
+        python.exec("number3 = number1+number2");
+        PyObject number3 = python.get("number3");
+        System.out.println("val : "+number3.toString());*/ 
+        
+        int number1 = 10;
+        int number2 = 32;
+        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
+        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        //int ret = new Integer(in.readLine()).intValue();
+        System.out.println("value is : "+in.readLine());
+        }catch(Exception e){ System.out.println(e.toString());}
+        
+        PythonInterpreter interp = new PythonInterpreter();
+        interp.exec("nums = [1,2,3]");
+        PyObject nums = interp.get("nums");
+        System.out.println("nums: " + nums);
+        System.out.println("nums is of type: " + nums.getClass());
+        PythonInterpreter python = new PythonInterpreter();
+        python.set("path", new PyString(filePath));
+        python.exec("import numpy");
+        //PyObject nums = python.get("my_data");
+        System.out.println("Data: " + nums);
     }
 
     /**

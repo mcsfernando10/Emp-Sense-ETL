@@ -6,6 +6,8 @@
 package etl.readers;
 
 import etl.constants.NumberConstants;
+import etl.models.CheckBoxHeader;
+import etl.models.CheckBoxItemListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -34,6 +37,7 @@ public class ReadCSV implements Runnable{
     private FileReader selectedFile;
     private DefaultTableModel model;
     private au.com.bytecode.opencsv.CSVReader reader;
+    private String[] header;
     
     /*
     * @Method createTableModel 
@@ -46,7 +50,7 @@ public class ReadCSV implements Runnable{
             selectedFile = new FileReader(selectedFilePath);
             reader = new au.com.bytecode.opencsv.CSVReader(selectedFile);
             // if the first line is the header
-            String[] header = reader.readNext();           
+            header = reader.readNext();           
             model = new DefaultTableModel(header,NumberConstants.ZERO);           
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
@@ -78,6 +82,7 @@ public class ReadCSV implements Runnable{
                 JOptionPane.showMessageDialog(null, "Data Loading Successful");
                 progressBar.setVisible(false);
                 extractBtn.setEnabled(true);
+                addCheckBox();
             } catch (IOException ex) {
                 Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
             }            
@@ -87,6 +92,7 @@ public class ReadCSV implements Runnable{
     @Override
     public void run(){        
         DefaultTableModel csvModel = createTableModel();
+        
         tableView.setModel(csvModel);    
         fillTable();
     }
@@ -99,8 +105,24 @@ public class ReadCSV implements Runnable{
         extractBtn.setEnabled(false);
         if (thread == null)
         {
-           thread = new Thread (this);
-           thread.start ();
+            thread = new Thread (this);
+            thread.start ();
+        }
+    }
+    
+    public String[] getHeaders(){
+        return header;
+    }
+    
+    private void addCheckBox(){
+        //To add checkbox in table columns
+        for(int i = NumberConstants.ZERO;i<tableView.getColumnCount();i++){
+            CheckBoxItemListener.table = tableView;
+            TableColumn tc = tableView.getColumnModel().getColumn(i);
+            tc.setCellEditor(tableView.getDefaultEditor(String.class));
+            tc.setCellRenderer(tableView.getDefaultRenderer(String.class));
+            tc.setHeaderRenderer(new CheckBoxHeader(
+                    new CheckBoxItemListener(),tableView.getColumnName(i)));
         }
     }
     

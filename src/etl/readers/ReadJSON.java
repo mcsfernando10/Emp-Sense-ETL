@@ -38,6 +38,7 @@ public class ReadJSON implements Runnable{
     private FileReader selectedFile;
     private DefaultTableModel model;
     private JSONArray employeeList;
+    private String[] header;
     
     public DefaultTableModel createTableModel(){
         JSONParser parser = new JSONParser();
@@ -52,7 +53,7 @@ public class ReadJSON implements Runnable{
             JSONObject firstEmployee = 
                     (JSONObject) employeeList.get(NumberConstants.ZERO);
             Set<String> objectKeys = firstEmployee.keySet();
-            String[] header = objectKeys.toArray(new String[objectKeys.size()]); 
+            header = objectKeys.toArray(new String[objectKeys.size()]); 
             model = new DefaultTableModel(header,NumberConstants.ZERO);            
             return model;                            
         } catch (FileNotFoundException ex) {
@@ -88,7 +89,6 @@ public class ReadJSON implements Runnable{
             model.addRow(values);
             int value = ((i+1)/size)*100;
             progressBar.setValue(value);
-            progressBar.setString(value + "%"); 
         }
         JOptionPane.showMessageDialog(null, "Data Loading Successful");
         progressBar.setVisible(false);
@@ -115,5 +115,9 @@ public class ReadJSON implements Runnable{
            thread = new Thread (this);
            thread.start ();
         }
+    }
+    
+    public String[] getHeaders(){
+        return header;
     }
 }

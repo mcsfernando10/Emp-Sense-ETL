@@ -5,21 +5,24 @@
  */
 package etl.views;
 
-import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
-import etl.models.CheckBoxHeader;
-import etl.models.CheckBoxItemListener;
 import etl.readers.ReadCSV;
 import etl.readers.ReadExcel;
 import etl.readers.ReadJSON;
 import etl.readers.ReadXML;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -32,6 +35,13 @@ public class DataView extends javax.swing.JFrame {
      */
     private String filePath;
     private String fileType;
+    
+    //Readers
+    private ReadCSV csvReader;
+    private ReadXML xmlReader;
+    private ReadJSON jsonReader;
+    
+    private String[] headers;
     public DataView(String selectedFilePath, String selectedFileType) {
         initComponents();
         this.filePath = selectedFilePath;   
@@ -39,22 +49,21 @@ public class DataView extends javax.swing.JFrame {
         
         switch(fileType){
             case StringConstants.CSV_EXTENSION:
-                ReadCSV csvReader = new ReadCSV();
+                csvReader = new ReadCSV();
                 ReadCSV.selectedFilePath = filePath;
                 ReadCSV.tableView = dataTableView;
                 ReadCSV.progressBar = loadingProBar;
-                ReadCSV.extractBtn = extractBtn;
+                ReadCSV.extractBtn = extractBtn;                
                 csvReader.start();
-                //addCheckBox();
                 break;
             case StringConstants.XML_EXTENSION:
-                ReadXML xmlReader = new ReadXML();
+                xmlReader = new ReadXML();
                 ReadXML.selectedFilePath = filePath;
                 ReadXML.tableView = dataTableView;
                 ReadXML.progressBar = loadingProBar;
                 ReadXML.extractBtn = extractBtn;
                 xmlReader.start();
-                //addCheckBox();
+                //xmlRead();
                 break;
             case StringConstants.EXCEL_EXTENSION:
                 ReadExcel excelReader = new ReadExcel();
@@ -62,7 +71,7 @@ public class DataView extends javax.swing.JFrame {
                 dataTableView.setModel(excelModel);
                 break;
             case StringConstants.JSON_EXTENSION:
-                ReadJSON jsonReader = new ReadJSON();
+                jsonReader = new ReadJSON();
                 ReadJSON.selectedFilePath = filePath;
                 ReadJSON.tableView = dataTableView;
                 ReadJSON.progressBar = loadingProBar;
@@ -74,17 +83,7 @@ public class DataView extends javax.swing.JFrame {
         }      
     }  
     
-    private void addCheckBox(){
-        //To add checkbox in table columns
-        for(int i = NumberConstants.ZERO;i<dataTableView.getColumnCount();i++){
-            CheckBoxItemListener.table = dataTableView;
-            TableColumn tc = dataTableView.getColumnModel().getColumn(i);
-            tc.setCellEditor(dataTableView.getDefaultEditor(String.class));
-            tc.setCellRenderer(dataTableView.getDefaultRenderer(String.class));
-            tc.setHeaderRenderer(new CheckBoxHeader(
-                    new CheckBoxItemListener(),dataTableView.getColumnName(i)));
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,6 +135,8 @@ public class DataView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("View of Selected Data");
 
+        loadingProBar.setStringPainted(true);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -185,55 +186,28 @@ public class DataView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
-        //dispose();
-        //new AttributeMapper(filePath,fileType).setVisible(true);        
-        try{
- 
-        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
-        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
-        //out.write(prg);
-        //out.close();
-        
-        
-        /*PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
-        // execute a function that takes a string and returns a string
-        PyObject someFunc = interpreter.get("drumhead_height");
-        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
-        String realResult = (String) result.__tojava__(String.class);
-        System.out.println(realResult);*/
-        
-        /* working PythonInterpreter python = new PythonInterpreter();
-
-        int number1 = 10;
-        int number2 = 32;
-
-        python.set("number1", new PyInteger(number1));
-        python.set("number2", new PyInteger(number2));
-        python.exec("number3 = number1+number2");
-        PyObject number3 = python.get("number3");
-        System.out.println("val : "+number3.toString());*/ 
-        
-        int number1 = 10;
-        int number2 = 32;
-        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
-        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        //int ret = new Integer(in.readLine()).intValue();
-        System.out.println("value is : "+in.readLine());
-        }catch(Exception e){ System.out.println(e.toString());}
-        
-        PythonInterpreter interp = new PythonInterpreter();
-        interp.exec("nums = [1,2,3]");
-        PyObject nums = interp.get("nums");
-        System.out.println("nums: " + nums);
-        System.out.println("nums is of type: " + nums.getClass());
-        PythonInterpreter python = new PythonInterpreter();
-        python.set("path", new PyString(filePath));
-        python.exec("import numpy");
-        //PyObject nums = python.get("my_data");
-        System.out.println("Data: " + nums);
+        //To get headers string array to bind in jcombobox
+        switch(fileType){
+            case StringConstants.CSV_EXTENSION:                
+                headers = csvReader.getHeaders();
+                //addCheckBox();
+                break;
+            case StringConstants.XML_EXTENSION:
+                headers = xmlReader.getHeaders();
+                //addCheckBox();
+                break;
+            case StringConstants.EXCEL_EXTENSION:
+                
+                break;
+            case StringConstants.JSON_EXTENSION:
+                headers = jsonReader.getHeaders();
+                break;
+            case StringConstants.SQL_EXTENSION:
+                break;
+        }
+        dispose();
+        new AttributeMapper(filePath,fileType,headers).setVisible(true);       
     }//GEN-LAST:event_extractBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dataTableView;

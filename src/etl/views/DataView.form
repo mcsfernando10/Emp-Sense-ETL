@@ -125,6 +125,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="loadingProBar">
+          <Properties>
+            <Property name="stringPainted" type="boolean" value="true"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
