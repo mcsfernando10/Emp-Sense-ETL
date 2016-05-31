@@ -28,6 +28,7 @@ public class Extract extends javax.swing.JFrame {
      */
     public Extract() {
         initComponents();
+        
         selectedIndustry = StringConstants.IT;
         selectedFileType = StringConstants.CSV_EXTENSION;
         selectedFilePath = StringConstants.EMPTY_STRING;
@@ -35,6 +36,8 @@ public class Extract extends javax.swing.JFrame {
         
         //Set the selected industry
         itRadioBtn.setSelected(true);
+        /*ImageIcon img = new ImageIcon("icon.gif");
+        setIconImage(img.getImage());*/
     }
 
     /**
@@ -371,6 +374,8 @@ public class Extract extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
