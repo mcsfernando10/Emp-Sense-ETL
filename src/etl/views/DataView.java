@@ -10,19 +10,7 @@ import etl.readers.ReadCSV;
 import etl.readers.ReadExcel;
 import etl.readers.ReadJSON;
 import etl.readers.ReadXML;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -189,7 +177,7 @@ public class DataView extends javax.swing.JFrame {
         //To get headers string array to bind in jcombobox
         switch(fileType){
             case StringConstants.CSV_EXTENSION:                
-                headers = csvReader.getHeaders();
+                headers = csvReader.getCheckBoxes();
                 //addCheckBox();
                 break;
             case StringConstants.XML_EXTENSION:

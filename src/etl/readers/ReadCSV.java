@@ -8,9 +8,11 @@ package etl.readers;
 import etl.constants.NumberConstants;
 import etl.models.CheckBoxHeader;
 import etl.models.CheckBoxItemListener;
+import java.awt.Component;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
@@ -121,9 +125,24 @@ public class ReadCSV implements Runnable{
             TableColumn tc = tableView.getColumnModel().getColumn(i);
             tc.setCellEditor(tableView.getDefaultEditor(String.class));
             tc.setCellRenderer(tableView.getDefaultRenderer(String.class));
-            tc.setHeaderRenderer(new CheckBoxHeader(
-                    new CheckBoxItemListener(),tableView.getColumnName(i)));
+            CheckBoxHeader checkBox = new CheckBoxHeader(
+                    new CheckBoxItemListener(),tableView.getColumnName(i));
+            checkBox.setSelected(true);
+            tc.setHeaderRenderer(checkBox);
         }
     }
     
+    public String[] getCheckBoxes(){
+        List<String> columnName = new ArrayList<String>();
+        int j = 0;
+        //To add checkbox in table columns
+        for(int i = NumberConstants.ZERO;i<tableView.getColumnCount();i++){
+            TableColumn tc = tableView.getColumnModel().getColumn(i);
+            CheckBoxHeader checkBox = (CheckBoxHeader) tc.getHeaderRenderer();
+            if(checkBox.isSelected()){
+                columnName.add(checkBox.columnName);
+            }
+        }
+        return columnName.toArray(new String[0]);
+    }
 }

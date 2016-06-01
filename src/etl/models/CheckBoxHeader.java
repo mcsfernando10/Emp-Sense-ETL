@@ -27,12 +27,14 @@ public class CheckBoxHeader extends JCheckBox
     protected CheckBoxHeader rendererComponent;
     protected int column;
     protected boolean mousePressed = false;
-    protected String columnName;
+    public  String columnName;
     public CheckBoxHeader(ItemListener itemListener, String columnName) {
         rendererComponent = this;
         rendererComponent.addItemListener(itemListener);
         this.columnName = columnName;
     }
+    
+    @Override
     public Component getTableCellRendererComponent(
         JTable table, Object value,
         boolean isSelected, boolean hasFocus, int row, int column) {
@@ -71,17 +73,22 @@ public class CheckBoxHeader extends JCheckBox
             }
         }
     }
+    @Override
     public void mouseClicked(MouseEvent e) {
         handleClickEvent(e);
         //((JTableHeader)e.getSource()).repaint();
     }
+    @Override
     public void mousePressed(MouseEvent e) {
         mousePressed = true;
     }
+    @Override
     public void mouseReleased(MouseEvent e) {
     }
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 }
