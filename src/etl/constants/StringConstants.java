@@ -41,6 +41,17 @@ public class StringConstants {
     public static final String REMOVE_FILE = "Would You Like to remove the selected file?";
     public static final String WARNING = "Warning";
     
+    //Attribute Mapper View
+    //*To add new attribute
+    public static final String[] ATTRIBUTES = new String[]{
+        "Employee ID", "Employee Name", "Gender", "Marital Status", "Job Role",
+        "Salary", "No of Leaves", "Distance", "No of Dependents"
+    };
+    
+    //Define Rules View
+    public static final String RULE_ERROR = "This Rule is already exists";
+    public static final String INVALID_RULE = "Please select a Rule";
+    public static final String REMOVE_RULE = "Would You Like to remove this rule?";
     //ReadJSON 
     public static final String EMPLOYEES_TEXT = "Employees";
 }

@@ -5,10 +5,10 @@
  */
 package etl.readers;
 
+import au.com.bytecode.opencsv.CSVReader;
 import etl.constants.NumberConstants;
-import etl.models.CheckBoxHeader;
-import etl.models.CheckBoxItemListener;
-import java.awt.Component;
+import etl.controllers.CheckBoxHeader;
+import etl.controllers.CheckBoxItemListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,8 +21,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 /**
@@ -40,7 +38,7 @@ public class ReadCSV implements Runnable{
     private List<String[]> tableEntries;
     private FileReader selectedFile;
     private DefaultTableModel model;
-    private au.com.bytecode.opencsv.CSVReader reader;
+    private CSVReader reader;
     private String[] header;
     
     /*
@@ -52,7 +50,7 @@ public class ReadCSV implements Runnable{
         try {
             //Create the file
             selectedFile = new FileReader(selectedFilePath);
-            reader = new au.com.bytecode.opencsv.CSVReader(selectedFile);
+            reader = new CSVReader(selectedFile);
             // if the first line is the header
             header = reader.readNext();           
             model = new DefaultTableModel(header,NumberConstants.ZERO);           

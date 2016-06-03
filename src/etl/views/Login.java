@@ -7,6 +7,7 @@ package etl.views;
 
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
+import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -54,6 +55,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setText("Username");
 
+        usernameTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameTxtKeyReleased(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/emp-senseLogo.png"))); // NOI18N
         jLabel2.setText("Emp-Sense Login");
@@ -61,6 +68,12 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         jLabel4.setText("Password");
+
+        passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordTxtKeyReleased(evt);
+            }
+        });
 
         loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -74,39 +87,38 @@ public class Login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginBtn)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(usernameTxt)
-                                .addComponent(passwordTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(loginBtn)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(usernameTxt)
+                        .addComponent(passwordTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(176, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(176, 176, 176))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel2)
-                .addGap(31, 31, 31)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(loginBtn)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,6 +134,44 @@ public class Login extends javax.swing.JFrame {
     * @param  Action Event
     */
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+        LoginButtonAction();
+    }//GEN-LAST:event_loginBtnActionPerformed
+
+    /*
+    * @Method usernameTxtKeyReleased 
+    * Enable Enter Key login
+    * @param  KeyEvent
+    */
+    private void usernameTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameTxtKeyReleased
+        //Detect Enter Key pressed
+        int keyCode = evt.getKeyCode();
+        switch(keyCode){
+            case KeyEvent.VK_ENTER:
+                LoginButtonAction();
+                break;           
+        }
+    }//GEN-LAST:event_usernameTxtKeyReleased
+
+    /*
+    * @Method passwordTxtKeyReleased 
+    * Enable Enter Key login
+    * @param  KeyEvent
+    */
+    private void passwordTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordTxtKeyReleased
+        //Detect Enter Key pressed
+        int keyCode = evt.getKeyCode();
+        switch(keyCode){
+            case KeyEvent.VK_ENTER:
+                LoginButtonAction();
+                break;           
+        }
+    }//GEN-LAST:event_passwordTxtKeyReleased
+
+    /*
+    * @Method LoginButtonAction 
+    * Check username and password matched and load next page
+    */
+    private void LoginButtonAction(){
         if(usernameTxt.getText().length() == NumberConstants.ZERO)  
             // Checking for empty field
             JOptionPane.showMessageDialog(null, 
@@ -167,11 +217,8 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, 
                         StringConstants.INCORRECT_CREDENTIALS);
             }               
-        }  
-        
-        
-    }//GEN-LAST:event_loginBtnActionPerformed
-
+        }
+    }
     /**
      * @param args the command line arguments
      */

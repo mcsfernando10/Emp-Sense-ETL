@@ -21,6 +21,7 @@ public class DataView extends javax.swing.JFrame {
     /**
      * Creates new form DataView
      */
+    //All declared variables
     private String filePath;
     private String fileType;
     
@@ -55,7 +56,8 @@ public class DataView extends javax.swing.JFrame {
                 break;
             case StringConstants.EXCEL_EXTENSION:
                 ReadExcel excelReader = new ReadExcel();
-                DefaultTableModel excelModel = excelReader.readExcelFrom(filePath); 
+                DefaultTableModel excelModel = 
+                        excelReader.readExcelFrom(filePath); 
                 dataTableView.setModel(excelModel);
                 break;
             case StringConstants.JSON_EXTENSION:
@@ -173,6 +175,11 @@ public class DataView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method extractBtnActionPerformed 
+    * Get selected attribtes and send them to next window : AttributeMapper
+    * @param  ActionEvent
+    */
     private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
         //To get headers string array to bind in jcombobox
         switch(fileType){

@@ -5,13 +5,12 @@
  */
 package etl.views;
 
+import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import etl.models.attribute;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.util.PythonInterpreter;
 
 /**
  *
@@ -22,9 +21,11 @@ public class AttributeMapper extends javax.swing.JFrame {
     /**
      * Creates new form AttributeMapper
      */
+    //All declared variables
     private final String filePath;
     private final String fileType;
     private final String[] header;
+    private List<attribute> attributes;
     public AttributeMapper(String selectedFilePath, String selectedFileType, 
             String[] headers) {
         initComponents();
@@ -47,70 +48,44 @@ public class AttributeMapper extends javax.swing.JFrame {
                 break;
             case StringConstants.SQL_EXTENSION:
                 break;
-        }
+        }   
+        
     }
     
+    /*
+    * @Method setComboboxModels 
+    * Set Combobox for attribtes to map them
+    */
     private void setComboboxModels(){
-        DefaultComboBoxModel<String> model1 = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> model2 = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> model3 = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> model4 = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> model5 = new DefaultComboBoxModel<>(header);
-        genderComBox.setModel(model1);
-        MaritalStatComBox.setModel(model2);
-        jobRoleComBox.setModel(model3);
-        salaryComBox.setModel(model4);
-        noOfLeavesComBox.setModel(model5);
+        DefaultComboBoxModel<String> modelEmployeeID 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelEmployeeName 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelGender 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelMaritalStatus 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelJobRole 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelSalary 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelNoOfLeaves 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelDistance 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelNoOfDep 
+                = new DefaultComboBoxModel<>(header);
+        employeeIDComBox.setModel(modelEmployeeID);
+        employeeNameComBox.setModel(modelEmployeeName);
+        genderComBox.setModel(modelGender);
+        MaritalStatComBox.setModel(modelMaritalStatus);
+        jobRoleComBox.setModel(modelJobRole);
+        salaryComBox.setModel(modelSalary);
+        noOfLeavesComBox.setModel(modelNoOfLeaves);
+        distanceComBox.setModel(modelDistance);
+        noOfDepComBox.setModel(modelNoOfDep);
     }
     
-    public void pythonCodeExecute(){
-        try{
- 
-        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
-        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
-        //out.write(prg);
-        //out.close();
-        
-        
-        /*PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
-        // execute a function that takes a string and returns a string
-        PyObject someFunc = interpreter.get("drumhead_height");
-        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
-        String realResult = (String) result.__tojava__(String.class);
-        System.out.println(realResult);*/
-        
-        /* working PythonInterpreter python = new PythonInterpreter();
-
-        int number1 = 10;
-        int number2 = 32;
-
-        python.set("number1", new PyInteger(number1));
-        python.set("number2", new PyInteger(number2));
-        python.exec("number3 = number1+number2");
-        PyObject number3 = python.get("number3");
-        System.out.println("val : "+number3.toString());*/ 
-        
-        int number1 = 10;
-        int number2 = 32;
-        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
-        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        //int ret = new Integer(in.readLine()).intValue();
-        System.out.println("value is : "+in.readLine());
-        }catch(Exception e){ System.out.println(e.toString());}
-        
-        PythonInterpreter interp = new PythonInterpreter();
-        interp.exec("nums = [1,2,3]");
-        PyObject nums = interp.get("nums");
-        System.out.println("nums: " + nums);
-        System.out.println("nums is of type: " + nums.getClass());
-        PythonInterpreter python = new PythonInterpreter();
-        python.set("path", new PyString(filePath));
-        python.exec("import numpy");
-        //PyObject nums = python.get("my_data");
-        System.out.println("Data: " + nums);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,7 +106,16 @@ public class AttributeMapper extends javax.swing.JFrame {
         jobRoleComBox = new javax.swing.JComboBox<>();
         salaryComBox = new javax.swing.JComboBox<>();
         noOfLeavesComBox = new javax.swing.JComboBox<>();
-        doneBtn = new javax.swing.JButton();
+        defineRulesBtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        distanceComBox = new javax.swing.JComboBox<>();
+        noOfDepComBox = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        employeeIDComBox = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        employeeNameComBox = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Attribute Mapper");
@@ -156,35 +140,78 @@ public class AttributeMapper extends javax.swing.JFrame {
 
         noOfLeavesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        doneBtn.setText("Done");
+        defineRulesBtn.setText("Define Rules");
+        defineRulesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defineRulesBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Distance");
+
+        jLabel7.setText("No of Dependents");
+
+        distanceComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        noOfDepComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel8.setText("Employee ID");
+
+        employeeIDComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel9.setText("Employee Name");
+
+        employeeNameComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel10.setText("Map Attributes with Dataset");
 
         javax.swing.GroupLayout attributeListPanelLayout = new javax.swing.GroupLayout(attributeListPanel);
         attributeListPanel.setLayout(attributeListPanelLayout);
         attributeListPanelLayout.setHorizontalGroup(
             attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(attributeListPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(60, 60, 60)
                 .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel5))
-                .addGap(26, 26, 26)
-                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(doneBtn)
-                    .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(genderComBox, 0, 196, Short.MAX_VALUE)
-                        .addComponent(MaritalStatComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jobRoleComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(noOfLeavesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel10)
+                    .addGroup(attributeListPanelLayout.createSequentialGroup()
+                        .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGap(21, 21, 21)
+                        .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(defineRulesBtn)
+                            .addComponent(genderComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(MaritalStatComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jobRoleComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(noOfLeavesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(distanceComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(noOfDepComBox, 0, 196, Short.MAX_VALUE)
+                            .addComponent(employeeIDComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(employeeNameComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         attributeListPanelLayout.setVerticalGroup(
             attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(attributeListPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(employeeIDComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(employeeNameComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(genderComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -204,9 +231,17 @@ public class AttributeMapper extends javax.swing.JFrame {
                 .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(noOfLeavesComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(doneBtn)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(distanceComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(noOfDepComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addComponent(defineRulesBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -229,18 +264,58 @@ public class AttributeMapper extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    /*
+    * @Method defineRulesBtnActionPerformed
+    * Get mapped attribtes and pass them to the DefineRules window
+    * @param  Action Event
+    */
+    private void defineRulesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defineRulesBtnActionPerformed
+        //set mapped attribute with defined attribute
+        //Add attributes - *To add new attribute
+        attributes = new ArrayList<>();
+        String[] mappedAttributes = new String[]{
+            employeeIDComBox.getSelectedItem().toString(), 
+            employeeNameComBox.getSelectedItem().toString(),
+            genderComBox.getSelectedItem().toString(),
+            MaritalStatComBox.getSelectedItem().toString(),
+            jobRoleComBox.getSelectedItem().toString(),
+            salaryComBox.getSelectedItem().toString(),
+            noOfLeavesComBox.getSelectedItem().toString(),
+            distanceComBox.getSelectedItem().toString(),
+            noOfDepComBox.getSelectedItem().toString()
+        };
+        for (int i = NumberConstants.ZERO; 
+                i < StringConstants.ATTRIBUTES.length ; i++){
+            attribute attribute = new attribute(StringConstants.ATTRIBUTES[i]);
+            attribute.setMatchingField(mappedAttributes[i]);
+            attributes.add(attribute);
+        }        
+        
+        dispose();
+        new DefineRules().setVisible(true);
+    }//GEN-LAST:event_defineRulesBtnActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> MaritalStatComBox;
     private javax.swing.JPanel attributeListPanel;
-    private javax.swing.JButton doneBtn;
+    private javax.swing.JButton defineRulesBtn;
+    private javax.swing.JComboBox<String> distanceComBox;
+    private javax.swing.JComboBox<String> employeeIDComBox;
+    private javax.swing.JComboBox<String> employeeNameComBox;
     private javax.swing.JComboBox<String> genderComBox;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JComboBox<String> jobRoleComBox;
+    private javax.swing.JComboBox<String> noOfDepComBox;
     private javax.swing.JComboBox<String> noOfLeavesComBox;
     private javax.swing.JComboBox<String> salaryComBox;
     // End of variables declaration//GEN-END:variables
