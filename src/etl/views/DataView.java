@@ -41,7 +41,7 @@ public class DataView extends javax.swing.JFrame {
                 csvReader = new ReadCSV();
                 ReadCSV.selectedFilePath = filePath;
                 ReadCSV.tableView = dataTableView;
-                ReadCSV.progressBar = loadingProBar;
+                ReadCSV.jLableProgress = progressLable;
                 ReadCSV.extractBtn = extractBtn;                
                 csvReader.start();
                 break;
@@ -49,7 +49,7 @@ public class DataView extends javax.swing.JFrame {
                 xmlReader = new ReadXML();
                 ReadXML.selectedFilePath = filePath;
                 ReadXML.tableView = dataTableView;
-                ReadXML.progressBar = loadingProBar;
+                ReadXML.jLableProgress = progressLable;
                 ReadXML.extractBtn = extractBtn;
                 xmlReader.start();
                 //xmlRead();
@@ -64,7 +64,7 @@ public class DataView extends javax.swing.JFrame {
                 jsonReader = new ReadJSON();
                 ReadJSON.selectedFilePath = filePath;
                 ReadJSON.tableView = dataTableView;
-                ReadJSON.progressBar = loadingProBar;
+                ReadJSON.jLableProgress = progressLable;
                 ReadJSON.extractBtn = extractBtn;
                 jsonReader.start();
                 break;
@@ -89,7 +89,7 @@ public class DataView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTableView = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        loadingProBar = new javax.swing.JProgressBar();
+        progressLable = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data View");
@@ -125,7 +125,7 @@ public class DataView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("View of Selected Data");
 
-        loadingProBar.setStringPainted(true);
+        progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,11 +134,11 @@ public class DataView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(loadingProBar, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(544, 544, 544)
+                        .addComponent(progressLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -150,10 +150,10 @@ public class DataView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loadingProBar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(progressLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(extractBtn))
         );
@@ -210,6 +210,6 @@ public class DataView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JProgressBar loadingProBar;
+    private javax.swing.JLabel progressLable;
     // End of variables declaration//GEN-END:variables
 }

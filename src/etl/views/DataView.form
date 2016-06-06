@@ -45,11 +45,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" pref="878" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" max="32767" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="loadingProBar" min="-2" pref="581" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="544" max="-2" attributes="0"/>
+                          <Component id="progressLable" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -66,11 +66,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="loadingProBar" min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="jLabel1" pref="29" max="32767" attributes="0"/>
+                      <Component id="progressLable" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="472" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="466" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="extractBtn" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -124,9 +124,11 @@
             <Property name="text" type="java.lang.String" value="View of Selected Data"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JProgressBar" name="loadingProBar">
+        <Component class="javax.swing.JLabel" name="progressLable">
           <Properties>
-            <Property name="stringPainted" type="boolean" value="true"/>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/etl/images/progress.gif"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

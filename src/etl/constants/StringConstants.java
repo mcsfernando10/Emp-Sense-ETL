@@ -26,6 +26,9 @@ public class StringConstants {
     public static final String SQL_EXTENSION = "sql";
     
     public static final String EMPTY_STRING = "";
+    public static final String QUESTION_MARK = "?";
+    public static final String AND_SIGN = "&";
+    public static final String EQUAL_SIGN = "=";
     
     //Login View
     public static final String EMPTY_FIELD = "Empty fields detected! Please fill up all fields";
@@ -54,4 +57,14 @@ public class StringConstants {
     public static final String REMOVE_RULE = "Would You Like to remove this rule?";
     //ReadJSON 
     public static final String EMPLOYEES_TEXT = "Employees";
+    
+    //Database
+    public static final String DB_CLASS = "com.mysql.jdbc.Driver";
+    public static final String DB_CONNECTION_PATH = "jdbc:mysql://localhost:3306/";
+    public static final String DB_NAME = "empsense";
+    public static final String DB_USER_TEXT = "user";
+    public static final String DB_USERNAME = "root";
+    public static final String DB_USER_PASSWORD_TEXT = "password";
+    public static final String DB_USER_PASSWORD = "root123";
+    
 }

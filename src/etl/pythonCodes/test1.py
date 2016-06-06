@@ -1,10 +1,14 @@
-import sys
-import numpy as n
-import matplotlib.pyplot as plt
-
-x = np.arange(0, 5, 0.1);
-y = np.sin(x)
-plt.plot(x, y)
-plt.show()
-
-print 10+10;
+'''from numpy import genfromtxt
+my_data = genfromtxt('/home/suren/Desktop/data.csv', delimiter=',')
+print my_data[:,0]
+for i, val in enumerate(my_data):
+    print i, val
+#for (x,y), value in numpy.ndenumerate(my_data):
+#    print x,y'''
+'''from xml.dom import minidom
+xmldoc = minidom.parse('/home/suren/Desktop/data.xml')
+itemlist = xmldoc.getElementsByTagName('Table1')
+print(itemlist[0].tagName)'''
+import numpy as num
+test = num.array([["Great", 2], [3, 4], [5, 6]])
+print test[:,0]

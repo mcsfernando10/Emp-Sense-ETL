@@ -7,6 +7,8 @@ package etl.views;
 
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
+import etl.db.DBAccess;
+import etl.db.DBConnect;
 import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -14,6 +16,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +28,14 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    private DBAccess dbAccess;
     public Login() {
         initComponents();
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon("src/etl/images/icon.gif");
+        setIconImage(img.getImage());
+        
+        dbAccess = new DBAccess();
     }
 
     /**
@@ -209,7 +218,7 @@ public class Login extends javax.swing.JFrame {
                 System.out.println(StringConstants.NO_ENCRYPTION_ALGO);
             }
             
-            if(validate_login(user,encryptedPassword)){
+            if(dbAccess.isLoginValid(user,encryptedPassword)){
                 dispose();
                 new Extract().setVisible(true);
             }               
@@ -254,37 +263,6 @@ public class Login extends javax.swing.JFrame {
         });
     }
     
-    /*
-    * @Method validate_login 
-    * @Return boolean : user exists or not
-    * Check the user availability with sql database
-    * @param  Username and Password
-    */
-    private boolean validate_login(String username,String password) {
-        try{     
-            // MySQL database connection
-            Class.forName("com.mysql.jdbc.Driver");  
-            Connection conn = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/empsense?" + 
-                            "user=root&password=root123");    
-            String query = "Select * "
-                            + "from login "
-                            + "where username=? and password=?";
-            PreparedStatement pst = (PreparedStatement) conn.prepareStatement(query);
-            pst.setString(1, username);
-            pst.setString(2, password);
-            ResultSet rs = pst.executeQuery();                        
-            if(rs.next())            
-                return true;    
-            else
-                return false;            
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }      
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

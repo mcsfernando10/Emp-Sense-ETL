@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
@@ -31,7 +32,7 @@ public class ReadCSV implements Runnable{
     //Public variables
     public static String selectedFilePath;
     public static JTable tableView;
-    public static JProgressBar progressBar;
+    public static JLabel jLableProgress;
     public static JButton extractBtn;
     //Private variables
     private Thread thread;
@@ -73,16 +74,14 @@ public class ReadCSV implements Runnable{
             //Fill table entries and update progressbar
             for(int i = NumberConstants.ZERO; i < size; i++){
                 model.addRow(tableEntries.get(i));
-                int value = ((i+1)/size)*100;
-                progressBar.setValue(value); 
             }
         } catch (IOException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                selectedFile.close();                
-                JOptionPane.showMessageDialog(null, "Data Loading Successful");
-                progressBar.setVisible(false);
+                selectedFile.close(); 
+                jLableProgress.setVisible(false);
+                //JOptionPane.showMessageDialog(null, "Data Loading Successful");
                 extractBtn.setEnabled(true);
                 addCheckBox();
             } catch (IOException ex) {

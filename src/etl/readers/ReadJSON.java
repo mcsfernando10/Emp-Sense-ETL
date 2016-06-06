@@ -7,6 +7,7 @@ package etl.readers;
 
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
+import static etl.readers.ReadCSV.jLableProgress;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
@@ -31,7 +33,7 @@ public class ReadJSON implements Runnable{
     //Public variables
     public static String selectedFilePath;
     public static JTable tableView;
-    public static JProgressBar progressBar;
+    public static JLabel jLableProgress;
     public static JButton extractBtn;
     //Private variables
     private Thread thread;
@@ -87,11 +89,9 @@ public class ReadJSON implements Runnable{
                 values[j] = (String) employeeObject.get(keys[j]);
             }
             model.addRow(values);
-            int value = ((i+1)/size)*100;
-            progressBar.setValue(value);
         }
-        JOptionPane.showMessageDialog(null, "Data Loading Successful");
-        progressBar.setVisible(false);
+        //JOptionPane.showMessageDialog(null, "Data Loading Successful");
+        jLableProgress.setVisible(false);
         extractBtn.setEnabled(true);
         extractBtn.setEnabled(true);
     }

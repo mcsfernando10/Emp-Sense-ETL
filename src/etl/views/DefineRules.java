@@ -10,14 +10,20 @@ import etl.constants.StringConstants;
 import etl.models.attribute;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import org.python.core.Py;
+import org.python.core.PyArray;
 import org.python.core.PyObject;
 import org.python.core.PyString;
+import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
 
 /**
@@ -50,6 +56,8 @@ public class DefineRules extends javax.swing.JFrame {
             attributes.add((new attribute(listModel.getElementAt(i))));
         }        
         selectedFieldTxt.setText(attributeList.getSelectedValue());
+        
+        executePythonFile();
     }
 
     /**
@@ -301,6 +309,7 @@ public class DefineRules extends javax.swing.JFrame {
             
             populateRulesList();
         }
+        enableOrDisableRemoveBtn(); 
     }//GEN-LAST:event_removeRulesBtnActionPerformed
 
     /*
@@ -355,6 +364,50 @@ public class DefineRules extends javax.swing.JFrame {
             removeRulesBtn.setEnabled(false);
     }
     
+    public void executePythonFile(){        
+        try {
+            /*PySystemState sys = Py.getSystemState();
+            sys.path.append(new PyString("/home/suren/.netbeans/8.1/jython-2.7.0/Lib"));
+            sys.path.append(new PyString("/home/suren/.netbeans/8.1/jython-2.7.0/Lib"));
+            sys.path.append(new PyString("/usr/local/lib/python2.7/dist-packages/petl/__init__.pyc"));
+            PythonInterpreter interpreter = new PythonInterpreter(null, sys);
+            interpreter.execfile("src/etl/pythonCodes/newpythonproject2.py");
+            /*PythonInterpreter interpreter = new PythonInterpreter();
+            interpreter.exec("import numpy");  */
+            Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py");
+            
+            BufferedReader stdInput = new BufferedReader(new
+                 InputStreamReader(p.getInputStream()));
+            
+ 
+            BufferedReader stdError = new BufferedReader(new
+                 InputStreamReader(p.getErrorStream()));
+ 
+            String s = null;
+            // read the output from the command
+            List<String> list = new ArrayList<>();
+            
+            System.out.println("Here is the standard output of the command:\n");
+            while ((s = stdInput.readLine()) != null) {
+                //list.add(s);
+                System.out.println(s);
+            }
+            System.out.println(list.size());
+            /*for (String string : list) {
+                System.out.println(string);
+            }*/
+             
+            // read any errors from the attempted command
+            System.out.println("Here is the standard error of the command (if any):\n");
+            while ((s = stdError.readLine()) != null) {
+                System.out.println(s);
+            }
+             
+            //System.exit(0);
+        } catch (IOException ex) {
+            Logger.getLogger(DefineRules.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public void pythonCodeExecute(){
         try{
  

@@ -6,6 +6,7 @@
 package etl.readers;
 
 import etl.constants.NumberConstants;
+import static etl.readers.ReadJSON.jLableProgress;
 import etl.views.DataView;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import javax.swing.JTable;
@@ -33,7 +35,7 @@ public class ReadXML implements Runnable{
     //Public variables
     public static String selectedFilePath;
     public static JTable tableView;
-    public static JProgressBar progressBar;
+    public static JLabel jLableProgress;
     public static JButton extractBtn;
     //Private variables
     private Thread thread;
@@ -120,7 +122,7 @@ public class ReadXML implements Runnable{
                             count++;
                     }
                     //Create string array
-                    String[] headings = new String[count];
+                    headings = new String[count];
 
                     //index to insert heading into correct place
                     int index = 0;
@@ -177,14 +179,11 @@ public class ReadXML implements Runnable{
                     }                                    
                 }
                 model.addRow(rowValues);
-                int value = ((i+1)/size)*100;
-                progressBar.setValue(value);
             }                        
         }   
-        progressBar.setValue(100);
         tableView.setModel(model);
-        JOptionPane.showMessageDialog(null, "Data Loading Successful");
-        progressBar.setVisible(false);
+        //JOptionPane.showMessageDialog(null, "Data Loading Successful");
+        jLableProgress.setVisible(false);
         extractBtn.setEnabled(true);
     }
 
