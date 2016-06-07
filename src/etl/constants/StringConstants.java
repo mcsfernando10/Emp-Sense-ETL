@@ -30,6 +30,7 @@ public class StringConstants {
     public static final String AND_SIGN = "&";
     public static final String EQUAL_SIGN = "=";
     
+    public static final String ICON_FILE_PATH = "src/etl/images/icon.gif";
     //Login View
     public static final String EMPTY_FIELD = "Empty fields detected! Please fill up all fields";
     public static final String MD5_ENCRYPTION = "MD5";

@@ -6,6 +6,7 @@
 package etl.views;
 
 import etl.constants.StringConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -36,8 +37,8 @@ public class Extract extends javax.swing.JFrame {
         
         //Set the selected industry
         itRadioBtn.setSelected(true);
-        /*ImageIcon img = new ImageIcon("icon.gif");
-        setIconImage(img.getImage());*/
+        
+        setWindowIcon(); 
     }
 
     /**
@@ -66,7 +67,7 @@ public class Extract extends javax.swing.JFrame {
         fileTypeComBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Extract");
+        setTitle("EmpSense - Extract Data");
         setResizable(false);
 
         jLabel1.setText("Select Industry");
@@ -185,6 +186,15 @@ public class Extract extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method setWindowIcon 
+    * Set Window Icon
+    */
+    private void setWindowIcon(){
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon(StringConstants.ICON_FILE_PATH);
+        setIconImage(img.getImage());
+    }
     /*
     * @Method extractBtnActionPerformed 
     * Execute if user clicks on Extract Button

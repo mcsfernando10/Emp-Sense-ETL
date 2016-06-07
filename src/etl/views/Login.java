@@ -31,10 +31,7 @@ public class Login extends javax.swing.JFrame {
     private DBAccess dbAccess;
     public Login() {
         initComponents();
-        //Set ImageIcon of window
-        ImageIcon img = new ImageIcon("src/etl/images/icon.gif");
-        setIconImage(img.getImage());
-        
+        setWindowIcon();        
         dbAccess = new DBAccess();
     }
 
@@ -59,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Username");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Emp-Sense Login");
+        setTitle("Emp-Sense - Login");
         setResizable(false);
 
         jLabel1.setText("Username");
@@ -134,6 +131,16 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method setWindowIcon 
+    * Set Window Icon
+    */
+    private void setWindowIcon(){
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon(StringConstants.ICON_FILE_PATH);
+        setIconImage(img.getImage());
+    }
+    
     /*
     * @Method loginBtnActionPerformed 
     * Execute if user clicks on Login Button

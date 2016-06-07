@@ -5,11 +5,13 @@
  */
 package etl.views;
 
+import com.google.gson.Gson;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.models.attribute;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -17,14 +19,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
-import org.python.core.Py;
-import org.python.core.PyArray;
-import org.python.core.PyObject;
-import org.python.core.PyString;
-import org.python.core.PySystemState;
-import org.python.util.PythonInterpreter;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -40,24 +41,33 @@ public class DefineRules extends javax.swing.JFrame {
     private DefaultListModel model;
     private String filePath;
     private String fileType;
-    public DefineRules() {
+    public DefineRules(
+            List<attribute> passedAttributes, 
+            String selFilePath,
+            String selFileType
+    ) {
         initComponents();
-        attributes = new ArrayList<>();
+        
+        setWindowIcon();
+                
+        this.attributes = passedAttributes;
+        this.filePath = selFilePath;
+        this.fileType = selFileType;
+        //attributes = new ArrayList<>();
         
         //Generate attribute Selection List
-        /*DefaultListModel listModel = new DefaultListModel();
+        model = new DefaultListModel();
         for (attribute curAttr : attributes) {
-            listModel.addElement(curAttr.getAttrName());
-        }*/
-        //
+            model.addElement(curAttr.getAttrName());
+        }
+        attributeList.setModel(model);
         
+        /*
         ListModel<String> listModel = attributeList.getModel();
         for (int i = NumberConstants.ZERO; i < listModel.getSize(); i++) {
             attributes.add((new attribute(listModel.getElementAt(i))));
-        }        
-        selectedFieldTxt.setText(attributeList.getSelectedValue());
-        
-        executePythonFile();
+        }      */
+        selectedFieldTxt.setText(attributeList.getSelectedValue()); 
     }
 
     /**
@@ -81,17 +91,12 @@ public class DefineRules extends javax.swing.JFrame {
         removeRulesBtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        createDataBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EmpSense - Add Rules for Attributes ");
         setResizable(false);
 
-        attributeList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Employee ID", "Employee Name", "Gender", "Marital Status", "Job Role", "Salary", "No of Leaves", "Distance", "No of Dependents" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        attributeList.setSelectedIndex(0);
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 attributeListMouseClicked(evt);
@@ -145,7 +150,12 @@ public class DefineRules extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Add Rules for Attributes");
 
-        jButton1.setText("Create Data Store");
+        createDataBtn.setText("Create Data Store");
+        createDataBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                createDataBtnMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -175,7 +185,7 @@ public class DefineRules extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(removeRulesBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)
+                                .addComponent(createDataBtn)
                                 .addGap(70, 70, 70)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -204,7 +214,7 @@ public class DefineRules extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(addRuleBtn, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(removeRulesBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(createDataBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
 
@@ -212,6 +222,16 @@ public class DefineRules extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method setWindowIcon 
+    * Set Window Icon
+    */
+    private void setWindowIcon(){
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon(StringConstants.ICON_FILE_PATH);
+        setIconImage(img.getImage());
+    }
+    
     /*
     * @Method attributeListMouseClicked
     * Get Selected attribte from the list and populate it's defined rules 
@@ -312,6 +332,10 @@ public class DefineRules extends javax.swing.JFrame {
         enableOrDisableRemoveBtn(); 
     }//GEN-LAST:event_removeRulesBtnActionPerformed
 
+    private void createDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createDataBtnMouseClicked
+        executePythonFile();
+    }//GEN-LAST:event_createDataBtnMouseClicked
+
     /*
     * @Method populateRulesList
     * Display rules accroding to the selected attribute
@@ -364,17 +388,16 @@ public class DefineRules extends javax.swing.JFrame {
             removeRulesBtn.setEnabled(false);
     }
     
-    public void executePythonFile(){        
+    /*
+    * @Method executePythonFile
+    * Execute Python file
+    */
+    public void executePythonFile(){  
+        //createJSONFile();        
+        
         try {
-            /*PySystemState sys = Py.getSystemState();
-            sys.path.append(new PyString("/home/suren/.netbeans/8.1/jython-2.7.0/Lib"));
-            sys.path.append(new PyString("/home/suren/.netbeans/8.1/jython-2.7.0/Lib"));
-            sys.path.append(new PyString("/usr/local/lib/python2.7/dist-packages/petl/__init__.pyc"));
-            PythonInterpreter interpreter = new PythonInterpreter(null, sys);
-            interpreter.execfile("src/etl/pythonCodes/newpythonproject2.py");
-            /*PythonInterpreter interpreter = new PythonInterpreter();
-            interpreter.exec("import numpy");  */
-            Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py");
+            Process p = Runtime.getRuntime().
+                    exec("python src/etl/pythonCodes/cleanData.py " + filePath);
             
             BufferedReader stdInput = new BufferedReader(new
                  InputStreamReader(p.getInputStream()));
@@ -384,80 +407,61 @@ public class DefineRules extends javax.swing.JFrame {
                  InputStreamReader(p.getErrorStream()));
  
             String s = null;
-            // read the output from the command
-            List<String> list = new ArrayList<>();
             
             System.out.println("Here is the standard output of the command:\n");
             while ((s = stdInput.readLine()) != null) {
-                //list.add(s);
                 System.out.println(s);
             }
-            System.out.println(list.size());
-            /*for (String string : list) {
-                System.out.println(string);
-            }*/
              
             // read any errors from the attempted command
             System.out.println("Here is the standard error of the command (if any):\n");
             while ((s = stdError.readLine()) != null) {
                 System.out.println(s);
             }
-             
-            //System.exit(0);
         } catch (IOException ex) {
             Logger.getLogger(DefineRules.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void pythonCodeExecute(){
-        try{
- 
-        //String prg = "import sys\nprint int(sys.argv[1])+int(sys.argv[2])\n";
-        //BufferedWriter out = new BufferedWriter(new FileWriter("test1.py"));
-        //out.write(prg);
-        //out.close();
-        
-        
-        /*PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.exec("import sys\nsys.path['/home/suren/Desktop/pythontest.py']\nimport pythontest");
-        // execute a function that takes a string and returns a string
-        PyObject someFunc = interpreter.get("drumhead_height");
-        PyObject result = someFunc.__call__(new PyInteger(15),new PyInteger(15));
-        String realResult = (String) result.__tojava__(String.class);
-        System.out.println(realResult);*/
-        
-        /* working PythonInterpreter python = new PythonInterpreter();
+    
+    /*
+    * @Method createJSONFile
+    * Create JSON file to be read in python
+    */
+    private void createJSONFile(){
+        Gson gsonForAttr = new Gson();
+        //Create JSON array for attributes
+        JSONArray attrs = new JSONArray();        
+        JSONParser parser = new JSONParser();        
+        try {
+            for(attribute attr : attributes){                
+                String jsonStringForAttr = gsonForAttr.toJson(attr);
+                Object attrObj = parser.parse(jsonStringForAttr);
+                JSONObject attrJSONObj = (JSONObject)attrObj;
+                attrs.add(attrJSONObj);
+            }
+            
+            JSONObject mainJSONObj = new JSONObject();
+            mainJSONObj.put("attibutes", attrs);
 
-        int number1 = 10;
-        int number2 = 32;
-
-        python.set("number1", new PyInteger(number1));
-        python.set("number2", new PyInteger(number2));
-        python.exec("number3 = number1+number2");
-        PyObject number3 = python.get("number3");
-        System.out.println("val : "+number3.toString());*/ 
-        
-        int number1 = 10;
-        int number2 = 32;
-        Process p = Runtime.getRuntime().exec("python src/etl/pythonCodes/test1.py "+number1+" "+number2);
-        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        //int ret = new Integer(in.readLine()).intValue();
-        System.out.println("value is : "+in.readLine());
-        }catch(Exception e){ System.out.println(e.toString());}
-        
-        PythonInterpreter interp = new PythonInterpreter();
-        interp.exec("nums = [1,2,3]");
-        PyObject nums = interp.get("nums");
-        System.out.println("nums: " + nums);
-        System.out.println("nums is of type: " + nums.getClass());
-        PythonInterpreter python = new PythonInterpreter();
-        python.set("path", new PyString(filePath));
-        python.exec("import numpy");
-        //PyObject nums = python.get("my_data");
-        System.out.println("Data: " + nums);
+            FileWriter file;
+            try {
+                file = new FileWriter("src/etl/outputs/attributes.json");
+                file.write(mainJSONObj.toJSONString());
+                file.flush();
+                file.close();
+                System.out.println(mainJSONObj.toJSONString());
+            } catch (IOException ex) {
+                System.out.println("Error in reading or writing in file");
+            }
+        } catch (ParseException ex) {
+            System.out.println("Parsing Error");
+        }
     }
+    
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -483,9 +487,10 @@ public class DefineRules extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DefineRules().setVisible(true);
+                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv","").setVisible(true);
             }
         });
     }
@@ -493,7 +498,7 @@ public class DefineRules extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addRuleBtn;
     private javax.swing.JList<String> attributeList;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton createDataBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

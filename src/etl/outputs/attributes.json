@@ -1,0 +1,10 @@
+{"attibutes":[
+{"matchingField":"ID","rules":[],"attrName":"Employee ID"},
+{"matchingField":"Name","rules":[],"attrName":"Employee Name"},
+{"matchingField":"Gender","rules":[],"attrName":"Gender"},
+{"matchingField":"Maritial_Status","rules":[],"attrName":"Marital Status"},
+{"matchingField":"Job_Role","rules":[],"attrName":"Job Role"},
+{"matchingField":"Total_Salary","rules":[],"attrName":"Salary"},
+{"matchingField":"No_of_Leaves","rules":[],"attrName":"No of Leaves"},
+{"matchingField":"Tenure","rules":[],"attrName":"Distance"},
+{"matchingField":"Health_Status","rules":[],"attrName":"No of Dependents"}]}

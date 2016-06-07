@@ -11,6 +11,7 @@ import etl.models.attribute;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,6 +30,9 @@ public class AttributeMapper extends javax.swing.JFrame {
     public AttributeMapper(String selectedFilePath, String selectedFileType, 
             String[] headers) {
         initComponents();
+        
+        setWindowIcon();
+                
         this.filePath = selectedFilePath;   
         this.fileType = selectedFileType;
         this.header = headers;
@@ -118,7 +122,7 @@ public class AttributeMapper extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Attribute Mapper");
+        setTitle("EmpSense - Attribute Mapper");
 
         jLabel1.setText("Gender");
 
@@ -266,6 +270,16 @@ public class AttributeMapper extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /*
+    * @Method setWindowIcon 
+    * Set Window Icon
+    */
+    private void setWindowIcon(){
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon(StringConstants.ICON_FILE_PATH);
+        setIconImage(img.getImage());
+    }
+    
+    /*
     * @Method defineRulesBtnActionPerformed
     * Get mapped attribtes and pass them to the DefineRules window
     * @param  Action Event
@@ -293,7 +307,7 @@ public class AttributeMapper extends javax.swing.JFrame {
         }        
         
         dispose();
-        new DefineRules().setVisible(true);
+        new DefineRules(attributes, filePath, fileType).setVisible(true);
     }//GEN-LAST:event_defineRulesBtnActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

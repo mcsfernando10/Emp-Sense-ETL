@@ -10,6 +10,7 @@ import etl.readers.ReadCSV;
 import etl.readers.ReadExcel;
 import etl.readers.ReadJSON;
 import etl.readers.ReadXML;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +34,9 @@ public class DataView extends javax.swing.JFrame {
     private String[] headers;
     public DataView(String selectedFilePath, String selectedFileType) {
         initComponents();
+        
+        setWindowIcon();
+                
         this.filePath = selectedFilePath;   
         this.fileType = selectedFileType;
         
@@ -92,7 +96,7 @@ public class DataView extends javax.swing.JFrame {
         progressLable = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Data View");
+        setTitle("EmpSense - Data View");
 
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +179,16 @@ public class DataView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+    * @Method setWindowIcon 
+    * Set Window Icon
+    */
+    private void setWindowIcon(){
+        //Set ImageIcon of window
+        ImageIcon img = new ImageIcon(StringConstants.ICON_FILE_PATH);
+        setIconImage(img.getImage());
+    }
+    
     /*
     * @Method extractBtnActionPerformed 
     * Get selected attribtes and send them to next window : AttributeMapper
