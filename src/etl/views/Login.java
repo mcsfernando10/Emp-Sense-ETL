@@ -191,11 +191,15 @@ public class Login extends javax.swing.JFrame {
         if(usernameTxt.getText().length() == NumberConstants.ZERO)  
             // Checking for empty field
             JOptionPane.showMessageDialog(null, 
-                    StringConstants.EMPTY_FIELD);
+                    StringConstants.EMPTY_FIELD,
+                    StringConstants.ERROR,
+                    JOptionPane.ERROR_MESSAGE);
         else if(passwordTxt.getPassword().length == NumberConstants.ZERO)  
             // Checking for empty field
             JOptionPane.showMessageDialog(null, 
-                    StringConstants.EMPTY_FIELD);
+                    StringConstants.EMPTY_FIELD,
+                    StringConstants.ERROR,
+                    JOptionPane.ERROR_MESSAGE);
         else{
             // Collecting the input
             String user = usernameTxt.getText();   
@@ -231,7 +235,9 @@ public class Login extends javax.swing.JFrame {
             }               
             else{
                 JOptionPane.showMessageDialog(null, 
-                        StringConstants.INCORRECT_CREDENTIALS);
+                        StringConstants.INCORRECT_CREDENTIALS,
+                        StringConstants.ERROR,
+                        JOptionPane.ERROR_MESSAGE);
             }               
         }
     }

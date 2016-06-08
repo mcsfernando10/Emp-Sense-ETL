@@ -8,20 +8,17 @@ package etl.views;
 import com.google.gson.Gson;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
+import etl.controllers.CreateCleansedCSV;
+import etl.controllers.CreatingDBDialog;
 import etl.models.attribute;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -333,7 +330,22 @@ public class DefineRules extends javax.swing.JFrame {
     }//GEN-LAST:event_removeRulesBtnActionPerformed
 
     private void createDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createDataBtnMouseClicked
-        executePythonFile();
+        //executePythonFile();
+        //showPopupMenuDemo();
+          
+        //Show popup window
+        CreatingDBDialog dialog = new CreatingDBDialog(this, 
+                "Creating Database....", "Please Wait.....");
+        dialog.setSize(300, 180);         
+        CreateCleansedCSV.filePath = filePath;
+        CreateCleansedCSV.fileType = fileType;
+        CreateCleansedCSV.dbDialog = dialog;
+        
+        //Create rules json file
+        //createJSONFile();
+        CreateCleansedCSV cleanCSV = new CreateCleansedCSV();
+        cleanCSV.start();
+        
     }//GEN-LAST:event_createDataBtnMouseClicked
 
     /*
@@ -386,42 +398,7 @@ public class DefineRules extends javax.swing.JFrame {
             removeRulesBtn.setEnabled(true);
         else 
             removeRulesBtn.setEnabled(false);
-    }
-    
-    /*
-    * @Method executePythonFile
-    * Execute Python file
-    */
-    public void executePythonFile(){  
-        //createJSONFile();        
-        
-        try {
-            Process p = Runtime.getRuntime().
-                    exec("python src/etl/pythonCodes/cleanData.py " + filePath);
-            
-            BufferedReader stdInput = new BufferedReader(new
-                 InputStreamReader(p.getInputStream()));
-            
- 
-            BufferedReader stdError = new BufferedReader(new
-                 InputStreamReader(p.getErrorStream()));
- 
-            String s = null;
-            
-            System.out.println("Here is the standard output of the command:\n");
-            while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
-             
-            // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(DefineRules.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    }   
     
     /*
     * @Method createJSONFile

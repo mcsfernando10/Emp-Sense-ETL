@@ -32,6 +32,7 @@ public class StringConstants {
     
     public static final String ICON_FILE_PATH = "src/etl/images/icon.gif";
     //Login View
+    public static final String ERROR = "Error";
     public static final String EMPTY_FIELD = "Empty fields detected! Please fill up all fields";
     public static final String MD5_ENCRYPTION = "MD5";
     public static final String NO_ENCRYPTION_ALGO = "No Encryting algorithm";

@@ -107,7 +107,7 @@ public class ReadCSV implements Runnable{
         if (thread == null)
         {
             thread = new Thread (this);
-            thread.start ();
+            thread.start();
         }
     }
     
