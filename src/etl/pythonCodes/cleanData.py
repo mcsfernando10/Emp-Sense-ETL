@@ -16,12 +16,22 @@ with open('src/etl/outputs/attributes.json') as data_file:
 mappings = OrderedDict()
 #length of attribtues map
 length = len(data['attibutes'])
-for x in xrange(0, length-1):
+#map Attributes and clean them
+for x in range(length):
     attr = data['attibutes'][x]['attrName']
     matchingField = data['attibutes'][x]['matchingField']
     mappings[attr] = matchingField
     
-table2 = etl.fieldmap(dataTable, mappings)
+mappedTable = etl.fieldmap(dataTable, mappings)
 
+cleansedTable = mappedTable
+#add rules to clean the table
+for x in range(length):
+    attr = data['attibutes'][x]['attrName']
+    rules = data['attibutes'][x]['rules']
+    rulesListSize = len(rules)
+    for y in range(rulesListSize):
+        if rules[y] == "Remove Null Value Rows":
+            cleansedTable = etl.select(cleansedTable, attr, lambda v: v != '')
 
-etl.tocsv(table2,'src/etl/outputs/cleansed.csv')
+etl.tocsv(cleansedTable,'src/etl/outputs/cleansed.csv')

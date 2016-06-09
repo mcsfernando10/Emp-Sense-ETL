@@ -142,4 +142,19 @@ public class ReadCSV implements Runnable{
         }
         return columnName.toArray(new String[0]);
     }
+    
+    
+    public List<String[]> readCSVFile(){
+        List<String[]> fileData = null;
+        try {
+            selectedFile = new FileReader(selectedFilePath);
+            reader = new CSVReader(selectedFile);
+            fileData = reader.readAll();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return fileData;
+    }
 }

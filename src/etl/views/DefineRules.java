@@ -330,9 +330,6 @@ public class DefineRules extends javax.swing.JFrame {
     }//GEN-LAST:event_removeRulesBtnActionPerformed
 
     private void createDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createDataBtnMouseClicked
-        //executePythonFile();
-        //showPopupMenuDemo();
-          
         //Show popup window
         CreatingDBDialog dialog = new CreatingDBDialog(this, 
                 "Creating Database....", "Please Wait.....");
@@ -342,10 +339,9 @@ public class DefineRules extends javax.swing.JFrame {
         CreateCleansedCSV.dbDialog = dialog;
         
         //Create rules json file
-        //createJSONFile();
+        createJSONFile();
         CreateCleansedCSV cleanCSV = new CreateCleansedCSV();
-        cleanCSV.start();
-        
+        cleanCSV.start();        
     }//GEN-LAST:event_createDataBtnMouseClicked
 
     /*

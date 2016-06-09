@@ -124,6 +124,7 @@ public class DataView extends javax.swing.JFrame {
         dataTableView.setDragEnabled(true);
         dataTableView.setEnabled(false);
         dataTableView.setName(""); // NOI18N
+        dataTableView.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(dataTableView);
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N

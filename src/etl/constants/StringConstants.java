@@ -49,7 +49,8 @@ public class StringConstants {
     //Attribute Mapper View
     //*To add new attribute
     public static final String[] ATTRIBUTES = new String[]{
-        "Employee ID", "Employee Name", "Gender", "Marital Status", "Job Role",
+        "Employee ID", "Employee Name", "Age", "Gender", "Marital Status", 
+        "Having Degree", "Job Role", "Tenure",
         "Salary", "No of Leaves", "Distance", "No of Dependents"
     };
     

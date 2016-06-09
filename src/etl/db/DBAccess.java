@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,13 +33,11 @@ public class DBAccess {
     */
     public boolean isLoginValid(String username,String password) {
         try {
-            DBConnect dbConnection = new DBConnect();
-            Connection conn = dbConnection.getConnection();
             String query = "Select * "
                     + "from login "
                     + "where username=? and password=?";
             PreparedStatement pst = 
-                    (PreparedStatement) conn.prepareStatement(query);
+                    (PreparedStatement) connection.prepareStatement(query);
             pst.setString(1, username);
             pst.setString(2, password);
             ResultSet rs = pst.executeQuery();
@@ -48,6 +47,26 @@ public class DBAccess {
         }
         return false;
     } 
+    
+    
+    public void insertEmployeeData(String[] employeeRow) {
+        try {            
+            int stringArrSize = employeeRow.length;
+            String query = "Insert into employeesIT values (";
+            for(int i=0;i<stringArrSize;i++){
+                if(i==stringArrSize-1)
+                    query += "'" + employeeRow[i] + "'";
+                else
+                    query += "'" + employeeRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
 }

@@ -5,10 +5,14 @@
  */
 package etl.controllers;
 
+import etl.constants.NumberConstants;
+import etl.db.DBAccess;
+import etl.readers.ReadCSV;
 import etl.views.DefineRules;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +31,10 @@ public class CreateCleansedCSV implements Runnable{
     @Override
     public void run() {
         executePythonFile();
+        insertData();
+        //Set Label text with finish messages
+        dbDialog.setButtonVisible();
+        dbDialog.setLabelText();
     }
     
     /*
@@ -59,10 +67,24 @@ public class CreateCleansedCSV implements Runnable{
             }
         } catch (IOException ex) {
             Logger.getLogger(DefineRules.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }               
+    }
+    
+    /*
+    * @Method insertData
+    * Insert cleansed data into database
+    */
+    private void insertData(){
+        ReadCSV.selectedFilePath = "src/etl/outputs/cleansed.csv";
+        ReadCSV csvReaderForInsert = new ReadCSV();
+        List<String[]> csvData = csvReaderForInsert.readCSVFile();
         
-        dbDialog.setButtonVisible();
-        dbDialog.setLabelText();
+        int size = csvData.size();
+        DBAccess dbAccess = new DBAccess();
+        for(int i = NumberConstants.ONE;i<size;i++){            
+            dbAccess.insertEmployeeData(csvData.get(i));
+            dbDialog.setInsertProgress(size, i);
+        }
     }
     
     /*

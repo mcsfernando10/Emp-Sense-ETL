@@ -56,6 +56,10 @@ public class CreatingDBDialog extends JDialog {
         setVisible(true);
     }
 
+    public void setInsertProgress(int size,int row){
+        progressLabel.setText(row + "rows of " + (size-1) + "rows Inserted into Database");
+    }
+    
     public void setButtonVisible(){
         button.setVisible(true);
     }
