@@ -30,7 +30,7 @@ public class CheckBoxHeader extends JCheckBox
     public  String columnName;
     public CheckBoxHeader(ItemListener itemListener, String columnName) {
         rendererComponent = this;
-        rendererComponent.addItemListener(itemListener);
+        //rendererComponent.addItemListener(itemListener);
         this.columnName = columnName;
     }
     
@@ -44,7 +44,7 @@ public class CheckBoxHeader extends JCheckBox
                 rendererComponent.setForeground(header.getForeground());
                 rendererComponent.setBackground(header.getBackground());
                 rendererComponent.setFont(header.getFont());
-                header.addMouseListener(rendererComponent);
+                //header.addMouseListener(rendererComponent);
             }
         }
         setColumn(column);

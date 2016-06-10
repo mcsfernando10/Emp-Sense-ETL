@@ -57,17 +57,16 @@ public class Extract extends javax.swing.JFrame {
         itRadioBtn = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        newTableNameTxt = new javax.swing.JTextField();
-        defaultNameCKBox = new javax.swing.JCheckBox();
         extractBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
         browseBtn = new javax.swing.JButton();
         filePathTxt = new javax.swing.JTextField();
         fileTypeComBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Extract Data");
+        setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
         jLabel1.setText("Select Industry");
@@ -81,15 +80,6 @@ public class Extract extends javax.swing.JFrame {
         jLabel2.setText("Select the file type");
 
         jLabel3.setText("Source File");
-
-        jLabel4.setText("New Table Name");
-
-        defaultNameCKBox.setText("Use Default Name");
-        defaultNameCKBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                defaultNameCKBoxActionPerformed(evt);
-            }
-        });
 
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -121,65 +111,64 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel4.setText("Extract Data");
+        jLabel4.setBorder(null);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(newTableNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(defaultNameCKBox))
-                    .addComponent(fileTypeComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(apparelRadioBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(itRadioBtn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filePathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(extractBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelBtn)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fileTypeComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(apparelRadioBtn)
+                                .addGap(18, 18, 18)
+                                .addComponent(itRadioBtn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(filePathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(browseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(extractBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cancelBtn)))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel4)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(apparelRadioBtn)
                     .addComponent(itRadioBtn))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(fileTypeComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(filePathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(browseBtn))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(newTableNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(defaultNameCKBox))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(extractBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -207,11 +196,11 @@ public class Extract extends javax.swing.JFrame {
         if(selectedFilePath.equals(StringConstants.EMPTY_STRING)){
             JOptionPane.showMessageDialog(null, StringConstants.PLEASE_SELECT_FILE);
         } 
-        else if(!defaultNameCKBox.isSelected() && 
+        /*else if(!defaultNameCKBox.isSelected() && 
                 newTableNameTxt.getText().equals(StringConstants.EMPTY_STRING)) {
             JOptionPane.showMessageDialog(null, 
                     StringConstants.PLEASE_ENTER_TABLENAME);
-        }
+        }*/
         else{
             dispose();
             new DataView(selectedFilePath, selectedFileType).setVisible(true);
@@ -248,22 +237,6 @@ public class Extract extends javax.swing.JFrame {
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         dispose();              
     }//GEN-LAST:event_cancelBtnActionPerformed
-
-    /*
-    * @Method defaultNameCKBoxActionPerformed 
-    * Execute if user clicks on Use Default Name Check Box
-    * Enables and disables the checkbox
-    * @param  Action Event
-    */
-    private void defaultNameCKBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defaultNameCKBoxActionPerformed
-        if(defaultNameCKBox.isSelected()){
-            newTableNameTxt.setEnabled(false);
-        }
-        else {
-            newTableNameTxt.setEnabled(true);
-        }
-            
-    }//GEN-LAST:event_defaultNameCKBoxActionPerformed
 
     /*
     * @Method fileTypeComBoxActionPerformed 
@@ -391,7 +364,6 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.JRadioButton apparelRadioBtn;
     private javax.swing.JButton browseBtn;
     private javax.swing.JButton cancelBtn;
-    private javax.swing.JCheckBox defaultNameCKBox;
     private javax.swing.JButton extractBtn;
     private javax.swing.JTextField filePathTxt;
     private javax.swing.ButtonGroup fileType;
@@ -402,6 +374,5 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField newTableNameTxt;
     // End of variables declaration//GEN-END:variables
 }

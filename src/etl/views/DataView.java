@@ -46,7 +46,7 @@ public class DataView extends javax.swing.JFrame {
                 ReadCSV.selectedFilePath = filePath;
                 ReadCSV.tableView = dataTableView;
                 ReadCSV.jLableProgress = progressLable;
-                ReadCSV.extractBtn = extractBtn;                
+                ReadCSV.extractBtn = mapAttrBtn;                
                 csvReader.start();
                 break;
             case StringConstants.XML_EXTENSION:
@@ -54,7 +54,7 @@ public class DataView extends javax.swing.JFrame {
                 ReadXML.selectedFilePath = filePath;
                 ReadXML.tableView = dataTableView;
                 ReadXML.jLableProgress = progressLable;
-                ReadXML.extractBtn = extractBtn;
+                ReadXML.extractBtn = mapAttrBtn;
                 xmlReader.start();
                 //xmlRead();
                 break;
@@ -69,7 +69,7 @@ public class DataView extends javax.swing.JFrame {
                 ReadJSON.selectedFilePath = filePath;
                 ReadJSON.tableView = dataTableView;
                 ReadJSON.jLableProgress = progressLable;
-                ReadJSON.extractBtn = extractBtn;
+                ReadJSON.extractBtn = mapAttrBtn;
                 jsonReader.start();
                 break;
             case StringConstants.SQL_EXTENSION:
@@ -89,7 +89,7 @@ public class DataView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        extractBtn = new javax.swing.JButton();
+        mapAttrBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTableView = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -98,10 +98,10 @@ public class DataView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Data View");
 
-        extractBtn.setText("Extract");
-        extractBtn.addActionListener(new java.awt.event.ActionListener() {
+        mapAttrBtn.setText("Map Attributes");
+        mapAttrBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                extractBtnActionPerformed(evt);
+                mapAttrBtnActionPerformed(evt);
             }
         });
 
@@ -127,40 +127,46 @@ public class DataView extends javax.swing.JFrame {
         dataTableView.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(dataTableView);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("View of Selected Data");
 
+        progressLable.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
+        progressLable.setText("Loading Table......");
+        progressLable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(544, 544, 544)
-                        .addComponent(progressLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(extractBtn)
-                .addGap(23, 23, 23))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(progressLable)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mapAttrBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(progressLable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(progressLable, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(extractBtn))
+                .addComponent(mapAttrBtn)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,9 +177,7 @@ public class DataView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -195,7 +199,7 @@ public class DataView extends javax.swing.JFrame {
     * Get selected attribtes and send them to next window : AttributeMapper
     * @param  ActionEvent
     */
-    private void extractBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extractBtnActionPerformed
+    private void mapAttrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapAttrBtnActionPerformed
         //To get headers string array to bind in jcombobox
         switch(fileType){
             case StringConstants.CSV_EXTENSION:                
@@ -217,14 +221,14 @@ public class DataView extends javax.swing.JFrame {
         }
         dispose();
         new AttributeMapper(filePath,fileType,headers).setVisible(true);       
-    }//GEN-LAST:event_extractBtnActionPerformed
+    }//GEN-LAST:event_mapAttrBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dataTableView;
-    private javax.swing.JButton extractBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton mapAttrBtn;
     private javax.swing.JLabel progressLable;
     // End of variables declaration//GEN-END:variables
 }

@@ -159,9 +159,9 @@ public class DefineRules extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -183,13 +183,14 @@ public class DefineRules extends javax.swing.JFrame {
                                 .addComponent(removeRulesBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(createDataBtn)
-                                .addGap(70, 70, 70)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(70, 70, 70)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,7 +213,7 @@ public class DefineRules extends javax.swing.JFrame {
                             .addComponent(addRuleBtn, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(removeRulesBtn, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(createDataBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
+                .addGap(25, 25, 25))
         );
 
         pack();
@@ -333,7 +334,7 @@ public class DefineRules extends javax.swing.JFrame {
         //Show popup window
         CreatingDBDialog dialog = new CreatingDBDialog(this, 
                 "Creating Database....", "Please Wait.....");
-        dialog.setSize(300, 180);         
+        dialog.setSize(300, 150);         
         CreateCleansedCSV.filePath = filePath;
         CreateCleansedCSV.fileType = fileType;
         CreateCleansedCSV.dbDialog = dialog;

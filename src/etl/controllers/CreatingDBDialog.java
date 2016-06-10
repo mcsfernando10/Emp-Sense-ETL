@@ -57,7 +57,7 @@ public class CreatingDBDialog extends JDialog {
     }
 
     public void setInsertProgress(int size,int row){
-        progressLabel.setText(row + "rows of " + (size-1) + "rows Inserted into Database");
+        progressLabel.setText(row + " of " + (size-1) + " Inserted into Database");
     }
     
     public void setButtonVisible(){
@@ -65,9 +65,10 @@ public class CreatingDBDialog extends JDialog {
     }
 
     public void setLabelText(){
+        this.setSize(300, 180);
         progressLabel.setText("Successfully Updated the Database");
         progressLabel.setIcon(new ImageIcon("src/etl/images/success_db.png"));
-        this.setTitle("Database Creation Done");
+        this.setTitle("Database Creation Done");        
     }
     /* an action listener to be used when an action is performed when the 
        button is pressed */
