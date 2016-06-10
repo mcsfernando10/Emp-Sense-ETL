@@ -65,7 +65,7 @@ public class CreatingDBDialog extends JDialog {
     }
 
     public void setLabelText(){
-        this.setSize(300, 180);
+        this.setSize(300, 200);
         progressLabel.setText("Successfully Updated the Database");
         progressLabel.setIcon(new ImageIcon("src/etl/images/success_db.png"));
         this.setTitle("Database Creation Done");        

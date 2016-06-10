@@ -4,14 +4,15 @@
 import petl as etl
 import sys
 import json
+import pipes
 from collections import OrderedDict
-
-filePath = sys.argv[1]
-dataTable = etl.fromcsv(filePath)
 
 #read JSON file
 with open('src/etl/outputs/attributes.json') as data_file:    
     data = json.load(data_file)
+
+filePath = data['filePath']
+dataTable = etl.fromcsv(filePath)
 
 mappings = OrderedDict()
 #length of attribtues map

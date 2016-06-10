@@ -68,6 +68,6 @@ public class StringConstants {
     public static final String DB_USER_TEXT = "user";
     public static final String DB_USERNAME = "root";
     public static final String DB_USER_PASSWORD_TEXT = "password";
-    public static final String DB_USER_PASSWORD = "root123";
+    public static final String DB_USER_PASSWORD = "";
     
 }

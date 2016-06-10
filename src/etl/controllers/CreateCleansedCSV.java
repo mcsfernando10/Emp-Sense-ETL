@@ -43,8 +43,11 @@ public class CreateCleansedCSV implements Runnable{
     */
     public void executePythonFile(){  
         try {
+            /*Process p = Runtime.getRuntime().
+                    exec("python src/etl/pythonCodes/cleanData.py " + filePath);*/
+            
             Process p = Runtime.getRuntime().
-                    exec("python src/etl/pythonCodes/cleanData.py " + filePath);
+                    exec("python src/etl/pythonCodes/cleanData.py");
             
             BufferedReader stdInput = new BufferedReader(new
                  InputStreamReader(p.getInputStream()));

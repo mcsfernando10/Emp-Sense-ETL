@@ -334,7 +334,7 @@ public class DefineRules extends javax.swing.JFrame {
         //Show popup window
         CreatingDBDialog dialog = new CreatingDBDialog(this, 
                 "Creating Database....", "Please Wait.....");
-        dialog.setSize(300, 150);         
+        dialog.setSize(300, 200);         
         CreateCleansedCSV.filePath = filePath;
         CreateCleansedCSV.fileType = fileType;
         CreateCleansedCSV.dbDialog = dialog;
@@ -416,7 +416,7 @@ public class DefineRules extends javax.swing.JFrame {
             
             JSONObject mainJSONObj = new JSONObject();
             mainJSONObj.put("attibutes", attrs);
-
+            mainJSONObj.put("filePath", filePath);
             FileWriter file;
             try {
                 file = new FileWriter("src/etl/outputs/attributes.json");

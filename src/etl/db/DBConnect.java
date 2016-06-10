@@ -23,8 +23,7 @@ public class DBConnect {
         try {
             // MySQL database connection
             Class.forName(StringConstants.DB_CLASS);
-            connection = DriverManager
-                    .getConnection(StringConstants.DB_CONNECTION_PATH + 
+            /*String connectionPath = StringConstants.DB_CONNECTION_PATH + 
                             StringConstants.DB_NAME + 
                             StringConstants.QUESTION_MARK +
                             StringConstants.DB_USER_TEXT +
@@ -33,7 +32,13 @@ public class DBConnect {
                             StringConstants.AND_SIGN + 
                             StringConstants.DB_USER_PASSWORD_TEXT + 
                             StringConstants.EQUAL_SIGN +
-                            StringConstants.DB_USER_PASSWORD);
+                            StringConstants.DB_USER_PASSWORD;*/
+            
+            //System.out.println(connectionPath);
+            //connection = DriverManager
+            //        .getConnection(connectionPath);
+            connection = DriverManager
+                    .getConnection("jdbc:mysql://localhost:3306/empsense?" + "user=root&password=");
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }

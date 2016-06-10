@@ -203,6 +203,7 @@ public class Extract extends javax.swing.JFrame {
         }*/
         else{
             dispose();
+            System.out.println(selectedFilePath);
             new DataView(selectedFilePath, selectedFileType).setVisible(true);
         }        
     }//GEN-LAST:event_extractBtnActionPerformed
@@ -221,7 +222,7 @@ public class Extract extends javax.swing.JFrame {
         int result = sourceFileChooser.showOpenDialog(this);
         //Detect user click on Open or Cancel Button of JFilePicker
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();
+            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();            
             filePathTxt.setText(selectedFilePath);
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("Cancel was selected");
