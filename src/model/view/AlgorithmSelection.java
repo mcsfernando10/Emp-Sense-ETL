@@ -7,12 +7,17 @@ package model.view;
 
 import au.com.bytecode.opencsv.CSVReader;
 import etl.constants.StringConstants;
+import static etl.readers.ReadCSV.selectedFilePath;
+import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,18 +30,18 @@ public class AlgorithmSelection extends javax.swing.JFrame {
      */
     public AlgorithmSelection() {
         FileReader selectedFile = null;
+        DecimalFormat df = new DecimalFormat("#.##");
+        df.setRoundingMode(RoundingMode.CEILING);
         try {
             initComponents();
             setWindowIcon();
             selectedFile = new FileReader("src/etl/outputs/accuracy.csv");
             CSVReader reader = new CSVReader(selectedFile);
             // if the first line is the header
-            knnRadioBtn.setText(knnRadioBtn.getText() + " - Accuracy " + 
-                    Float.parseFloat(reader.readNext()[1])*100 + "%");
-            randomForestRadioBtn.setText(randomForestRadioBtn.getText() + " - Accuracy " + 
-                    Float.parseFloat(reader.readNext()[1])*100 + "%");
-            svmRadioBtn.setText(svmRadioBtn.getText() + " - Accuracy " + 
-                    "53%");
+            label_knn.setText(df.format(Float.parseFloat(reader.readNext()[1])*100) + "%");
+            label_rf.setText(df.format(Float.parseFloat(reader.readNext()[1])*100) + "%");
+            label_svm.setText("53%");
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AlgorithmSelection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -49,6 +54,7 @@ public class AlgorithmSelection extends javax.swing.JFrame {
             }
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,69 +67,291 @@ public class AlgorithmSelection extends javax.swing.JFrame {
 
         algorithm = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        label_knn = new javax.swing.JLabel();
+        label_rf = new javax.swing.JLabel();
+        label_svm = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         knnRadioBtn = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         randomForestRadioBtn = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         svmRadioBtn = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
         submitBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Select the Algorithm");
-        setResizable(false);
+        setPreferredSize(new java.awt.Dimension(442, 453));
 
+        jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel1.setText("Select the Algorithm");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Algorithm Selection");
+        jLabel1.setOpaque(true);
 
+        jPanel1.setBackground(new java.awt.Color(0, 204, 204));
+
+        label_knn.setBackground(new java.awt.Color(51, 102, 255));
+        label_knn.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_knn.setForeground(new java.awt.Color(255, 255, 255));
+        label_knn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_knn.setOpaque(true);
+
+        label_rf.setBackground(new java.awt.Color(51, 102, 255));
+        label_rf.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_rf.setForeground(new java.awt.Color(255, 255, 255));
+        label_rf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_rf.setOpaque(true);
+
+        label_svm.setBackground(new java.awt.Color(51, 102, 255));
+        label_svm.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_svm.setForeground(new java.awt.Color(255, 255, 255));
+        label_svm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_svm.setOpaque(true);
+
+        jPanel2.setBackground(new java.awt.Color(51, 102, 255));
+
+        knnRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(knnRadioBtn);
+        knnRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         knnRadioBtn.setSelected(true);
         knnRadioBtn.setText("K Nearest Neighbours");
+        knnRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                knnRadioBtnActionPerformed(evt);
+            }
+        });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("<html>A non-parametric method used for <br> classification where the input consists of <br> the k closest training examples in the <br> feature space</html>");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(knnRadioBtn)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(knnRadioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+
+        jPanel3.setBackground(new java.awt.Color(51, 102, 255));
+
+        randomForestRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(randomForestRadioBtn);
+        randomForestRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         randomForestRadioBtn.setText("Random Forest");
+        randomForestRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                randomForestRadioBtnActionPerformed(evt);
+            }
+        });
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("<html>Random Forests are an ensemble learning <br> method for classification that operate by <br> constructing a multitude of decision trees</html>\n");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(randomForestRadioBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(randomForestRadioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(51, 102, 255));
+
+        svmRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(svmRadioBtn);
+        svmRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         svmRadioBtn.setText("Support Vector Machine");
+        svmRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                svmRadioBtnActionPerformed(evt);
+            }
+        });
 
-        submitBtn.setText("Submit");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("<html>A representation od the examples as <br> points in space, mapped so that the <br> examples of the seperate categories are <br> divided by a clear gap</html>\n");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(svmRadioBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(svmRadioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(label_rf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_svm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_knn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label_knn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(label_rf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_svm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(new java.awt.Color(51, 102, 255));
+
+        submitBtn.setBackground(new java.awt.Color(51, 102, 255));
+        submitBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        submitBtn.setForeground(new java.awt.Color(255, 255, 255));
+        submitBtn.setText("Predict");
+        submitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(327, Short.MAX_VALUE)
+                .addComponent(submitBtn)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(submitBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(randomForestRadioBtn)
-                            .addComponent(knnRadioBtn)
-                            .addComponent(svmRadioBtn))))
-                .addContainerGap(135, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(submitBtn)
-                .addGap(73, 73, 73))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(knnRadioBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(randomForestRadioBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(svmRadioBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(submitBtn)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void knnRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_knnRadioBtnActionPerformed
+
+    private void randomForestRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomForestRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_randomForestRadioBtnActionPerformed
+
+    private void svmRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_svmRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_svmRadioBtnActionPerformed
+
+    private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
+        if(knnRadioBtn.isSelected()){
+             String path = "D:\\SLIIT";
+
+            try {
+                /*Process p;
+                try {
+                p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "\\Prediction_KNN.py");
+                System.out.println("Waiting for python file ...");
+                p.waitFor();
+                System.out.println("Python file done.");
+                } catch (IOException ex) {
+                Logger.getLogger(AlgorithmSelection.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                Logger.getLogger(AlgorithmSelection.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }*/
+                Process p = Runtime.getRuntime().exec("Python D:/SLIIT/Prediction_KNN.py");
+            } catch (IOException ex) {
+                Logger.getLogger(AlgorithmSelection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_submitBtnActionPerformed
 
     /*
     * @Method setWindowIcon 
@@ -172,7 +400,18 @@ public class AlgorithmSelection extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup algorithm;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JRadioButton knnRadioBtn;
+    private javax.swing.JLabel label_knn;
+    private javax.swing.JLabel label_rf;
+    private javax.swing.JLabel label_svm;
     private javax.swing.JRadioButton randomForestRadioBtn;
     private javax.swing.JButton submitBtn;
     private javax.swing.JRadioButton svmRadioBtn;

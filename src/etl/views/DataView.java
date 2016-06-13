@@ -130,7 +130,7 @@ public class DataView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel1.setText("View of Selected Data");
 
-        progressLable.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        progressLable.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         progressLable.setText("Loading Table......");
         progressLable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

@@ -66,10 +66,13 @@ public class Extract extends javax.swing.JFrame {
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Select the file type");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Source File");
 
+        extractBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,6 +80,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
+        cancelBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +88,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
+        browseBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +107,6 @@ public class Extract extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Extract Data");
-        jLabel4.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
