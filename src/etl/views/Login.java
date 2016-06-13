@@ -8,14 +8,9 @@ package etl.views;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.db.DBAccess;
-import etl.db.DBConnect;
 import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -56,7 +51,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Username");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Emp-Sense - Login");
+        setTitle("Emp-Sense - Login (IT Industry)");
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
@@ -268,6 +263,7 @@ public class Login extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

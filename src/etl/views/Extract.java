@@ -36,7 +36,7 @@ public class Extract extends javax.swing.JFrame {
         sourceFileChooser = new JFileChooser();
         
         //Set the selected industry
-        itRadioBtn.setSelected(true);
+        //itRadioBtn.setSelected(true);
         
         setWindowIcon(); 
     }
@@ -52,9 +52,6 @@ public class Extract extends javax.swing.JFrame {
 
         industry = new javax.swing.ButtonGroup();
         fileType = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        apparelRadioBtn = new javax.swing.JRadioButton();
-        itRadioBtn = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         extractBtn = new javax.swing.JButton();
@@ -65,17 +62,9 @@ public class Extract extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EmpSense - Extract Data");
+        setTitle("EmpSense - Extract Data (IT Industry)");
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
-
-        jLabel1.setText("Select Industry");
-
-        industry.add(apparelRadioBtn);
-        apparelRadioBtn.setText("Apparel Industry");
-
-        industry.add(itRadioBtn);
-        itRadioBtn.setText("IT Industry");
 
         jLabel2.setText("Select the file type");
 
@@ -126,15 +115,10 @@ public class Extract extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fileTypeComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(apparelRadioBtn)
-                                .addGap(18, 18, 18)
-                                .addComponent(itRadioBtn))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(filePathTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,11 +134,6 @@ public class Extract extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4)
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(apparelRadioBtn)
-                    .addComponent(itRadioBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -203,7 +182,6 @@ public class Extract extends javax.swing.JFrame {
         }*/
         else{
             dispose();
-            System.out.println(selectedFilePath);
             new DataView(selectedFilePath, selectedFileType).setVisible(true);
         }        
     }//GEN-LAST:event_extractBtnActionPerformed
@@ -222,7 +200,7 @@ public class Extract extends javax.swing.JFrame {
         int result = sourceFileChooser.showOpenDialog(this);
         //Detect user click on Open or Cancel Button of JFilePicker
         if (result == JFileChooser.APPROVE_OPTION) {
-            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();            
+            selectedFilePath = sourceFileChooser.getSelectedFile().getAbsolutePath();
             filePathTxt.setText(selectedFilePath);
         } else if (result == JFileChooser.CANCEL_OPTION) {
             System.out.println("Cancel was selected");
@@ -362,7 +340,6 @@ public class Extract extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JRadioButton apparelRadioBtn;
     private javax.swing.JButton browseBtn;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JButton extractBtn;
@@ -370,8 +347,6 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.ButtonGroup fileType;
     private javax.swing.JComboBox<String> fileTypeComBox;
     private javax.swing.ButtonGroup industry;
-    private javax.swing.JRadioButton itRadioBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

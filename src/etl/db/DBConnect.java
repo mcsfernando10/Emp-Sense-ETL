@@ -38,7 +38,7 @@ public class DBConnect {
             //connection = DriverManager
             //        .getConnection(connectionPath);
             connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/empsense?" + "user=root&password=");
+                    .getConnection("jdbc:mysql://localhost:3306/empsense?" + "user=root&password=root123");
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
         }

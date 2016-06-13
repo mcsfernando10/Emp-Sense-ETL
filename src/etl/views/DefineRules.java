@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -64,9 +65,25 @@ public class DefineRules extends javax.swing.JFrame {
         for (int i = NumberConstants.ZERO; i < listModel.getSize(); i++) {
             attributes.add((new attribute(listModel.getElementAt(i))));
         }      */
-        selectedFieldTxt.setText(attributeList.getSelectedValue()); 
+        attributeList.setSelectedIndex(0);
+        String selectedAttr = attributeList.getSelectedValue();
+        selectedFieldTxt.setText(selectedAttr); 
+        
+        List<String> definedRules = getAttributeFromName(selectedAttr).getDefinedRulesList();
+        DefaultComboBoxModel<String> definedRulesModel
+                = new DefaultComboBoxModel<>(definedRules.toArray(new String[0]));
+        rulesComBox.setModel(definedRulesModel);
     }
 
+    private attribute getAttributeFromName(String attrName){
+        for(int i=NumberConstants.ZERO;i<attributes.size();i++){
+            attribute curAttr = attributes.get(i);
+            if(curAttr.getAttrName().equals(attrName)){
+                return curAttr;
+            }
+        }
+        return null;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +108,7 @@ public class DefineRules extends javax.swing.JFrame {
         createDataBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EmpSense - Add Rules for Attributes ");
+        setTitle("EmpSense - Add Rules for Attributes  (IT Industry)");
         setResizable(false);
 
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -366,6 +383,11 @@ public class DefineRules extends javax.swing.JFrame {
         //If model has rules then select first index
         if(rulesOfSelAttr.size() > NumberConstants.ZERO)
             rulesList.setSelectedIndex(NumberConstants.ZERO);
+        
+        List<String> definedRules = getAttributeFromName(selectedAttribute).getDefinedRulesList();
+        DefaultComboBoxModel<String> definedRulesModel
+                = new DefaultComboBoxModel<>(definedRules.toArray(new String[0]));
+        rulesComBox.setModel(definedRulesModel);
     }
     
     /*
@@ -458,6 +480,7 @@ public class DefineRules extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DefineRules.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

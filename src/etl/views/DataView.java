@@ -96,7 +96,7 @@ public class DataView extends javax.swing.JFrame {
         progressLable = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EmpSense - Data View");
+        setTitle("EmpSense - Data View (IT Industry)");
 
         mapAttrBtn.setText("Map Attributes");
         mapAttrBtn.addActionListener(new java.awt.event.ActionListener() {

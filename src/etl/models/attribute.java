@@ -16,10 +16,12 @@ public class attribute {
     private String attrName;
     private List<String> rules;
     private String matchingField;
+    private List<String> definedRulesList;
 
     public attribute(String attrName) {
         this.attrName = attrName;
         rules = new ArrayList<>();
+        definedRulesList = new ArrayList<>();
     }
     
     public attribute() {
@@ -59,5 +61,13 @@ public class attribute {
     public void setMatchingField(String matchingField) {
         this.matchingField = matchingField;
     }   
+
+    public List<String> getDefinedRulesList() {
+        return definedRulesList;
+    }
+    
+    public void setRules(List<String> rules) {
+        this.definedRulesList = rules;
+    } 
     
 }

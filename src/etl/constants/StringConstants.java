@@ -5,6 +5,12 @@
  */
 package etl.constants;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 /**
  *
  * @author suren
@@ -53,6 +59,163 @@ public class StringConstants {
         "Having Degree", "Job Role", "Tenure",
         "Salary", "No of Leaves", "Distance", "No of Dependents"
     };
+    public static final Map<String, List<String>> RULES_LIST = 
+            new HashMap<String, List<String>>(){
+        {
+            put("Employee ID", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Remove Duplicates");
+                            add("Sort");                            
+                        };
+                    }
+            );
+            
+            put("Employee Name", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Remove Duplicates");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Age", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Gender", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Marital Status", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Having Degree", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Job Role", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Tenure", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Salary", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("No of Leaves", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("Distance", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+            
+            put("No of Dependents", 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add("Select a Rule");
+                            add("Remove Null Value Rows");
+                            add("Number Validation");
+                            add("Fill Missing Values");
+                            add("Sort");
+                        };
+                    }
+            );
+        }
+    };
+    
+    
     
     //Define Rules View
     public static final String RULE_ERROR = "This Rule is already exists";
@@ -68,6 +231,6 @@ public class StringConstants {
     public static final String DB_USER_TEXT = "user";
     public static final String DB_USERNAME = "root";
     public static final String DB_USER_PASSWORD_TEXT = "password";
-    public static final String DB_USER_PASSWORD = "";
+    public static final String DB_USER_PASSWORD = "root123";
     
 }

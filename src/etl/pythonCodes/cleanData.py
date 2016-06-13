@@ -4,8 +4,10 @@
 import petl as etl
 import sys
 import json
-import pipes
 from collections import OrderedDict
+
+#filePath = sys.argv[1]
+#dataTable = etl.fromcsv(filePath)
 
 #read JSON file
 with open('src/etl/outputs/attributes.json') as data_file:    
@@ -26,13 +28,21 @@ for x in range(length):
 mappedTable = etl.fieldmap(dataTable, mappings)
 
 cleansedTable = mappedTable
-#add rules to clean the table
-for x in range(length):
+#add rules to clean the table - reversed for give the priority for top attributes
+for x in reversed(range(length)):
     attr = data['attibutes'][x]['attrName']
     rules = data['attibutes'][x]['rules']
     rulesListSize = len(rules)
     for y in range(rulesListSize):
         if rules[y] == "Remove Null Value Rows":
             cleansedTable = etl.select(cleansedTable, attr, lambda v: v != '')
-
+        if rules[y] == "Remove Duplicates":
+            cleansedTable = etl.aggregate(cleansedTable, attr)
+        if rules[y] == "Sort":
+            cleansedTable = etl.mergesort(cleansedTable, key=attr)
+        if rules[y] == "Number Validation":
+            cleansedTable = etl.select(cleansedTable, attr)
+        if rules[y] == "Fill Missing Values":
+            cleansedTable = etl.filldown(cleansedTable, attr)
+            
 etl.tocsv(cleansedTable,'src/etl/outputs/cleansed.csv')

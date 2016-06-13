@@ -138,7 +138,7 @@ public class AttributeMapper extends javax.swing.JFrame {
         tenureComBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("EmpSense - Attribute Mapper");
+        setTitle("EmpSense - Attribute Mapper (IT Industry)");
         setResizable(false);
 
         jLabel1.setText("Gender");
@@ -227,25 +227,14 @@ public class AttributeMapper extends javax.swing.JFrame {
                             .addComponent(ageComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jobRoleComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel9))
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel1))
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel12))
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel13))
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel5))
-                            .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel7)))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
                         .addGap(18, 18, 18)
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(noOfDepComBox, 0, 222, Short.MAX_VALUE)
@@ -357,7 +346,9 @@ public class AttributeMapper extends javax.swing.JFrame {
         };
         for (int i = NumberConstants.ZERO; 
                 i < StringConstants.ATTRIBUTES.length ; i++){
-            attribute attribute = new attribute(StringConstants.ATTRIBUTES[i]);
+            String attr = StringConstants.ATTRIBUTES[i];
+            attribute attribute = new attribute(attr);
+            attribute.setRules(StringConstants.RULES_LIST.get(attr));
             attribute.setMatchingField(mappedAttributes[i]);
             attributes.add(attribute);
         }        
