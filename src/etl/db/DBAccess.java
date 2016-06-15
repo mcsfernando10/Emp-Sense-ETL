@@ -49,10 +49,29 @@ public class DBAccess {
     } 
     
     
-    public void insertEmployeeData(String[] employeeRow) {
+    public void insertData(String tableName,String[] employeeRow) {
         try {            
             int stringArrSize = employeeRow.length;
-            String query = "Insert into employeesIT values (";
+            String query = "Insert into " + tableName + " values (";
+            for(int i=0;i<stringArrSize;i++){
+                if(i==stringArrSize-1)
+                    query += "'" + employeeRow[i] + "','0.0'";
+                else
+                    query += "'" + employeeRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertRawData(String tableName,String[] employeeRow) {
+        try {            
+            int stringArrSize = employeeRow.length;
+            String query = "Insert into " + tableName + " values (";
             for(int i=0;i<stringArrSize;i++){
                 if(i==stringArrSize-1)
                     query += "'" + employeeRow[i] + "'";

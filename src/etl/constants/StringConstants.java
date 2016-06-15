@@ -53,162 +53,196 @@ public class StringConstants {
     public static final String WARNING = "Warning";
     
     //Attribute Mapper View
+    //Attributes
+    public static final String EMPLOYEE_ID = "Employee ID";
+    public static final String EMPLOYEE_NAME = "Employee Name";
+    public static final String AGE = "Age";
+    public static final String GENDER = "Gender";
+    public static final String MARITAL_STAT = "Marital Status";
+    public static final String HAVING_DEGREE = "Having Degree";
+    public static final String JOB_ROLE = "Job Role";
+    public static final String TENURE = "Tenure";
+    public static final String SALARY = "Salary";
+    public static final String NO_OF_LEAVES = "No of Leaves";
+    public static final String DISTANCE = "Distance";
+    public static final String NO_OF_DEPENDENTS = "No of Dependents";
+    public static final String CHURN = "Churn";
+    
+    //Rules
+    public static final String SELECT_A_RULE = "Select a Rule";
+    public static final String REMOVE_NULL_ROWS = "Remove Null Value Rows";
+    public static final String REMOVE_DUPLICATES = "Remove Duplicates";
+    public static final String SORT = "Sort";
+    public static final String FILL_MISSING_VALUES = "Fill Missing Values";
+    public static final String NUMBER_VALIDATION = "Number Validation";
     //*To add new attribute
+    
     public static final String[] ATTRIBUTES = new String[]{
-        "Employee ID", "Employee Name", "Age", "Gender", "Marital Status", 
-        "Having Degree", "Job Role", "Tenure",
-        "Salary", "No of Leaves", "Distance", "No of Dependents"
+        EMPLOYEE_ID, EMPLOYEE_NAME, AGE , GENDER, MARITAL_STAT, 
+        HAVING_DEGREE, JOB_ROLE, TENURE,
+        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS, CHURN
     };
     public static final Map<String, List<String>> RULES_LIST = 
             new HashMap<String, List<String>>(){
         {
-            put("Employee ID", 
+            put(EMPLOYEE_ID, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Remove Duplicates");
-                            add("Sort");                            
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(SORT);                            
                         };
                     }
             );
             
-            put("Employee Name", 
+            put(EMPLOYEE_NAME, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Remove Duplicates");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Age", 
+            put(AGE, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Gender", 
+            put(GENDER, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Marital Status", 
+            put(MARITAL_STAT, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Having Degree", 
+            put(HAVING_DEGREE, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Job Role", 
+            put(JOB_ROLE, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Tenure", 
+            put(TENURE, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Salary", 
+            put(SALARY, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("No of Leaves", 
+            put(NO_OF_LEAVES, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("Distance", 
+            put(DISTANCE, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
                         };
                     }
             );
             
-            put("No of Dependents", 
+            put(NO_OF_DEPENDENTS, 
                     new ArrayList<String>()
                     {
                         { 
-                            add("Select a Rule");
-                            add("Remove Null Value Rows");
-                            add("Number Validation");
-                            add("Fill Missing Values");
-                            add("Sort");
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(CHURN, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(SORT);                            
                         };
                     }
             );

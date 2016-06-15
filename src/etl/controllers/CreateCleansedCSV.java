@@ -78,14 +78,21 @@ public class CreateCleansedCSV implements Runnable{
     * Insert cleansed data into database
     */
     private void insertData(){
+        //To insert original values
         ReadCSV.selectedFilePath = "src/etl/outputs/cleansed.csv";
         ReadCSV csvReaderForInsert = new ReadCSV();
         List<String[]> csvData = csvReaderForInsert.readCSVFile();
         
+        //To insert raw values
+        ReadCSV.selectedFilePath = "src/etl/outputs/rawData.csv";
+        csvReaderForInsert = new ReadCSV();
+        List<String[]> csvRawData = csvReaderForInsert.readCSVFile();
         int size = csvData.size();
         DBAccess dbAccess = new DBAccess();
-        for(int i = NumberConstants.ONE;i<size;i++){            
-            dbAccess.insertEmployeeData(csvData.get(i));
+        for(int i = NumberConstants.ONE;i<size;i++){
+            String[] data = csvData.get(i);
+            dbAccess.insertData("employeesIT",csvData.get(i));
+            dbAccess.insertRawData("employeesIT_raw",csvRawData.get(i));
             dbDialog.setInsertProgress(size, i);
         }
     }

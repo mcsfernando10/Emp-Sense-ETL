@@ -44,5 +44,31 @@ for x in reversed(range(length)):
             cleansedTable = etl.select(cleansedTable, attr)
         if rules[y] == "Fill Missing Values":
             cleansedTable = etl.filldown(cleansedTable, attr)
-            
+
 etl.tocsv(cleansedTable,'src/etl/outputs/cleansed.csv')
+
+#Create rawData Table
+rawDataTable = cleansedTable
+
+mappings = OrderedDict()
+#mapping attributes
+mappings['Employee ID'] = 'Employee ID'
+mappings['Employee Name'] = 'Employee Name'
+mappings['Age'] = 'Age'
+mappings['Gender'] = 'Gender', {'Male': 0, 'Female': 1}
+mappings['Marital Status'] = 'Marital Status', {'Single': 0, 'Married': 1}
+mappings['Having Degree'] = 'Having Degree', {'No': 0, 'Yes': 1}
+mappings['Job Role'] = 'Job Role', {'': 0, 'IT': 1,'IT Trainee': 2, 'Software Engineering Intern': 3,
+    'IT Officer - Intern': 4, 'Developer Intern': 5, 'System Admin': 6,'Software Architecturer': 7,
+    'Tech Lead': 8,'System Analyst': 9, 'QA Mananger': 10,'Software Engineer': 11,'IT Manager': 12,
+    'IT App Man': 13,'IT Project Leader': 14}
+mappings['Tenure'] = 'Tenure'
+mappings['Salary'] = 'Salary'
+mappings['No of Leaves'] = 'No of Leaves'
+mappings['Distance'] = 'Distance'
+mappings['No of Dependents'] = 'No of Dependents'
+mappings['Churn'] = 'Churn'
+
+mappedRawDataTable = etl.fieldmap(rawDataTable, mappings)
+
+etl.tocsv(mappedRawDataTable,'src/etl/outputs/rawData.csv')

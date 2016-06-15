@@ -85,6 +85,8 @@ public class AttributeMapper extends javax.swing.JFrame {
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelNoOfDep 
                 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelChurn 
+                = new DefaultComboBoxModel<>(header);
         
         employeeIDComBox.setModel(modelEmployeeID);
         employeeNameComBox.setModel(modelEmployeeName);
@@ -98,6 +100,7 @@ public class AttributeMapper extends javax.swing.JFrame {
         noOfLeavesComBox.setModel(modelNoOfLeaves);
         distanceComBox.setModel(modelDistance);
         noOfDepComBox.setModel(modelNoOfDep);
+        churnComBox.setModel(modelChurn);
     }
     
     /**
@@ -136,6 +139,8 @@ public class AttributeMapper extends javax.swing.JFrame {
         havingDegreeComBox = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         tenureComBox = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        churnComBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Attribute Mapper (IT Industry)");
@@ -212,6 +217,10 @@ public class AttributeMapper extends javax.swing.JFrame {
 
         tenureComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        jLabel14.setText("Churn");
+
+        churnComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout attributeListPanelLayout = new javax.swing.GroupLayout(attributeListPanel);
         attributeListPanel.setLayout(attributeListPanelLayout);
         attributeListPanelLayout.setHorizontalGroup(
@@ -222,36 +231,48 @@ public class AttributeMapper extends javax.swing.JFrame {
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(attributeListPanelLayout.createSequentialGroup()
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(maritalStatComBox, 0, 196, Short.MAX_VALUE)
-                            .addComponent(distanceComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(employeeIDComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ageComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jobRoleComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(maritalStatComBox, 0, 196, Short.MAX_VALUE)
+                                    .addComponent(distanceComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(employeeIDComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ageComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jobRoleComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(salaryComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(70, 70, 70)
+                                .addComponent(churnComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(30, 30, 30)
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(18, 18, 18)
-                        .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(noOfDepComBox, 0, 222, Short.MAX_VALUE)
-                            .addComponent(noOfLeavesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(havingDegreeComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(genderComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(employeeNameComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tenureComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 90, Short.MAX_VALUE)
+                                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(noOfDepComBox, 0, 150, Short.MAX_VALUE)
+                                    .addComponent(noOfLeavesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(havingDegreeComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(genderComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(employeeNameComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tenureComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(attributeListPanelLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(defineRulesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
             .addGroup(attributeListPanelLayout.createSequentialGroup()
                 .addGap(260, 260, 260)
@@ -300,7 +321,10 @@ public class AttributeMapper extends javax.swing.JFrame {
                     .addComponent(noOfDepComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addComponent(defineRulesBtn)
+                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(churnComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(defineRulesBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -356,7 +380,8 @@ public class AttributeMapper extends javax.swing.JFrame {
             salaryComBox.getSelectedItem().toString(),
             noOfLeavesComBox.getSelectedItem().toString(),
             distanceComBox.getSelectedItem().toString(),
-            noOfDepComBox.getSelectedItem().toString()
+            noOfDepComBox.getSelectedItem().toString(),
+            churnComBox.getSelectedItem().toString()
         };
         for (int i = NumberConstants.ZERO; 
                 i < StringConstants.ATTRIBUTES.length ; i++){
@@ -374,6 +399,7 @@ public class AttributeMapper extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ageComBox;
     private javax.swing.JPanel attributeListPanel;
+    private javax.swing.JComboBox<String> churnComBox;
     private javax.swing.JButton defineRulesBtn;
     private javax.swing.JComboBox<String> distanceComBox;
     private javax.swing.JComboBox<String> employeeIDComBox;
@@ -385,6 +411,7 @@ public class AttributeMapper extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
