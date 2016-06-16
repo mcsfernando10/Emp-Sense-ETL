@@ -135,7 +135,7 @@
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Ubuntu" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Select Attribute"/>
           </Properties>
@@ -166,7 +166,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Ubuntu" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Selected Field"/>
           </Properties>
@@ -179,7 +179,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Ubuntu" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Rules"/>
           </Properties>
@@ -258,7 +258,7 @@
         <Component class="javax.swing.JButton" name="createDataBtn">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
+              <Font name="Ubuntu" size="15" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Create Data Store"/>
           </Properties>

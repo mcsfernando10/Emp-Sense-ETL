@@ -52,6 +52,9 @@ public class StringConstants {
     public static final String REMOVE_FILE = "Would You Like to remove the selected file?";
     public static final String WARNING = "Warning";
     
+    //Data View
+    public static final String ORIGINAL_CSV_PATH = "src/etl/outputs/originalData.csv";
+    
     //Attribute Mapper View
     //Attributes
     public static final String EMPLOYEE_ID = "Employee ID";

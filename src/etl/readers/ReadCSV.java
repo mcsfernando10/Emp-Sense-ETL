@@ -5,7 +5,8 @@
  */
 package etl.readers;
 
-import au.com.bytecode.opencsv.CSVReader;
+
+import com.opencsv.CSVReader;
 import etl.constants.NumberConstants;
 import etl.controllers.CheckBoxHeader;
 import etl.controllers.CheckBoxItemListener;
@@ -18,8 +19,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -74,6 +73,7 @@ public class ReadCSV implements Runnable{
             //Fill table entries and update progressbar
             for(int i = NumberConstants.ZERO; i < size; i++){
                 model.addRow(tableEntries.get(i));
+                //System.out.println(tableEntries.get(i)[0]);
             }
         } catch (IOException ex) {
             Logger.getLogger(ReadCSV.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,7 +130,7 @@ public class ReadCSV implements Runnable{
     }
     
     public String[] getCheckBoxes(){
-        List<String> columnName = new ArrayList<String>();
+        List<String> columnName = new ArrayList<>();
         int j = 0;
         //To add checkbox in table columns
         for(int i = NumberConstants.ZERO;i<tableView.getColumnCount();i++){

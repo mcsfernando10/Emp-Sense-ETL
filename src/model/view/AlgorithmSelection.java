@@ -5,10 +5,8 @@
  */
 package model.view;
 
-import au.com.bytecode.opencsv.CSVReader;
+import com.opencsv.CSVReader;
 import etl.constants.StringConstants;
-import static etl.readers.ReadCSV.selectedFilePath;
-import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -184,7 +181,7 @@ public class AlgorithmSelection extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(randomForestRadioBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                .addComponent(jLabel4)
                 .addGap(14, 14, 14))
         );
 

@@ -22,7 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  *
  * @author suren
  */
-public class ReadExcel {
+public class ReadOriginalExcelandWrite {
     public DefaultTableModel readExcelFrom(String filePath){
         FileInputStream file = null;
         DefaultTableModel model = null;
@@ -57,14 +57,14 @@ public class ReadExcel {
                 System.out.println("");
             }   
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ReadExcel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadOriginalExcelandWrite.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(ReadExcel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadOriginalExcelandWrite.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 file.close();
             } catch (IOException ex) {
-                Logger.getLogger(ReadExcel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ReadOriginalExcelandWrite.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return model;

@@ -6,11 +6,17 @@
 package etl.views;
 
 import etl.constants.StringConstants;
+import static etl.controllers.CreateCleansedCSV.filePath;
+import etl.readers.ReadOriginalExcelandWrite;
+import etl.readers.ReadOriginalJSONandWrite;
+import etl.readers.ReadOriginalCSVandWrite;
+import etl.readers.ReadOriginalXMLAndWriteCSV;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class Extract extends javax.swing.JFrame {
 
     //All declared variables
-    private String selectedIndustry;
+    //private String selectedIndustry;
     private String selectedFileType;
     private String selectedFilePath;
     private JFileChooser sourceFileChooser;
@@ -29,8 +35,9 @@ public class Extract extends javax.swing.JFrame {
      */
     public Extract() {
         initComponents();
+        loadingFileLbl.setVisible(false);
         
-        selectedIndustry = StringConstants.IT;
+        //selectedIndustry = StringConstants.IT;
         selectedFileType = StringConstants.CSV_EXTENSION;
         selectedFilePath = StringConstants.EMPTY_STRING;
         sourceFileChooser = new JFileChooser();
@@ -60,19 +67,20 @@ public class Extract extends javax.swing.JFrame {
         filePathTxt = new javax.swing.JTextField();
         fileTypeComBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        loadingFileLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Extract Data (IT Industry)");
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setText("Select the file type");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("Source File");
 
-        extractBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        extractBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +88,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
-        cancelBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        cancelBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +96,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
-        browseBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        browseBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +115,11 @@ public class Extract extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Extract Data");
+
+        loadingFileLbl.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        loadingFileLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
+        loadingFileLbl.setText("Loading File.....");
+        loadingFileLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -130,7 +143,8 @@ public class Extract extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(extractBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cancelBtn)))))
+                                .addComponent(cancelBtn))
+                            .addComponent(loadingFileLbl))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,7 +165,9 @@ public class Extract extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(extractBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(loadingFileLbl)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,8 +201,36 @@ public class Extract extends javax.swing.JFrame {
                     StringConstants.PLEASE_ENTER_TABLENAME);
         }*/
         else{
-            dispose();
-            new DataView(selectedFilePath, selectedFileType).setVisible(true);
+            loadingFileLbl.setVisible(true);
+            this.setEnabled(false);
+            switch(selectedFileType){
+                case StringConstants.CSV_EXTENSION:
+                    ReadOriginalCSVandWrite csvReader = new ReadOriginalCSVandWrite();
+                    ReadOriginalCSVandWrite.selectedFilePath = selectedFilePath;   
+                    ReadOriginalCSVandWrite.extractView = this;
+                    csvReader.start();
+                    break;
+                case StringConstants.XML_EXTENSION:
+                    ReadOriginalXMLAndWriteCSV xmlReader = new ReadOriginalXMLAndWriteCSV();
+                    ReadOriginalXMLAndWriteCSV.selectedFilePath = selectedFilePath;
+                    ReadOriginalXMLAndWriteCSV.extractView = this;
+                    xmlReader.start();
+                    //xmlRead();
+                    break;
+                case StringConstants.EXCEL_EXTENSION:
+                    ReadOriginalExcelandWrite excelReader = new ReadOriginalExcelandWrite();
+                    DefaultTableModel excelModel = excelReader.readExcelFrom(filePath); 
+                    //dataTableView.setModel(excelModel);
+                    break;
+                case StringConstants.JSON_EXTENSION:
+                    ReadOriginalJSONandWrite jsonReader = new ReadOriginalJSONandWrite();
+                    ReadOriginalJSONandWrite.selectedFilePath = selectedFilePath;
+                    ReadOriginalJSONandWrite.extractView = this;
+                    jsonReader.start();
+                    break;
+                case StringConstants.SQL_EXTENSION:
+                    break;
+            }            
         }        
     }//GEN-LAST:event_extractBtnActionPerformed
 
@@ -354,5 +398,6 @@ public class Extract extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel loadingFileLbl;
     // End of variables declaration//GEN-END:variables
 }

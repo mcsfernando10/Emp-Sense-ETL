@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 public class CreateCleansedCSV implements Runnable{
 
     public static String filePath;
-    public static String fileType;
     public static CreatingDBDialog dbDialog;
     //Private variables
     private Thread thread;

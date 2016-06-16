@@ -7,11 +7,7 @@ package etl.views;
 
 import etl.constants.StringConstants;
 import etl.readers.ReadCSV;
-import etl.readers.ReadExcel;
-import etl.readers.ReadJSON;
-import etl.readers.ReadXML;
 import javax.swing.ImageIcon;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,57 +20,23 @@ public class DataView extends javax.swing.JFrame {
      */
     //All declared variables
     private String filePath;
-    private String fileType;
     
     //Readers
     private ReadCSV csvReader;
-    private ReadXML xmlReader;
-    private ReadJSON jsonReader;
     
     private String[] headers;
-    public DataView(String selectedFilePath, String selectedFileType) {
+    public DataView(String selectedFilePath) {
         initComponents();
         
         setWindowIcon();
                 
-        this.filePath = selectedFilePath;   
-        this.fileType = selectedFileType;
-        
-        switch(fileType){
-            case StringConstants.CSV_EXTENSION:
-                csvReader = new ReadCSV();
-                ReadCSV.selectedFilePath = filePath;
-                ReadCSV.tableView = dataTableView;
-                ReadCSV.jLableProgress = progressLable;
-                ReadCSV.extractBtn = mapAttrBtn;                
-                csvReader.start();
-                break;
-            case StringConstants.XML_EXTENSION:
-                xmlReader = new ReadXML();
-                ReadXML.selectedFilePath = filePath;
-                ReadXML.tableView = dataTableView;
-                ReadXML.jLableProgress = progressLable;
-                ReadXML.extractBtn = mapAttrBtn;
-                xmlReader.start();
-                //xmlRead();
-                break;
-            case StringConstants.EXCEL_EXTENSION:
-                ReadExcel excelReader = new ReadExcel();
-                DefaultTableModel excelModel = 
-                        excelReader.readExcelFrom(filePath); 
-                dataTableView.setModel(excelModel);
-                break;
-            case StringConstants.JSON_EXTENSION:
-                jsonReader = new ReadJSON();
-                ReadJSON.selectedFilePath = filePath;
-                ReadJSON.tableView = dataTableView;
-                ReadJSON.jLableProgress = progressLable;
-                ReadJSON.extractBtn = mapAttrBtn;
-                jsonReader.start();
-                break;
-            case StringConstants.SQL_EXTENSION:
-                break;
-        }      
+        this.filePath = selectedFilePath;
+        csvReader = new ReadCSV();
+        ReadCSV.selectedFilePath = filePath;
+        ReadCSV.tableView = dataTableView;
+        ReadCSV.jLableProgress = progressLable;
+        ReadCSV.extractBtn = mapAttrBtn;
+        csvReader.start();                
     }  
     
     
@@ -201,26 +163,10 @@ public class DataView extends javax.swing.JFrame {
     */
     private void mapAttrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapAttrBtnActionPerformed
         //To get headers string array to bind in jcombobox
-        switch(fileType){
-            case StringConstants.CSV_EXTENSION:                
-                headers = csvReader.getCheckBoxes();
-                //addCheckBox();
-                break;
-            case StringConstants.XML_EXTENSION:
-                headers = xmlReader.getHeaders();
-                //addCheckBox();
-                break;
-            case StringConstants.EXCEL_EXTENSION:
+        headers = csvReader.getCheckBoxes();
                 
-                break;
-            case StringConstants.JSON_EXTENSION:
-                headers = jsonReader.getHeaders();
-                break;
-            case StringConstants.SQL_EXTENSION:
-                break;
-        }
         dispose();
-        new AttributeMapper(filePath,fileType,headers).setVisible(true);       
+        new AttributeMapper(StringConstants.ORIGINAL_CSV_PATH, headers).setVisible(true);       
     }//GEN-LAST:event_mapAttrBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

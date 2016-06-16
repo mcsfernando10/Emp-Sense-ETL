@@ -38,11 +38,9 @@ public class DefineRules extends javax.swing.JFrame {
     private final List<attribute> attributes;
     private DefaultListModel model;
     private String filePath;
-    private String fileType;
     public DefineRules(
             List<attribute> passedAttributes, 
-            String selFilePath,
-            String selFileType
+            String selFilePath
     ) {
         initComponents();
         
@@ -50,7 +48,6 @@ public class DefineRules extends javax.swing.JFrame {
                 
         this.attributes = passedAttributes;
         this.filePath = selFilePath;
-        this.fileType = selFileType;
         //attributes = new ArrayList<>();
         
         //Generate attribute Selection List
@@ -115,7 +112,7 @@ public class DefineRules extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jLabel4.setText("Add Rules for Attributes");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel2.setText("Select Attribute");
 
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -130,12 +127,12 @@ public class DefineRules extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(attributeList);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel1.setText("Selected Field");
 
         selectedFieldTxt.setEditable(false);
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         jLabel3.setText("Rules");
 
         rulesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Rule", "Remove Null Value Rows", "Clean Number values with Average" }));
@@ -168,7 +165,7 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
 
-        createDataBtn.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        createDataBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
         createDataBtn.setText("Create Data Store");
         createDataBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -374,7 +371,6 @@ public class DefineRules extends javax.swing.JFrame {
                 "Creating Database....", "Please Wait.....");
         dialog.setSize(300, 200);         
         CreateCleansedCSV.filePath = filePath;
-        CreateCleansedCSV.fileType = fileType;
         CreateCleansedCSV.dbDialog = dialog;
         
         //Create rules json file
@@ -508,7 +504,7 @@ public class DefineRules extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv","").setVisible(true);
+                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv").setVisible(true);
             }
         });
     }
