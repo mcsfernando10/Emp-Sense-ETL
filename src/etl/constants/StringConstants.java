@@ -31,6 +31,9 @@ public class StringConstants {
     public static final String SQL_CAPITAL = "SQL";
     public static final String SQL_EXTENSION = "sql";
     
+    public static final String TEXTFILE_CAPITAL = "Text File";
+    public static final String TEXTFILE_EXTENSION = "txt";
+    
     public static final String EMPTY_STRING = "";
     public static final String QUESTION_MARK = "?";
     public static final String AND_SIGN = "&";
@@ -45,12 +48,20 @@ public class StringConstants {
     public static final String INCORRECT_CREDENTIALS = "Incorrect Login Credentials";
     public static final String IT = "IT";   
     
+    //Home View
+    public static final String DASHBOARD_URL = "http://localhost/Emp-Sense-Dashboard/index.php";
+    public static final String DASHBOARD_NOT_AVAIL = "Sorry, Dashboard is not available.";
+    public static final String DASHBOARD_ERROR = "Dashboard Error";
+    
     //Extract View
     public static final String PLEASE_SELECT_FILE = "Please select a source file";
     public static final String PLEASE_ENTER_TABLENAME = "Please please enter a name for table";
     
     public static final String REMOVE_FILE = "Would You Like to remove the selected file?";
     public static final String WARNING = "Warning";
+    
+    public static final String CLOSE_WINDOW_QUESTION = "Are you sure to close this window?";
+    public static final String CLOSE_WINDOW = "Closing Window";   
     
     //Data View
     public static final String ORIGINAL_CSV_PATH = "src/etl/outputs/originalData.csv";

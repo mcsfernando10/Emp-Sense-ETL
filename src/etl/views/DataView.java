@@ -5,9 +5,12 @@
  */
 package etl.views;
 
+import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
 import etl.readers.ReadCSV;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -59,7 +62,13 @@ public class DataView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Data View (IT Industry)");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
+        mapAttrBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         mapAttrBtn.setText("Map Attributes");
         mapAttrBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,10 +98,10 @@ public class DataView extends javax.swing.JFrame {
         dataTableView.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(dataTableView);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("View of Selected Data");
 
-        progressLable.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        progressLable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         progressLable.setText("Loading Table......");
         progressLable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -111,7 +120,7 @@ public class DataView extends javax.swing.JFrame {
                                 .addComponent(jLabel1)
                                 .addGap(18, 18, 18)
                                 .addComponent(progressLable)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 500, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mapAttrBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -168,6 +177,22 @@ public class DataView extends javax.swing.JFrame {
         dispose();
         new AttributeMapper(StringConstants.ORIGINAL_CSV_PATH, headers).setVisible(true);       
     }//GEN-LAST:event_mapAttrBtnActionPerformed
+
+    /*
+    * @Method formWindowClosing 
+    * Prevent closing system and display home page
+    * @param  WindowEvent
+    */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        if (JOptionPane.showConfirmDialog(this, 
+            StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                dispose();
+                new HomeView().setVisible(true);
+        } 
+    }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dataTableView;

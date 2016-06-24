@@ -6,6 +6,7 @@
 package etl.views;
 
 import com.google.gson.Gson;
+import etl.commonViews.HomeView;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CreateCleansedCSV;
@@ -20,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -108,11 +110,16 @@ public class DefineRules extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Add Rules for Attributes  (IT Industry)");
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Add Rules for Attributes");
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Select Attribute");
 
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,12 +134,12 @@ public class DefineRules extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(attributeList);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Selected Field");
 
         selectedFieldTxt.setEditable(false);
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Rules");
 
         rulesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Rule", "Remove Null Value Rows", "Clean Number values with Average" }));
@@ -165,7 +172,7 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
 
-        createDataBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        createDataBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         createDataBtn.setText("Create Data Store");
         createDataBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -240,8 +247,8 @@ public class DefineRules extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,6 +385,22 @@ public class DefineRules extends javax.swing.JFrame {
         CreateCleansedCSV cleanCSV = new CreateCleansedCSV();
         cleanCSV.start();        
     }//GEN-LAST:event_createDataBtnMouseClicked
+
+    /*
+    * @Method formWindowClosing 
+    * Prevent closing system and display home page
+    * @param  WindowEvent
+    */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        if (JOptionPane.showConfirmDialog(this, 
+            StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                dispose();
+                new HomeView().setVisible(true);
+        } 
+    }//GEN-LAST:event_formWindowClosing
 
     /*
     * @Method populateRulesList

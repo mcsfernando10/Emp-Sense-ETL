@@ -5,16 +5,20 @@
  */
 package etl.views;
 
+import etl.commonViews.HomeView;
+import etl.commonViews.Login;
 import etl.constants.StringConstants;
 import static etl.controllers.CreateCleansedCSV.filePath;
 import etl.readers.ReadOriginalExcelandWrite;
 import etl.readers.ReadOriginalJSONandWrite;
 import etl.readers.ReadOriginalCSVandWrite;
+import etl.readers.ReadOriginalTxtAndWrite;
 import etl.readers.ReadOriginalXMLAndWriteCSV;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -73,14 +77,19 @@ public class Extract extends javax.swing.JFrame {
         setTitle("EmpSense - Extract Data (IT Industry)");
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Select the file type");
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Source File");
 
-        extractBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        extractBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         extractBtn.setText("Extract");
         extractBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,7 +97,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
-        cancelBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        cancelBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +105,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
 
-        browseBtn.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        browseBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         browseBtn.setText("Browse");
         browseBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,17 +115,17 @@ public class Extract extends javax.swing.JFrame {
 
         filePathTxt.setEditable(false);
 
-        fileTypeComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CSV", "XML", "Excel", "JSON", "SQL" }));
+        fileTypeComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Text File", "CSV", "XML", "JSON" }));
         fileTypeComBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fileTypeComBoxActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Extract Data");
 
-        loadingFileLbl.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        loadingFileLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loadingFileLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         loadingFileLbl.setText("Loading File.....");
         loadingFileLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -228,6 +237,12 @@ public class Extract extends javax.swing.JFrame {
                     ReadOriginalJSONandWrite.extractView = this;
                     jsonReader.start();
                     break;
+                case StringConstants.TEXTFILE_EXTENSION:                    
+                    ReadOriginalTxtAndWrite txtReader = new ReadOriginalTxtAndWrite();
+                    ReadOriginalTxtAndWrite.selectedFilePath = selectedFilePath;
+                    ReadOriginalTxtAndWrite.extractView = this;
+                    txtReader.start();
+                    break;
                 case StringConstants.SQL_EXTENSION:
                     break;
             }            
@@ -262,7 +277,13 @@ public class Extract extends javax.swing.JFrame {
     * @param  Action Event
     */
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        dispose();              
+        if (JOptionPane.showConfirmDialog(this, 
+            StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                dispose();
+                new HomeView().setVisible(true);
+        }
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     /*
@@ -294,10 +315,30 @@ public class Extract extends javax.swing.JFrame {
                 break;     
             case StringConstants.SQL_CAPITAL:
                 //Set the selected file type
-                resetSelectedSourceFile(StringConstants.SQL_EXTENSION);             
+                resetSelectedSourceFile(StringConstants.SQL_EXTENSION); 
+                break;
+            case StringConstants.TEXTFILE_CAPITAL:
+                //Set the selected file type
+                resetSelectedSourceFile(StringConstants.TEXTFILE_EXTENSION);
                 break;   
         }
     }//GEN-LAST:event_fileTypeComBoxActionPerformed
+
+    /*
+    * @Method formWindowClosing 
+    * Prevent closing system and display home page
+    * @param  WindowEvent
+    */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        if (JOptionPane.showConfirmDialog(this, 
+            StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                dispose();
+                new HomeView().setVisible(true);
+        }        
+    }//GEN-LAST:event_formWindowClosing
 
     /*
     * @Method resetSelectedSourceFile 
@@ -308,7 +349,7 @@ public class Extract extends javax.swing.JFrame {
         //Check whether the file is selected 
         if(!selectedFilePath.equals(StringConstants.EMPTY_STRING)){
             int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog (null, 
+            int dialogResult = JOptionPane.showConfirmDialog (this, 
                     StringConstants.REMOVE_FILE,
                     StringConstants.WARNING,dialogButton);
             if(dialogResult == JOptionPane.YES_OPTION){
@@ -343,7 +384,11 @@ public class Extract extends javax.swing.JFrame {
                     case StringConstants.SQL_EXTENSION:
                         //Set the selected file type
                         fileTypeComBox.setSelectedItem(StringConstants.SQL_CAPITAL);            
-                        break;   
+                        break; 
+                    case StringConstants.TEXTFILE_EXTENSION:
+                        //Set the selected file type
+                        fileTypeComBox.setSelectedItem(StringConstants.TEXTFILE_CAPITAL);            
+                        break;
                 }
             }
         }

@@ -5,6 +5,7 @@
  */
 package etl.controllers;
 
+import etl.commonViews.HomeView;
 import java.awt.BorderLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -81,6 +82,7 @@ public class CreatingDBDialog extends JDialog {
             dispose();
             //Close Define Rule Window
             defineRulesFrame.dispose();
+            new HomeView().setVisible(true);
         }
     }
 }
