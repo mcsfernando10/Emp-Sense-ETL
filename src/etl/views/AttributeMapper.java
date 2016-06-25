@@ -8,6 +8,7 @@ package etl.views;
 import etl.commonViews.HomeView;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
+import etl.dictionary.SynonymDictionary;
 import etl.models.attribute;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,23 @@ public class AttributeMapper extends javax.swing.JFrame {
         distanceComBox.setModel(modelDistance);
         noOfDepComBox.setModel(modelNoOfDep);
         churnComBox.setModel(modelChurn);
+        
+        SynonymDictionary dictionary = new SynonymDictionary();
+        
+        //Automate dropdown selection
+        employeeIDComBox.setSelectedIndex(dictionary.getIndex(StringConstants.EMPLOYEE_ID, header));
+        employeeNameComBox.setSelectedIndex(dictionary.getIndex(StringConstants.EMPLOYEE_NAME, header));
+        ageComBox.setSelectedIndex(dictionary.getIndex(StringConstants.AGE, header));
+        genderComBox.setSelectedIndex(dictionary.getIndex(StringConstants.GENDER, header));
+        maritalStatComBox.setSelectedIndex(dictionary.getIndex(StringConstants.MARITAL_STAT, header));
+        havingDegreeComBox.setSelectedIndex(dictionary.getIndex(StringConstants.HAVING_DEGREE, header));
+        jobRoleComBox.setSelectedIndex(dictionary.getIndex(StringConstants.JOB_ROLE, header));
+        tenureComBox.setSelectedIndex(dictionary.getIndex(StringConstants.TENURE, header));
+        salaryComBox.setSelectedIndex(dictionary.getIndex(StringConstants.SALARY, header));
+        noOfLeavesComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_LEAVES, header));
+        distanceComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DISTANCE, header));
+        noOfDepComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_DEPENDENTS, header));
+        churnComBox.setSelectedIndex(dictionary.getIndex(StringConstants.CHURN, header));
     }
     
     /**

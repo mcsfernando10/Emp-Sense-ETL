@@ -42,7 +42,7 @@ public class Extract extends javax.swing.JFrame {
         loadingFileLbl.setVisible(false);
         
         //selectedIndustry = StringConstants.IT;
-        selectedFileType = StringConstants.CSV_EXTENSION;
+        selectedFileType = StringConstants.TEXTFILE_EXTENSION;
         selectedFilePath = StringConstants.EMPTY_STRING;
         sourceFileChooser = new JFileChooser();
         
