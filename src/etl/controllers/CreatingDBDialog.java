@@ -6,8 +6,8 @@
 package etl.controllers;
 
 import etl.commonViews.HomeView;
+import etl.constants.StringConstants;
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -33,7 +33,7 @@ public class CreatingDBDialog extends JDialog {
         // Create a message
         JPanel messagePane = new JPanel();
         progressLabel = new JLabel(message);
-        progressLabel.setIcon(new ImageIcon("src/etl/images/please_wait.gif"));
+        progressLabel.setIcon(new ImageIcon(StringConstants.WAITING_IMG_PATH));
         progressLabel.setVerticalTextPosition(JLabel.BOTTOM);
         progressLabel.setHorizontalTextPosition(JLabel.CENTER);
         messagePane.add(progressLabel);
@@ -43,7 +43,7 @@ public class CreatingDBDialog extends JDialog {
 
         // Create a button
         JPanel buttonPane = new JPanel();
-        button = new JButton("Done");
+        button = new JButton(StringConstants.DONE_TXT);
         buttonPane.add(button);
         getContentPane().add(buttonPane, BorderLayout.PAGE_END);
         button.setVisible(false);
@@ -58,7 +58,7 @@ public class CreatingDBDialog extends JDialog {
     }
 
     public void setInsertProgress(int size,int row){
-        progressLabel.setText(row + " of " + (size-1) + " Inserted into Database");
+        progressLabel.setText(row + " of " + (size-1) + StringConstants.DB_INSERT_MSG);
     }
     
     public void setButtonVisible(){
@@ -67,9 +67,9 @@ public class CreatingDBDialog extends JDialog {
 
     public void setLabelText(){
         this.setSize(300, 200);
-        progressLabel.setText("Successfully Updated the Database");
-        progressLabel.setIcon(new ImageIcon("src/etl/images/success_db.png"));
-        this.setTitle("Database Creation Done");        
+        progressLabel.setText(StringConstants.DB_UPDATE_SUCCESS_MSG);
+        progressLabel.setIcon(new ImageIcon(StringConstants.SUCCESS_IMG_PATH));
+        this.setTitle(StringConstants.DB_CREATION_MSG);        
     }
     /* an action listener to be used when an action is performed when the 
        button is pressed */

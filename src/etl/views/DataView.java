@@ -7,6 +7,7 @@ package etl.views;
 
 import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
+import etl.controllers.CreateSelectDBTableDialog;
 import etl.readers.ReadCSV;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,10 +23,10 @@ public class DataView extends javax.swing.JFrame {
      * Creates new form DataView
      */
     //All declared variables
-    private String filePath;
+    private final String filePath;
     
     //Readers
-    private ReadCSV csvReader;
+    private final ReadCSV csvReader;
     
     private String[] headers;
     public DataView(String selectedFilePath) {
@@ -173,9 +174,10 @@ public class DataView extends javax.swing.JFrame {
     private void mapAttrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapAttrBtnActionPerformed
         //To get headers string array to bind in jcombobox
         headers = csvReader.getCheckBoxes();
-                
-        dispose();
-        new AttributeMapper(StringConstants.ORIGINAL_CSV_PATH, headers).setVisible(true);       
+        
+        //Select DB Table - Predict or Train Database
+        CreateSelectDBTableDialog selectDBTable = new CreateSelectDBTableDialog(this,headers);
+        selectDBTable.setSize(300, 120); 
     }//GEN-LAST:event_mapAttrBtnActionPerformed
 
     /*

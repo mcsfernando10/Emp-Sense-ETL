@@ -11,6 +11,7 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CreateCleansedCSV;
 import etl.controllers.CreatingDBDialog;
+import etl.controllers.CreateSelectDBTableDialog;
 import etl.models.attribute;
 import java.awt.event.KeyEvent;
 import java.io.FileWriter;
@@ -39,10 +40,11 @@ public class DefineRules extends javax.swing.JFrame {
     //All declared variables
     private final List<attribute> attributes;
     private DefaultListModel model;
-    private String filePath;
+    private final String filePath;
+    private int predictOrTrainData;
     public DefineRules(
             List<attribute> passedAttributes, 
-            String selFilePath
+            String selFilePath, int predictOrTrainData
     ) {
         initComponents();
         
@@ -50,6 +52,7 @@ public class DefineRules extends javax.swing.JFrame {
                 
         this.attributes = passedAttributes;
         this.filePath = selFilePath;
+        this.predictOrTrainData = predictOrTrainData;
         //attributes = new ArrayList<>();
         
         //Generate attribute Selection List
@@ -64,13 +67,13 @@ public class DefineRules extends javax.swing.JFrame {
         for (int i = NumberConstants.ZERO; i < listModel.getSize(); i++) {
             attributes.add((new attribute(listModel.getElementAt(i))));
         }      */
-        attributeList.setSelectedIndex(0);
+        attributeList.setSelectedIndex(NumberConstants.ZERO);
         String selectedAttr = attributeList.getSelectedValue();
         selectedFieldTxt.setText(selectedAttr); 
         
         List<String> definedRules = getAttributeFromName(selectedAttr).getDefinedRulesList();
         DefaultComboBoxModel<String> definedRulesModel
-                = new DefaultComboBoxModel<>(definedRules.toArray(new String[0]));
+                = new DefaultComboBoxModel<>(definedRules.toArray(new String[NumberConstants.ZERO]));
         rulesComBox.setModel(definedRulesModel);
     }
 
@@ -375,11 +378,11 @@ public class DefineRules extends javax.swing.JFrame {
     private void createDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createDataBtnMouseClicked
         //Show popup window
         CreatingDBDialog dialog = new CreatingDBDialog(this, 
-                "Creating Database....", "Please Wait.....");
+               StringConstants.CREATING_DB , StringConstants.PLEASE_WAIT);
         dialog.setSize(300, 200);         
         CreateCleansedCSV.filePath = filePath;
         CreateCleansedCSV.dbDialog = dialog;
-        
+        CreateCleansedCSV.selectedDBTable = predictOrTrainData;
         //Create rules json file
         createJSONFile();
         CreateCleansedCSV cleanCSV = new CreateCleansedCSV();
@@ -477,11 +480,11 @@ public class DefineRules extends javax.swing.JFrame {
             }
             
             JSONObject mainJSONObj = new JSONObject();
-            mainJSONObj.put("attibutes", attrs);
-            mainJSONObj.put("filePath", filePath);
+            mainJSONObj.put(StringConstants.ATTRIBUTES_TXT, attrs);
+            mainJSONObj.put(StringConstants.FILE_PATH_TXT, filePath);
             FileWriter file;
             try {
-                file = new FileWriter("src/etl/outputs/attributes.json");
+                file = new FileWriter(StringConstants.ATTR_JSON_PATH);
                 file.write(mainJSONObj.toJSONString());
                 file.flush();
                 file.close();
@@ -527,7 +530,7 @@ public class DefineRules extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv").setVisible(true);
+                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv",1).setVisible(true);
             }
         });
     }

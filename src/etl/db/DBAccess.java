@@ -49,11 +49,12 @@ public class DBAccess {
     } 
     
     
-    public void insertData(String tableName,String[] employeeRow) {
+    public void insertDataToTrainTable(String tableName,String[] employeeRow) {
         try {            
             int stringArrSize = employeeRow.length;
             String query = "Insert into " + tableName + " values (";
             for(int i=0;i<stringArrSize;i++){
+                //Insert churn probability initially - 0.0
                 if(i==stringArrSize-1)
                     query += "'" + employeeRow[i] + "','0.0'";
                 else
@@ -68,13 +69,53 @@ public class DBAccess {
         }
     }
     
-    public void insertRawData(String tableName,String[] employeeRow) {
+    public void insertRawDataToTrainTable(String tableName,String[] employeeRow) {
         try {            
             int stringArrSize = employeeRow.length;
             String query = "Insert into " + tableName + " values (";
             for(int i=0;i<stringArrSize;i++){
                 if(i==stringArrSize-1)
                     query += "'" + employeeRow[i] + "'";
+                else
+                    query += "'" + employeeRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertDataToPredictTable(String tableName,String[] employeeRow) {
+        try {            
+            int stringArrSize = employeeRow.length;
+            String query = "Insert into " + tableName + " values (";
+            for(int i=0;i<stringArrSize;i++){
+                //Insert churn probability(0.0) and churn - false(0)
+                if(i==stringArrSize-1)
+                    query += "'" + employeeRow[i] + "', '0', '0.0'";
+                else
+                    query += "'" + employeeRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void insertRawDataToPredictTable(String tableName,String[] employeeRow) {
+        try {            
+            int stringArrSize = employeeRow.length;
+            String query = "Insert into " + tableName + " values (";
+            for(int i=0;i<stringArrSize;i++){
+                //Insert churn - false(0)
+                if(i==stringArrSize-1)
+                    query += "'0'";
                 else
                     query += "'" + employeeRow[i] + "',";
             }

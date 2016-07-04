@@ -13,4 +13,7 @@ public class NumberConstants {
     public static final int ZERO = 0;
     public static final int ONE = 1;
     public static final int SIXTEEN = 16;
+    
+    public static final int TRAIN_DATA = ZERO;
+    public static final int PREDICT_DATA = ONE;
 }

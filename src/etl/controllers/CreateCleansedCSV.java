@@ -6,6 +6,7 @@
 package etl.controllers;
 
 import etl.constants.NumberConstants;
+import etl.constants.StringConstants;
 import etl.db.DBAccess;
 import etl.readers.ReadCSV;
 import etl.views.DefineRules;
@@ -24,12 +25,14 @@ public class CreateCleansedCSV implements Runnable{
 
     public static String filePath;
     public static CreatingDBDialog dbDialog;
+    //predict or train data table
+    public static int selectedDBTable;
     //Private variables
     private Thread thread;
     
     @Override
     public void run() {
-        executePythonFile();
+        executePythonFile();        
         insertData();
         //Set Label text with finish messages
         dbDialog.setButtonVisible();
@@ -46,7 +49,7 @@ public class CreateCleansedCSV implements Runnable{
                     exec("python src/etl/pythonCodes/cleanData.py " + filePath);*/
             
             Process p = Runtime.getRuntime().
-                    exec("python src/etl/pythonCodes/cleanData.py");
+                    exec(StringConstants.CLEANSED_DATA_PYTHON_PATH);
             
             BufferedReader stdInput = new BufferedReader(new
                  InputStreamReader(p.getInputStream()));
@@ -78,21 +81,30 @@ public class CreateCleansedCSV implements Runnable{
     */
     private void insertData(){
         //To insert original values
-        ReadCSV.selectedFilePath = "src/etl/outputs/cleansed.csv";
+        ReadCSV.selectedFilePath = StringConstants.CLEANSED_DATA_PATH;
         ReadCSV csvReaderForInsert = new ReadCSV();
         List<String[]> csvData = csvReaderForInsert.readCSVFile();
         
         //To insert raw values
-        ReadCSV.selectedFilePath = "src/etl/outputs/rawData.csv";
+        ReadCSV.selectedFilePath = StringConstants.CLEANSED_RAW_DATA_PATH;
         csvReaderForInsert = new ReadCSV();
         List<String[]> csvRawData = csvReaderForInsert.readCSVFile();
         int size = csvData.size();
         DBAccess dbAccess = new DBAccess();
-        for(int i = NumberConstants.ONE;i<size;i++){
-            String[] data = csvData.get(i);
-            dbAccess.insertData("employeesIT",csvData.get(i));
-            dbAccess.insertRawData("employeesIT_raw",csvRawData.get(i));
-            dbDialog.setInsertProgress(size, i);
+        if(selectedDBTable == NumberConstants.TRAIN_DATA){
+            for(int i = NumberConstants.ONE;i<size;i++){
+                String[] data = csvData.get(i);
+                dbAccess.insertDataToTrainTable(StringConstants.TRAIN_DATATABLE,csvData.get(i));
+                dbAccess.insertRawDataToTrainTable(StringConstants.TRAIN_RAW_DATATABLE,csvRawData.get(i));
+                dbDialog.setInsertProgress(size, i);
+            }
+        } else {
+            for(int i = NumberConstants.ONE;i<size;i++){
+                String[] data = csvData.get(i);
+                dbAccess.insertDataToPredictTable(StringConstants.PREDICT_DATATABLE,csvData.get(i));
+                dbAccess.insertRawDataToPredictTable(StringConstants.PREDICT_RAW_DATATABLE,csvRawData.get(i));
+                dbDialog.setInsertProgress(size, i);
+            }
         }
     }
     

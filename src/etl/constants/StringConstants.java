@@ -269,6 +269,36 @@ public class StringConstants {
     public static final String RULE_ERROR = "This Rule is already exists";
     public static final String INVALID_RULE = "Please select a Rule";
     public static final String REMOVE_RULE = "Would You Like to remove this rule?";
+    public static final String CREATING_DB = "Creating Database....";
+    public static final String PLEASE_WAIT = "Please Wait.....";
+    public static final String ATTRIBUTES_TXT = "attibutes";
+    public static final String FILE_PATH_TXT = "filePath";
+    public static final String ATTR_JSON_PATH = "src/etl/outputs/attributes.json";
+    
+    //Controllers
+    //CreateCleanCSV
+    public static final String CLEANSED_DATA_PYTHON_PATH = "python src/etl/pythonCodes/cleanData.py";
+    public static final String CLEANSED_DATA_PATH = "src/etl/outputs/cleansed.csv";
+    public static final String CLEANSED_RAW_DATA_PATH = "src/etl/outputs/rawData.csv";
+    public static final String TRAIN_DATATABLE = "employeesIT";
+    public static final String TRAIN_RAW_DATATABLE = "employeesIT_raw";
+    public static final String PREDICT_DATATABLE = "employeesIT";
+    public static final String PREDICT_RAW_DATATABLE = "employeesIT_raw";
+    
+    //CreateCleanCSV
+    public static final String DATATYPE_SELECT_DIALOG_TITLE = "Select Dataset Type";
+    public static final String DATATYPE_SELECT_DIALOG_LABEL_TEXT = "Please Select what type of database you selected";
+    public static final String TRAIN_DATASET = "Train Dataset";
+    public static final String PREDICT_DATASET = "Preciction Dataset";
+    public static final String DONE_TXT = "Done";
+    
+    //CreatingDBDialog
+    public static final String WAITING_IMG_PATH = "src/etl/images/please_wait.gif";
+    public static final String DB_INSERT_MSG = " Inserted into Database";
+    public static final String DB_UPDATE_SUCCESS_MSG = "Successfully Updated the Database";
+    public static final String SUCCESS_IMG_PATH = "src/etl/images/success_db.png";
+    public static final String DB_CREATION_MSG = "Database Creation Done";
+    
     //ReadJSON 
     public static final String EMPLOYEES_TEXT = "Employees";
     

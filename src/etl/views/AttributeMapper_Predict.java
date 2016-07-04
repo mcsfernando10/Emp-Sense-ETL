@@ -21,7 +21,7 @@ import javax.swing.WindowConstants;
  *
  * @author suren
  */
-public class AttributeMapper extends javax.swing.JFrame {
+public class AttributeMapper_Predict extends javax.swing.JFrame {
 
     /**
      * Creates new form AttributeMapper
@@ -30,7 +30,7 @@ public class AttributeMapper extends javax.swing.JFrame {
     private final String filePath;
     private final String[] header;
     private List<attribute> attributes;
-    public AttributeMapper(String selectedFilePath,  
+    public AttributeMapper_Predict(String selectedFilePath,  
             String[] headers) {
         initComponents();
         
@@ -70,8 +70,6 @@ public class AttributeMapper extends javax.swing.JFrame {
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelNoOfDep 
                 = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelChurn 
-                = new DefaultComboBoxModel<>(header);
         
         employeeIDComBox.setModel(modelEmployeeID);
         employeeNameComBox.setModel(modelEmployeeName);
@@ -85,7 +83,6 @@ public class AttributeMapper extends javax.swing.JFrame {
         noOfLeavesComBox.setModel(modelNoOfLeaves);
         distanceComBox.setModel(modelDistance);
         noOfDepComBox.setModel(modelNoOfDep);
-        churnComBox.setModel(modelChurn);
         
         SynonymDictionary dictionary = new SynonymDictionary();
         
@@ -102,7 +99,6 @@ public class AttributeMapper extends javax.swing.JFrame {
         noOfLeavesComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_LEAVES, header));
         distanceComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DISTANCE, header));
         noOfDepComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_DEPENDENTS, header));
-        churnComBox.setSelectedIndex(dictionary.getIndex(StringConstants.CHURN, header));
     }
     
     /**
@@ -141,8 +137,6 @@ public class AttributeMapper extends javax.swing.JFrame {
         havingDegreeComBox = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         tenureComBox = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
-        churnComBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Attribute Mapper (IT Industry)");
@@ -224,11 +218,6 @@ public class AttributeMapper extends javax.swing.JFrame {
 
         tenureComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Churn");
-
-        churnComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout attributeListPanelLayout = new javax.swing.GroupLayout(attributeListPanel);
         attributeListPanel.setLayout(attributeListPanelLayout);
         attributeListPanelLayout.setHorizontalGroup(
@@ -244,21 +233,19 @@ public class AttributeMapper extends javax.swing.JFrame {
                             .addComponent(jLabel8)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel14))
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(churnComBox, 0, 220, Short.MAX_VALUE)
                                 .addComponent(maritalStatComBox, 0, 220, Short.MAX_VALUE)
                                 .addComponent(distanceComBox, 0, 220, Short.MAX_VALUE)
                                 .addComponent(ageComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 220, Short.MAX_VALUE)
                                 .addComponent(jobRoleComBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 220, Short.MAX_VALUE)
                                 .addComponent(salaryComBox, 0, 220, Short.MAX_VALUE))
                             .addComponent(employeeIDComBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
                         .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(attributeListPanelLayout.createSequentialGroup()
-                                .addGap(30, 30, 30)
                                 .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel1)
@@ -274,10 +261,9 @@ public class AttributeMapper extends javax.swing.JFrame {
                                     .addComponent(employeeNameComBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(noOfDepComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(noOfLeavesComBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attributeListPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(attributeListPanelLayout.createSequentialGroup()
                                 .addComponent(defineRulesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(100, 100, 100)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         attributeListPanelLayout.setVerticalGroup(
@@ -322,10 +308,7 @@ public class AttributeMapper extends javax.swing.JFrame {
                     .addComponent(noOfDepComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
-                .addGroup(attributeListPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(churnComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(defineRulesBtn))
+                .addComponent(defineRulesBtn)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -381,11 +364,10 @@ public class AttributeMapper extends javax.swing.JFrame {
             salaryComBox.getSelectedItem().toString(),
             noOfLeavesComBox.getSelectedItem().toString(),
             distanceComBox.getSelectedItem().toString(),
-            noOfDepComBox.getSelectedItem().toString(),
-            churnComBox.getSelectedItem().toString()
+            noOfDepComBox.getSelectedItem().toString()
         };
         for (int i = NumberConstants.ZERO; 
-                i < StringConstants.ATTRIBUTES.length ; i++){
+                i < StringConstants.ATTRIBUTES.length-NumberConstants.ONE ; i++){
             String attr = StringConstants.ATTRIBUTES[i];
             attribute attribute = new attribute(attr);
             attribute.setRules(StringConstants.RULES_LIST.get(attr));
@@ -394,7 +376,7 @@ public class AttributeMapper extends javax.swing.JFrame {
         }        
         
         dispose();
-        new DefineRules(attributes, filePath).setVisible(true);
+        new DefineRules(attributes, filePath, NumberConstants.PREDICT_DATA).setVisible(true);
     }//GEN-LAST:event_defineRulesBtnActionPerformed
 
     /*
@@ -416,7 +398,6 @@ public class AttributeMapper extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ageComBox;
     private javax.swing.JPanel attributeListPanel;
-    private javax.swing.JComboBox<String> churnComBox;
     private javax.swing.JButton defineRulesBtn;
     private javax.swing.JComboBox<String> distanceComBox;
     private javax.swing.JComboBox<String> employeeIDComBox;
@@ -428,7 +409,6 @@ public class AttributeMapper extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
