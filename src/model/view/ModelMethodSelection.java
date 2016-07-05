@@ -217,14 +217,26 @@ public class ModelMethodSelection extends javax.swing.JFrame {
 
         trainRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         trainPredictSelect.add(trainRadioBtn);
-        trainRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        trainRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        trainRadioBtn.setForeground(new java.awt.Color(255, 255, 255));
         trainRadioBtn.setSelected(true);
         trainRadioBtn.setText("Train");
+        trainRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trainRadioBtnActionPerformed(evt);
+            }
+        });
 
         predictRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         trainPredictSelect.add(predictRadioBtn);
-        predictRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        predictRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        predictRadioBtn.setForeground(new java.awt.Color(255, 255, 255));
         predictRadioBtn.setText("Predict");
+        predictRadioBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                predictRadioBtnActionPerformed(evt);
+            }
+        });
 
         applyBtn.setBackground(new java.awt.Color(102, 102, 255));
         applyBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -242,24 +254,24 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(trainRadioBtn)
                 .addGap(18, 18, 18)
                 .addComponent(predictRadioBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(68, 68, 68)
                 .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(trainRadioBtn)
                     .addComponent(predictRadioBtn)
                     .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -346,6 +358,14 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     private void autoRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoRadioBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_autoRadioBtnActionPerformed
+
+    private void predictRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predictRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_predictRadioBtnActionPerformed
+
+    private void trainRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainRadioBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_trainRadioBtnActionPerformed
 
     /**
      * @param args the command line arguments

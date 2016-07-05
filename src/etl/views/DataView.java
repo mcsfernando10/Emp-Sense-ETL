@@ -7,6 +7,7 @@ package etl.views;
 
 import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
+import etl.controllers.CreateSelectDBTableDialog;
 import etl.readers.ReadCSV;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -22,10 +23,10 @@ public class DataView extends javax.swing.JFrame {
      * Creates new form DataView
      */
     //All declared variables
-    private String filePath;
+    private final String filePath;
     
     //Readers
-    private ReadCSV csvReader;
+    private final ReadCSV csvReader;
     
     private String[] headers;
     public DataView(String selectedFilePath) {
@@ -53,12 +54,17 @@ public class DataView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         mapAttrBtn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTableView = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         progressLable = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Data View (IT Industry)");
@@ -68,13 +74,24 @@ public class DataView extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setLayout(null);
+
+        mapAttrBtn.setBackground(new java.awt.Color(255, 255, 255));
         mapAttrBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        mapAttrBtn.setForeground(new java.awt.Color(0, 51, 255));
         mapAttrBtn.setText("Map Attributes");
         mapAttrBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mapAttrBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(mapAttrBtn);
+        mapAttrBtn.setBounds(830, 570, 150, 30);
+
+        jLabel3.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel3.setOpaque(true);
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(10, 560, 980, 50);
 
         jScrollPane1.setAutoscrolls(true);
         jScrollPane1.setDoubleBuffered(true);
@@ -98,57 +115,49 @@ public class DataView extends javax.swing.JFrame {
         dataTableView.setUpdateSelectionOnSort(false);
         jScrollPane1.setViewportView(dataTableView);
 
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 90, 960, 450);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("View of Selected Data");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(40, 20, 197, 40);
 
         progressLable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         progressLable.setText("Loading Table......");
         progressLable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(progressLable);
+        progressLable.setBounds(290, 20, 280, 40);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(progressLable)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 495, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(mapAttrBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(progressLable, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(mapAttrBtn)
-                .addGap(25, 25, 25))
-        );
+        jLabel5.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel5.setOpaque(true);
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(10, 80, 980, 470);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(270, 20, 700, 40);
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(10, 10, 980, 600);
+
+        jLabel6.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel6.setOpaque(true);
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(10, 10, 980, 60);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -173,9 +182,10 @@ public class DataView extends javax.swing.JFrame {
     private void mapAttrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mapAttrBtnActionPerformed
         //To get headers string array to bind in jcombobox
         headers = csvReader.getCheckBoxes();
-                
-        dispose();
-        new AttributeMapper(StringConstants.ORIGINAL_CSV_PATH, headers).setVisible(true);       
+        
+        //Select DB Table - Predict or Train Database
+        CreateSelectDBTableDialog selectDBTable = new CreateSelectDBTableDialog(this,headers);
+        selectDBTable.setSize(300, 120); 
     }//GEN-LAST:event_mapAttrBtnActionPerformed
 
     /*
@@ -197,7 +207,12 @@ public class DataView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable dataTableView;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mapAttrBtn;
     private javax.swing.JLabel progressLable;

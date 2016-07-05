@@ -11,7 +11,9 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CreateCleansedCSV;
 import etl.controllers.CreatingDBDialog;
+import etl.controllers.CreateSelectDBTableDialog;
 import etl.models.attribute;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -39,17 +41,19 @@ public class DefineRules extends javax.swing.JFrame {
     //All declared variables
     private final List<attribute> attributes;
     private DefaultListModel model;
-    private String filePath;
+    private final String filePath;
+    private int predictOrTrainData;
     public DefineRules(
             List<attribute> passedAttributes, 
-            String selFilePath
+            String selFilePath, int predictOrTrainData
     ) {
         initComponents();
         
         setWindowIcon();
-                
+        selectedFieldTxt.setBackground(new Color(0, 0, 0, 0));        
         this.attributes = passedAttributes;
         this.filePath = selFilePath;
+        this.predictOrTrainData = predictOrTrainData;
         //attributes = new ArrayList<>();
         
         //Generate attribute Selection List
@@ -64,13 +68,13 @@ public class DefineRules extends javax.swing.JFrame {
         for (int i = NumberConstants.ZERO; i < listModel.getSize(); i++) {
             attributes.add((new attribute(listModel.getElementAt(i))));
         }      */
-        attributeList.setSelectedIndex(0);
+        attributeList.setSelectedIndex(NumberConstants.ZERO);
         String selectedAttr = attributeList.getSelectedValue();
         selectedFieldTxt.setText(selectedAttr); 
         
         List<String> definedRules = getAttributeFromName(selectedAttr).getDefinedRulesList();
         DefaultComboBoxModel<String> definedRulesModel
-                = new DefaultComboBoxModel<>(definedRules.toArray(new String[0]));
+                = new DefaultComboBoxModel<>(definedRules.toArray(new String[NumberConstants.ZERO]));
         rulesComBox.setModel(definedRulesModel);
     }
 
@@ -92,20 +96,25 @@ public class DefineRules extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         attributeList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         selectedFieldTxt = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         rulesComBox = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         rulesList = new javax.swing.JList<>();
         addRuleBtn = new javax.swing.JButton();
         removeRulesBtn = new javax.swing.JButton();
         createDataBtn = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Add Rules for Attributes  (IT Industry)");
@@ -116,11 +125,12 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("Add Rules for Attributes");
+        jPanel2.setLayout(null);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Select Attribute");
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(40, 80, 120, 30);
 
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,15 +144,33 @@ public class DefineRules extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(attributeList);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jPanel2.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 120, 236, 360);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Selected Field");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(300, 100, 100, 20);
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(400, 100, 210, 30);
 
         selectedFieldTxt.setEditable(false);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Rules");
+        selectedFieldTxt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        selectedFieldTxt.setBorder(null);
+        selectedFieldTxt.setOpaque(false);
+        jPanel2.add(selectedFieldTxt);
+        selectedFieldTxt.setBounds(406, 100, 200, 30);
 
         rulesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Rule", "Remove Null Value Rows", "Clean Number values with Average" }));
+        jPanel2.add(rulesComBox);
+        rulesComBox.setBounds(400, 140, 210, 30);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setText("Rules");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(300, 140, 60, 20);
 
         rulesList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,6 +178,9 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(rulesList);
+
+        jPanel2.add(jScrollPane2);
+        jScrollPane2.setBounds(300, 180, 310, 250);
 
         addRuleBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/add.png"))); // NOI18N
         addRuleBtn.setToolTipText("Add Rules ");
@@ -160,6 +191,8 @@ public class DefineRules extends javax.swing.JFrame {
                 addRuleBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(addRuleBtn);
+        addRuleBtn.setBounds(310, 440, 39, 39);
 
         removeRulesBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/remove.png"))); // NOI18N
         removeRulesBtn.setToolTipText("Remove Rules");
@@ -171,91 +204,59 @@ public class DefineRules extends javax.swing.JFrame {
                 removeRulesBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(removeRulesBtn);
+        removeRulesBtn.setBounds(360, 440, 39, 39);
 
+        createDataBtn.setBackground(new java.awt.Color(255, 255, 255));
         createDataBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        createDataBtn.setForeground(new java.awt.Color(0, 51, 255));
         createDataBtn.setText("Create Data Store");
         createDataBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 createDataBtnMouseClicked(evt);
             }
         });
+        jPanel2.add(createDataBtn);
+        createDataBtn.setBounds(410, 440, 200, 40);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(selectedFieldTxt)
-                                    .addComponent(rulesComBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane2)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(addRuleBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(removeRulesBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(createDataBtn)
-                                .addGap(70, 70, 70)))))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(selectedFieldTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rulesComBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(addRuleBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(removeRulesBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(createDataBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap())
-        );
+        jLabel4.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel4.setOpaque(true);
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(290, 80, 330, 410);
+
+        jLabel8.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel8.setOpaque(true);
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(20, 80, 260, 410);
+
+        jLabel6.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setOpaque(true);
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(10, 70, 620, 430);
+
+        jLabel7.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Add Rules for Attributes");
+        jLabel7.setOpaque(true);
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(10, 10, 620, 50);
+
+        jLabel5.setBackground(new java.awt.Color(51, 102, 255));
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(10, 10, 630, 490);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
         );
 
         pack();
@@ -375,11 +376,11 @@ public class DefineRules extends javax.swing.JFrame {
     private void createDataBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createDataBtnMouseClicked
         //Show popup window
         CreatingDBDialog dialog = new CreatingDBDialog(this, 
-                "Creating Database....", "Please Wait.....");
+               StringConstants.CREATING_DB , StringConstants.PLEASE_WAIT);
         dialog.setSize(300, 200);         
         CreateCleansedCSV.filePath = filePath;
         CreateCleansedCSV.dbDialog = dialog;
-        
+        CreateCleansedCSV.selectedDBTable = predictOrTrainData;
         //Create rules json file
         createJSONFile();
         CreateCleansedCSV cleanCSV = new CreateCleansedCSV();
@@ -477,11 +478,11 @@ public class DefineRules extends javax.swing.JFrame {
             }
             
             JSONObject mainJSONObj = new JSONObject();
-            mainJSONObj.put("attibutes", attrs);
-            mainJSONObj.put("filePath", filePath);
+            mainJSONObj.put(StringConstants.ATTRIBUTES_TXT, attrs);
+            mainJSONObj.put(StringConstants.FILE_PATH_TXT, filePath);
             FileWriter file;
             try {
-                file = new FileWriter("src/etl/outputs/attributes.json");
+                file = new FileWriter(StringConstants.ATTR_JSON_PATH);
                 file.write(mainJSONObj.toJSONString());
                 file.flush();
                 file.close();
@@ -527,7 +528,7 @@ public class DefineRules extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv").setVisible(true);
+                new DefineRules(new ArrayList<attribute>(),"/home/suren/Desktop/data.csv",1).setVisible(true);
             }
         });
     }
@@ -540,7 +541,12 @@ public class DefineRules extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton removeRulesBtn;

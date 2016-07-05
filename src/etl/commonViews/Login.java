@@ -9,11 +9,28 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.db.DBAccess;
 import etl.views.Extract;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.LayoutManager;
+import java.awt.TextField;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -23,11 +40,15 @@ public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
-     */
+     */      
     private DBAccess dbAccess;
+    private BufferedImage image;
     public Login() {
         initComponents();
-        setWindowIcon();        
+        setWindowIcon();
+        usernameTxt.setBackground(new Color(0, 0, 0, 0));
+        passwordTxt.setBackground(new Color(0, 0, 0, 0));
+        logoLabel.setBackground(new Color(0, 0, 0, 0));
         dbAccess = new DBAccess();
     }
 
@@ -42,13 +63,24 @@ public class Login extends javax.swing.JFrame {
 
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        usernameTxt = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        passwordTxt = new javax.swing.JPasswordField();
+        jPanel2 = new javax.swing.JPanel();
         loginBtn = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        passwordTxt = new javax.swing.JPasswordField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        usernameTxt = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        logoLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         jLabel3.setText("Username");
 
@@ -57,82 +89,131 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Username");
+        jPanel2.setLayout(null);
 
-        usernameTxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                usernameTxtKeyReleased(evt);
-            }
-        });
-
-        jLabel2.setBackground(new java.awt.Color(240, 242, 242));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/emp-senseLogo.png"))); // NOI18N
-        jLabel2.setText("Emp-Sense Login");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Password");
-
-        passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                passwordTxtKeyReleased(evt);
-            }
-        });
-
+        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
         loginBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(0, 51, 255));
         loginBtn.setText("Login");
+        loginBtn.setOpaque(false);
+        loginBtn.setPreferredSize(new java.awt.Dimension(69, 23));
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
             }
         });
+        jPanel2.add(loginBtn);
+        loginBtn.setBounds(290, 270, 80, 30);
+
+        jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jLabel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel2.add(jLabel9);
+        jLabel9.setBounds(130, 220, 200, 30);
+
+        passwordTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        passwordTxt.setOpaque(false);
+        passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordTxtKeyReleased(evt);
+            }
+        });
+        jPanel2.add(passwordTxt);
+        passwordTxt.setBounds(140, 220, 180, 30);
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel11);
+        jLabel11.setBounds(340, 220, 30, 30);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("PASSWORD");
+        jPanel2.add(jLabel4);
+        jLabel4.setBounds(50, 230, 80, 15);
+
+        jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jLabel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel2.add(jLabel8);
+        jLabel8.setBounds(130, 180, 200, 30);
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/password_icon.png"))); // NOI18N
+        jPanel2.add(jLabel12);
+        jLabel12.setBounds(340, 220, 30, 30);
+
+        usernameTxt.setToolTipText("Username");
+        usernameTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        usernameTxt.setOpaque(false);
+        usernameTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameTxtKeyReleased(evt);
+            }
+        });
+        jPanel2.add(usernameTxt);
+        usernameTxt.setBounds(140, 180, 180, 30);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("USERNAME");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(50, 190, 70, 15);
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
+        jLabel14.setText("LOGIN");
+        jPanel2.add(jLabel14);
+        jLabel14.setBounds(180, 110, 90, 30);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(30, 100, 360, 50);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel6);
+        jLabel6.setBounds(30, 160, 360, 160);
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/username_icon.png"))); // NOI18N
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(340, 180, 30, 30);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(340, 180, 30, 30);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("Forgot Password");
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Forgot Password?");
+        jPanel2.add(jLabel5);
+        jLabel5.setBounds(130, 270, 120, 15);
+
+        logoLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/logo.png"))); // NOI18N
+        logoLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        logoLabel.setOpaque(true);
+        logoLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel2.add(logoLabel);
+        logoLabel.setBounds(140, 10, 150, 80);
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/background.png"))); // NOI18N
+        jLabel7.setOpaque(true);
+        jPanel2.add(jLabel7);
+        jLabel7.setBounds(0, 0, 420, 340);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(155, 155, 155))
             .addGroup(layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(loginBtn)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5)
-                        .addComponent(usernameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                        .addComponent(passwordTxt)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel2)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(usernameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginBtn)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -249,6 +330,7 @@ public class Login extends javax.swing.JFrame {
             }               
         }
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -276,7 +358,7 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -287,12 +369,23 @@ public class Login extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JButton loginBtn;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JPasswordField passwordTxt;
     private javax.swing.JTextField usernameTxt;
     // End of variables declaration//GEN-END:variables
