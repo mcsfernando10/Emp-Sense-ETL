@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,5 +89,43 @@ public class DBAccess {
         }
     }
     
+     public List<Float> getAccuracy(){
+        List<Float> accuracyList = new ArrayList<Float>();
+        try {
+            String query = "Select * "
+                    + "from accuracy_confusion_mse";
+            PreparedStatement pst = 
+                    (PreparedStatement) connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                accuracyList.add(rs.getFloat("confusion_accuracy"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accuracyList;
+    }
+    
+    public void insertTuningData(boolean value) {
+        try {
+            String query = "Insert into tune_user_selection values (" + value + ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteTuningData() {
+        try {
+            String query = "Delete from tune_user_selection";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

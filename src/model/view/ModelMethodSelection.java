@@ -6,7 +6,14 @@
 package model.view;
 
 import etl.constants.StringConstants;
+import etl.db.DBAccess;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,9 +24,11 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     /**
      * Creates new form ModelMethodSelection
      */
+    private DBAccess dbAccess;
     public ModelMethodSelection() {
         initComponents();
         setWindowIcon();
+        dbAccess = new DBAccess();
     }
 
     /*
@@ -41,9 +50,11 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     private void initComponents() {
 
         modeSelect = new javax.swing.ButtonGroup();
+        trainPredictSelect = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        applyBtn = new javax.swing.JButton();
+        tuneCheckbox = new javax.swing.JCheckBox();
+        jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         autoRadioBtn = new javax.swing.JRadioButton();
@@ -51,6 +62,10 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         manualRadioBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        trainRadioBtn = new javax.swing.JRadioButton();
+        predictRadioBtn = new javax.swing.JRadioButton();
+        applyBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Select the Mode");
@@ -63,33 +78,37 @@ public class ModelMethodSelection extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(51, 102, 255));
 
-        applyBtn.setBackground(new java.awt.Color(51, 102, 255));
-        applyBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        applyBtn.setForeground(new java.awt.Color(255, 255, 255));
-        applyBtn.setText("Apply");
-        applyBtn.setMargin(new java.awt.Insets(3, 14, 3, 14));
-        applyBtn.setPreferredSize(new java.awt.Dimension(67, 28));
-        applyBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                applyBtnActionPerformed(evt);
-            }
-        });
+        tuneCheckbox.setBackground(new java.awt.Color(51, 102, 255));
+        tuneCheckbox.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tuneCheckbox.setText("Increase Accuracy");
+        tuneCheckbox.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("<html>Check to increase the accuracy <b> ONLY </b> to train the <br> algorithm. (This process might take several minutes)</html>");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel4))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(tuneCheckbox)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
-                .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tuneCheckbox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(0, 204, 204));
@@ -121,7 +140,7 @@ public class ModelMethodSelection extends javax.swing.JFrame {
                         .addGap(21, 21, 21)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(autoRadioBtn))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +213,55 @@ public class ModelMethodSelection extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel6.setBackground(new java.awt.Color(51, 102, 255));
+
+        trainRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
+        trainPredictSelect.add(trainRadioBtn);
+        trainRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        trainRadioBtn.setSelected(true);
+        trainRadioBtn.setText("Train");
+
+        predictRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
+        trainPredictSelect.add(predictRadioBtn);
+        predictRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        predictRadioBtn.setText("Predict");
+
+        applyBtn.setBackground(new java.awt.Color(102, 102, 255));
+        applyBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        applyBtn.setForeground(new java.awt.Color(255, 255, 255));
+        applyBtn.setText("Apply");
+        applyBtn.setMargin(new java.awt.Insets(3, 14, 3, 14));
+        applyBtn.setPreferredSize(new java.awt.Dimension(67, 28));
+        applyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                applyBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(trainRadioBtn)
+                .addGap(18, 18, 18)
+                .addComponent(predictRadioBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(trainRadioBtn)
+                    .addComponent(predictRadioBtn)
+                    .addComponent(applyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +271,8 @@ public class ModelMethodSelection extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -215,7 +284,9 @@ public class ModelMethodSelection extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -223,11 +294,48 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void applyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyBtnActionPerformed
+        if(tuneCheckbox.isSelected()){
+            dbAccess.deleteTuningData();
+            dbAccess.insertTuningData(true);
+        }
+        else{
+            dbAccess.deleteTuningData();
+            dbAccess.insertTuningData(false);
+        }
+        
         if(autoRadioBtn.isSelected()){
+            String path = "D:/SLIIT/SoftwareIndustry";
+            Process p;
+                try {
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation.py");
+                    int i = p.waitFor();
+                    System.out.println(i);
+                    JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                } catch (IOException | InterruptedException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }else if(manualRadioBtn.isSelected()){
+            if(trainRadioBtn.isSelected()){
+                String path = "D:/SLIIT/SoftwareIndustry";
+                Process p;
+                try {
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Accuracy_IT.py");
+                    int i = p.waitFor();
+                    System.out.println(i);
+                } catch (IOException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                new AlgorithmSelectionTrain().setVisible(true);
+                dispose();
+            }
+            else if(predictRadioBtn.isSelected()){
+                new AlgorithmSelectionPredict().setVisible(true);
+                dispose();
+            }
             
-        }else{
-            new AlgorithmSelection().setVisible(true);
-            dispose();
         }
     }//GEN-LAST:event_applyBtnActionPerformed
 
@@ -266,6 +374,8 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -281,11 +391,17 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton manualRadioBtn;
     private javax.swing.ButtonGroup modeSelect;
+    private javax.swing.JRadioButton predictRadioBtn;
+    private javax.swing.ButtonGroup trainPredictSelect;
+    private javax.swing.JRadioButton trainRadioBtn;
+    private javax.swing.JCheckBox tuneCheckbox;
     // End of variables declaration//GEN-END:variables
 }
