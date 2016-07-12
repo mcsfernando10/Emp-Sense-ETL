@@ -39,7 +39,7 @@ public class StringConstants {
     public static final String AND_SIGN = "&";
     public static final String EQUAL_SIGN = "=";
     
-    public static final String ICON_FILE_PATH = "src/etl/images/icon.gif";
+    public static final String ICON_FILE_PATH = "src/etl/images/icon_new.gif";
     //Login View
     public static final String ERROR = "Error";
     public static final String EMPTY_FIELD = "Empty fields detected! Please fill up all fields";
@@ -280,10 +280,10 @@ public class StringConstants {
     public static final String CLEANSED_DATA_PYTHON_PATH = "python src/etl/pythonCodes/cleanData.py";
     public static final String CLEANSED_DATA_PATH = "src/etl/outputs/cleansed.csv";
     public static final String CLEANSED_RAW_DATA_PATH = "src/etl/outputs/rawData.csv";
-    public static final String TRAIN_DATATABLE = "employeesIT";
-    public static final String TRAIN_RAW_DATATABLE = "employeesIT_raw";
-    public static final String PREDICT_DATATABLE = "employeesIT";
-    public static final String PREDICT_RAW_DATATABLE = "employeesIT_raw";
+    public static final String TRAIN_DATATABLE = "employeesIT_Train";
+    public static final String TRAIN_RAW_DATATABLE = "employeesIT_Raw_Train";
+    public static final String PREDICT_DATATABLE = "employeesIT_Predict";
+    public static final String PREDICT_RAW_DATATABLE = "employeesIT_Raw_Predict";
     
     //CreateCleanCSV
     public static final String DATATYPE_SELECT_DIALOG_TITLE = "Select Dataset Type";

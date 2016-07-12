@@ -91,6 +91,7 @@ public class CreateSelectDBTableDialog extends JDialog{
         @Override
         public void actionPerformed(ActionEvent e) {
             dispose();
+            defineRulesFrame.dispose();
             if(trainDataRadioBtn.isSelected())
                 new AttributeMapper_Train(StringConstants.ORIGINAL_CSV_PATH, 
                         headers).setVisible(true);

@@ -5,6 +5,7 @@
  */
 package model.view;
 
+import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
 import etl.db.DBAccess;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -69,6 +71,11 @@ public class ModelMethodSelection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Select the Mode");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setBackground(new java.awt.Color(51, 102, 255));
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -378,6 +385,22 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     private void trainRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainRadioBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_trainRadioBtnActionPerformed
+
+    /*
+    * @Method formWindowClosing 
+    * Prevent closing system and display home page
+    * @param  WindowEvent
+    */
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        if (JOptionPane.showConfirmDialog(this, 
+            StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                dispose();
+                new HomeView().setVisible(true);
+        } 
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

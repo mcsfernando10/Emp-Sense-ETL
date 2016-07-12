@@ -41,8 +41,8 @@ INSERT INTO `login` (`username`, `password`) VALUES
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-CREATE TABLE IF NOT EXISTS `employeesIT` (
+--Data Trainning Tables
+CREATE TABLE IF NOT EXISTS `employeesIT_Train` (
   `Employee_ID` varchar(100) DEFAULT NULL,
   `Employee_Name` varchar(1000) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `employeesIT` (
   `probability` float DEFAULT 0.0
 ) 
 
-CREATE TABLE IF NOT EXISTS `employeesIT_raw` (
+CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
   `Employee_ID` varchar(100) DEFAULT NULL,
   `Employee_Name` varchar(1000) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
@@ -73,4 +73,36 @@ CREATE TABLE IF NOT EXISTS `employeesIT_raw` (
   `Distance` float(8,3) DEFAULT NULL,
   `No_of_Dependents` int(11) DEFAULT NULL,
   `churn` int
+) 
+
+--Data Predicting Tables
+CREATE TABLE IF NOT EXISTS `employeesIT_Predict` (
+  `Employee_ID` varchar(100) DEFAULT NULL,
+  `Employee_Name` varchar(1000) DEFAULT NULL,
+  `Age` int(11) DEFAULT NULL,
+  `Gender` varchar(6) DEFAULT NULL,
+  `Marital_Status` varchar(10) DEFAULT NULL,
+  `Having_Degree` varchar(10) DEFAULT NULL,
+  `Job_Role` varchar(100) DEFAULT NULL,
+  `Tenure` int(11) DEFAULT NULL,
+  `Salary` float(10,2) DEFAULT NULL,
+  `No_of_Leaves` int(11) DEFAULT NULL,
+  `Distance` float(8,3) DEFAULT NULL,
+  `No_of_Dependents` int(11) DEFAULT NULL,
+  `probability` float DEFAULT 0.0
+) 
+
+CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Predict` (
+  `Employee_ID` varchar(100) DEFAULT NULL,
+  `Employee_Name` varchar(1000) DEFAULT NULL,
+  `Age` int(11) DEFAULT NULL,
+  `Gender` int DEFAULT NULL,
+  `Marital_Status` int DEFAULT NULL,
+  `Having_Degree` int DEFAULT NULL,
+  `Job_Role` int DEFAULT NULL,
+  `Tenure` int(11) DEFAULT NULL,
+  `Salary` float(10,2) DEFAULT NULL,
+  `No_of_Leaves` int(11) DEFAULT NULL,
+  `Distance` float(8,3) DEFAULT NULL,
+  `No_of_Dependents` int(11) DEFAULT NULL
 ) 

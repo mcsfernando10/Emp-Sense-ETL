@@ -5,12 +5,12 @@
  */
 package etl.controllers;
 
-import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import model.view.ModelMethodSelection;
 
 /**
  *
@@ -82,7 +82,7 @@ public class CreatingDBDialog extends JDialog {
             dispose();
             //Close Define Rule Window
             defineRulesFrame.dispose();
-            new HomeView().setVisible(true);
+            new ModelMethodSelection().setVisible(true);
         }
     }
 }

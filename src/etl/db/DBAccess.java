@@ -5,6 +5,7 @@
  */
 package etl.db;
 
+import etl.constants.StringConstants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -135,7 +136,7 @@ public class DBAccess {
             for(int i=0;i<stringArrSize;i++){
                 //Insert churn probability(0.0) and churn - false(0)
                 if(i==stringArrSize-1)
-                    query += "'" + employeeRow[i] + "', '0', '0.0'";
+                    query += "'" + employeeRow[i] + "', '0.0'";
                 else
                     query += "'" + employeeRow[i] + "',";
             }
@@ -154,8 +155,10 @@ public class DBAccess {
             String query = "Insert into " + tableName + " values (";
             for(int i=0;i<stringArrSize;i++){
                 //Insert churn - false(0)
-                if(i==stringArrSize-1)
-                    query += "'0'";
+                if(i==stringArrSize-2)
+                    query += "'" + employeeRow[i] + "'";
+                else if(i==stringArrSize-1)
+                    break;
                 else
                     query += "'" + employeeRow[i] + "',";
             }
