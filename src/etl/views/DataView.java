@@ -63,8 +63,8 @@ public class DataView extends javax.swing.JFrame {
         progressLable = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Data View (IT Industry)");
@@ -74,6 +74,7 @@ public class DataView extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 0, 102));
         jPanel2.setLayout(null);
 
         mapAttrBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -86,12 +87,12 @@ public class DataView extends javax.swing.JFrame {
             }
         });
         jPanel2.add(mapAttrBtn);
-        mapAttrBtn.setBounds(830, 570, 150, 30);
+        mapAttrBtn.setBounds(840, 570, 150, 30);
 
         jLabel3.setBackground(new java.awt.Color(51, 102, 255));
         jLabel3.setOpaque(true);
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(10, 560, 980, 50);
+        jLabel3.setBounds(20, 560, 980, 50);
 
         jScrollPane1.setAutoscrolls(true);
         jScrollPane1.setDoubleBuffered(true);
@@ -116,44 +117,41 @@ public class DataView extends javax.swing.JFrame {
         jScrollPane1.setViewportView(dataTableView);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(20, 90, 960, 450);
+        jScrollPane1.setBounds(30, 90, 960, 450);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("View of Selected Data");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(40, 20, 197, 40);
+        jLabel1.setBounds(50, 20, 197, 40);
 
         progressLable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         progressLable.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         progressLable.setText("Loading Table......");
         progressLable.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(progressLable);
-        progressLable.setBounds(290, 20, 280, 40);
+        progressLable.setBounds(300, 20, 280, 40);
 
         jLabel5.setBackground(new java.awt.Color(51, 102, 255));
         jLabel5.setOpaque(true);
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(10, 80, 980, 470);
+        jLabel5.setBounds(20, 80, 980, 470);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(270, 20, 700, 40);
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(10, 10, 980, 600);
+        jLabel4.setBounds(280, 20, 700, 40);
 
         jLabel6.setBackground(new java.awt.Color(51, 102, 255));
         jLabel6.setOpaque(true);
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(10, 10, 980, 60);
+        jLabel6.setBounds(20, 10, 980, 60);
+        jPanel2.add(jLabel2);
+        jLabel2.setBounds(20, 10, 980, 600);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 990, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1019, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

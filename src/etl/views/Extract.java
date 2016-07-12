@@ -81,7 +81,6 @@ public class Extract extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EmpSense - Extract Data (IT Industry)");
-        setBackground(new java.awt.Color(254, 254, 254));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -94,7 +93,7 @@ public class Extract extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Select the file type");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 90, 116, 15);
+        jLabel2.setBounds(40, 100, 116, 15);
 
         fileTypeComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Text File", "CSV", "XML", "JSON" }));
         fileTypeComBox.addActionListener(new java.awt.event.ActionListener() {
@@ -103,16 +102,16 @@ public class Extract extends javax.swing.JFrame {
             }
         });
         jPanel1.add(fileTypeComBox);
-        fileTypeComBox.setBounds(160, 80, 240, 30);
+        fileTypeComBox.setBounds(170, 90, 240, 30);
 
         filePathTxt.setEditable(false);
         jPanel1.add(filePathTxt);
-        filePathTxt.setBounds(160, 120, 240, 30);
+        filePathTxt.setBounds(170, 130, 240, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Source File");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(30, 130, 65, 15);
+        jLabel3.setBounds(40, 140, 65, 15);
 
         browseBtn.setBackground(new java.awt.Color(255, 255, 255));
         browseBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -124,24 +123,24 @@ public class Extract extends javax.swing.JFrame {
             }
         });
         jPanel1.add(browseBtn);
-        browseBtn.setBounds(410, 120, 81, 30);
+        browseBtn.setBounds(420, 130, 81, 30);
 
         jLabel7.setBackground(new java.awt.Color(51, 102, 255));
         jLabel7.setOpaque(true);
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(20, 70, 490, 90);
+        jLabel7.setBounds(30, 80, 490, 90);
 
-        jLabel6.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel6.setBackground(new java.awt.Color(51, 102, 255));
         jLabel6.setOpaque(true);
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(10, 60, 510, 110);
+        jLabel6.setBounds(20, 70, 510, 110);
 
         loadingFileLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loadingFileLbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/progress.gif"))); // NOI18N
         loadingFileLbl.setText("Loading File.....");
         loadingFileLbl.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(loadingFileLbl);
-        loadingFileLbl.setBounds(30, 200, 272, 18);
+        loadingFileLbl.setBounds(40, 210, 272, 18);
 
         jLabel8.setBackground(new java.awt.Color(51, 102, 255));
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -149,7 +148,7 @@ public class Extract extends javax.swing.JFrame {
         jLabel8.setText("Extract Data");
         jLabel8.setOpaque(true);
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(10, 10, 510, 40);
+        jLabel8.setBounds(20, 20, 510, 40);
 
         extractBtn.setBackground(new java.awt.Color(255, 255, 255));
         extractBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -161,7 +160,7 @@ public class Extract extends javax.swing.JFrame {
             }
         });
         jPanel1.add(extractBtn);
-        extractBtn.setBounds(340, 200, 77, 30);
+        extractBtn.setBounds(350, 210, 77, 30);
 
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
         cancelBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -173,11 +172,11 @@ public class Extract extends javax.swing.JFrame {
             }
         });
         jPanel1.add(cancelBtn);
-        cancelBtn.setBounds(420, 200, 80, 30);
+        cancelBtn.setBounds(430, 210, 80, 30);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(20, 190, 290, 40);
+        jLabel9.setBounds(30, 200, 290, 40);
 
         jLabel5.setBackground(new java.awt.Color(51, 102, 255));
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -185,21 +184,24 @@ public class Extract extends javax.swing.JFrame {
         jLabel5.setToolTipText("");
         jLabel5.setOpaque(true);
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(10, 180, 510, 60);
+        jLabel5.setBounds(20, 190, 510, 60);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel1.setOpaque(true);
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(0, 0, 530, 280);
+        jLabel1.setBounds(0, 0, 550, 270);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

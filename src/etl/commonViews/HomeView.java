@@ -50,12 +50,10 @@ public class HomeView extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         modelBtn = new javax.swing.JButton();
         etlToolBtn = new javax.swing.JButton();
         dashboardBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,73 +67,59 @@ public class HomeView extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(220, 10, 150, 90);
+        jLabel1.setBounds(250, 40, 170, 100);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
-        jLabel2.setText("Predict Your Employees' Churn");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(130, 120, 330, 30);
-
-        modelBtn.setBackground(new java.awt.Color(255, 255, 255));
+        modelBtn.setBackground(new java.awt.Color(0, 102, 204));
         modelBtn.setForeground(new java.awt.Color(0, 0, 204));
-        modelBtn.setText("Predict Employee Churn");
+        modelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/model_icon.png"))); // NOI18N
         modelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modelBtnActionPerformed(evt);
             }
         });
         jPanel2.add(modelBtn);
-        modelBtn.setBounds(197, 190, 170, 30);
+        modelBtn.setBounds(240, 160, 160, 160);
 
-        etlToolBtn.setBackground(new java.awt.Color(255, 255, 255));
+        etlToolBtn.setBackground(new java.awt.Color(0, 102, 204));
         etlToolBtn.setForeground(new java.awt.Color(0, 0, 204));
-        etlToolBtn.setText("ETL Tool");
+        etlToolBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/etl_icon.png"))); // NOI18N
         etlToolBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 etlToolBtnActionPerformed(evt);
             }
         });
         jPanel2.add(etlToolBtn);
-        etlToolBtn.setBounds(70, 190, 120, 30);
+        etlToolBtn.setBounds(80, 160, 150, 160);
 
-        dashboardBtn.setBackground(new java.awt.Color(255, 255, 255));
-        dashboardBtn.setForeground(new java.awt.Color(0, 0, 204));
-        dashboardBtn.setText("View Employee Churn");
+        dashboardBtn.setBackground(new java.awt.Color(0, 102, 204));
+        dashboardBtn.setForeground(new java.awt.Color(51, 204, 255));
+        dashboardBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/dashboard_icon.png"))); // NOI18N
         dashboardBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardBtnActionPerformed(evt);
             }
         });
         jPanel2.add(dashboardBtn);
-        dashboardBtn.setBounds(370, 190, 150, 30);
+        dashboardBtn.setBounds(410, 160, 160, 160);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(60, 180, 470, 50);
+        jLabel3.setBounds(70, 140, 510, 200);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
-        jPanel2.add(jLabel5);
-        jLabel5.setBounds(60, 110, 470, 50);
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/background.png"))); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel4.setOpaque(true);
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(0, 0, 590, 250);
+        jLabel4.setBounds(-10, -10, 670, 450);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
 
         pack();
@@ -196,10 +180,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JButton dashboardBtn;
     private javax.swing.JButton etlToolBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton modelBtn;
     // End of variables declaration//GEN-END:variables

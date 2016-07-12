@@ -130,7 +130,7 @@ public class DefineRules extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Select Attribute");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(40, 80, 120, 30);
+        jLabel2.setBounds(50, 90, 120, 30);
 
         attributeList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -145,32 +145,32 @@ public class DefineRules extends javax.swing.JFrame {
         jScrollPane1.setViewportView(attributeList);
 
         jPanel2.add(jScrollPane1);
-        jScrollPane1.setBounds(30, 120, 236, 360);
+        jScrollPane1.setBounds(40, 130, 236, 360);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Selected Field");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(300, 100, 100, 20);
+        jLabel1.setBounds(310, 110, 100, 20);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(400, 100, 210, 30);
+        jLabel9.setBounds(410, 110, 210, 30);
 
         selectedFieldTxt.setEditable(false);
         selectedFieldTxt.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         selectedFieldTxt.setBorder(null);
         selectedFieldTxt.setOpaque(false);
         jPanel2.add(selectedFieldTxt);
-        selectedFieldTxt.setBounds(406, 100, 200, 30);
+        selectedFieldTxt.setBounds(420, 110, 200, 30);
 
         rulesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select a Rule", "Remove Null Value Rows", "Clean Number values with Average" }));
         jPanel2.add(rulesComBox);
-        rulesComBox.setBounds(400, 140, 210, 30);
+        rulesComBox.setBounds(410, 150, 210, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Rules");
         jPanel2.add(jLabel3);
-        jLabel3.setBounds(300, 140, 60, 20);
+        jLabel3.setBounds(310, 150, 60, 20);
 
         rulesList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,7 +180,7 @@ public class DefineRules extends javax.swing.JFrame {
         jScrollPane2.setViewportView(rulesList);
 
         jPanel2.add(jScrollPane2);
-        jScrollPane2.setBounds(300, 180, 310, 250);
+        jScrollPane2.setBounds(310, 190, 310, 250);
 
         addRuleBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/add.png"))); // NOI18N
         addRuleBtn.setToolTipText("Add Rules ");
@@ -192,7 +192,7 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
         jPanel2.add(addRuleBtn);
-        addRuleBtn.setBounds(310, 440, 39, 39);
+        addRuleBtn.setBounds(320, 450, 39, 39);
 
         removeRulesBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/remove.png"))); // NOI18N
         removeRulesBtn.setToolTipText("Remove Rules");
@@ -205,7 +205,7 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
         jPanel2.add(removeRulesBtn);
-        removeRulesBtn.setBounds(360, 440, 39, 39);
+        removeRulesBtn.setBounds(370, 450, 39, 39);
 
         createDataBtn.setBackground(new java.awt.Color(255, 255, 255));
         createDataBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -217,24 +217,24 @@ public class DefineRules extends javax.swing.JFrame {
             }
         });
         jPanel2.add(createDataBtn);
-        createDataBtn.setBounds(410, 440, 200, 40);
+        createDataBtn.setBounds(420, 450, 200, 40);
 
         jLabel4.setBackground(new java.awt.Color(51, 102, 255));
         jLabel4.setOpaque(true);
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(290, 80, 330, 410);
+        jLabel4.setBounds(300, 90, 330, 410);
 
         jLabel8.setBackground(new java.awt.Color(51, 102, 255));
         jLabel8.setOpaque(true);
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(20, 80, 260, 410);
+        jLabel8.setBounds(30, 90, 260, 410);
 
-        jLabel6.setBackground(new java.awt.Color(0, 204, 204));
+        jLabel6.setBackground(new java.awt.Color(0, 0, 102));
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setOpaque(true);
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(10, 70, 620, 430);
+        jLabel6.setBounds(20, 80, 620, 430);
 
         jLabel7.setBackground(new java.awt.Color(51, 102, 255));
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -242,21 +242,22 @@ public class DefineRules extends javax.swing.JFrame {
         jLabel7.setText("Add Rules for Attributes");
         jLabel7.setOpaque(true);
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(10, 10, 620, 50);
+        jLabel7.setBounds(20, 20, 620, 50);
 
-        jLabel5.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel5.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel5.setOpaque(true);
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(10, 10, 630, 490);
+        jLabel5.setBounds(0, 0, 660, 520);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();

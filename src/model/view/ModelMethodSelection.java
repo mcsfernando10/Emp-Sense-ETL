@@ -318,14 +318,26 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         if(autoRadioBtn.isSelected()){
             String path = "D:/SLIIT/SoftwareIndustry";
             Process p;
+            if(trainRadioBtn.isSelected()){
                 try {
-                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation.py");
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation_Train.py");
                     int i = p.waitFor();
                     System.out.println(i);
                     JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException | InterruptedException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+            else if(predictRadioBtn.isSelected()){
+                try {
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation_Predict.py");
+                    int i = p.waitFor();
+                    System.out.println(i);
+                    JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                } catch (IOException | InterruptedException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }else if(manualRadioBtn.isSelected()){
             if(trainRadioBtn.isSelected()){
                 String path = "D:/SLIIT/SoftwareIndustry";

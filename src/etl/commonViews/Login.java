@@ -91,11 +91,15 @@ public class Login extends javax.swing.JFrame {
 
         jPanel2.setLayout(null);
 
-        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
+        loginBtn.setBackground(new java.awt.Color(0, 0, 102));
         loginBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(0, 51, 255));
-        loginBtn.setText("Login");
-        loginBtn.setOpaque(false);
+        loginBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/login_icon.png"))); // NOI18N
+        loginBtn.setText("LOGIN");
+        loginBtn.setBorder(null);
+        loginBtn.setBorderPainted(false);
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginBtn.setFocusPainted(false);
         loginBtn.setPreferredSize(new java.awt.Dimension(69, 23));
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,14 +107,16 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel2.add(loginBtn);
-        loginBtn.setBounds(290, 270, 80, 30);
+        loginBtn.setBounds(180, 310, 200, 40);
 
         jLabel9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jLabel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(130, 220, 200, 30);
+        jLabel9.setBounds(180, 230, 200, 30);
 
+        passwordTxt.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         passwordTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         passwordTxt.setOpaque(false);
         passwordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -119,28 +125,31 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel2.add(passwordTxt);
-        passwordTxt.setBounds(140, 220, 180, 30);
+        passwordTxt.setBounds(190, 230, 180, 30);
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel11);
-        jLabel11.setBounds(340, 220, 30, 30);
+        jLabel11.setBounds(390, 230, 30, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("PASSWORD");
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(50, 230, 80, 15);
+        jLabel4.setBounds(100, 240, 80, 15);
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jLabel8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel2.add(jLabel8);
-        jLabel8.setBounds(130, 180, 200, 30);
+        jLabel8.setBounds(180, 190, 200, 30);
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/password_icon.png"))); // NOI18N
         jPanel2.add(jLabel12);
-        jLabel12.setBounds(340, 220, 30, 30);
+        jLabel12.setBounds(390, 230, 30, 30);
 
+        usernameTxt.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         usernameTxt.setToolTipText("Username");
         usernameTxt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         usernameTxt.setOpaque(false);
@@ -150,41 +159,43 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel2.add(usernameTxt);
-        usernameTxt.setBounds(140, 180, 180, 30);
+        usernameTxt.setBounds(190, 190, 180, 30);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("USERNAME");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(50, 190, 70, 15);
+        jLabel1.setBounds(100, 200, 70, 15);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 21)); // NOI18N
-        jLabel14.setText("LOGIN");
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("WELCOME");
         jPanel2.add(jLabel14);
-        jLabel14.setBounds(180, 110, 90, 30);
+        jLabel14.setBounds(210, 120, 109, 30);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(30, 100, 360, 50);
+        jLabel2.setBounds(60, 110, 410, 50);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel6);
-        jLabel6.setBounds(30, 160, 360, 160);
+        jLabel6.setBounds(60, 170, 410, 200);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/username_icon.png"))); // NOI18N
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(340, 180, 30, 30);
+        jLabel13.setBounds(390, 190, 30, 30);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/bg_2.png"))); // NOI18N
         jPanel2.add(jLabel10);
-        jLabel10.setBounds(340, 180, 30, 30);
+        jLabel10.setBounds(390, 190, 30, 30);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Forgot Password?");
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(130, 270, 120, 15);
+        jLabel5.setBounds(180, 280, 120, 15);
 
         logoLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/logo.png"))); // NOI18N
@@ -192,28 +203,23 @@ public class Login extends javax.swing.JFrame {
         logoLabel.setOpaque(true);
         logoLabel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jPanel2.add(logoLabel);
-        logoLabel.setBounds(140, 10, 150, 80);
+        logoLabel.setBounds(190, 20, 150, 80);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/etl/images/background.png"))); // NOI18N
+        jLabel7.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel7.setFocusable(false);
         jLabel7.setOpaque(true);
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(0, 0, 420, 340);
+        jLabel7.setBounds(0, 0, 520, 430);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
         );
 
         pack();
