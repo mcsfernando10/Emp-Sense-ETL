@@ -155,7 +155,7 @@ public class DBAccess {
             String query = "Insert into " + tableName + " values (";
             for(int i=0;i<stringArrSize;i++){
                 //Insert churn - false(0)
-                if(i==stringArrSize-2)
+                if(i==stringArrSize-1)
                     query += "'" + employeeRow[i] + "'";
                 else if(i==stringArrSize-1)
                     break;

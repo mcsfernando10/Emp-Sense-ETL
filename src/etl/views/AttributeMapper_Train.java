@@ -60,6 +60,12 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelJobRole 
                 = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelDepartment 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelWorkFrom 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelWorkTo 
+                = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelTenure 
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelSalary 
@@ -69,6 +75,8 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         DefaultComboBoxModel<String> modelDistance 
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelNoOfDep 
+                = new DefaultComboBoxModel<>(header);
+        DefaultComboBoxModel<String> modelReasonToLeave 
                 = new DefaultComboBoxModel<>(header);
         DefaultComboBoxModel<String> modelChurn 
                 = new DefaultComboBoxModel<>(header);
@@ -80,11 +88,16 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         maritalStatComBox.setModel(modelMaritalStatus);
         havingDegreeComBox.setModel(modelHavingDegree);
         jobRoleComBox.setModel(modelJobRole);
+        departmentComBox.setModel(modelDepartment);
+        workFromComBox.setModel(modelWorkFrom);
+        workToComBox.setModel(modelWorkTo);
+        departmentComBox.setModel(modelDepartment);
         tenureComBox.setModel(modelTenure);
         salaryComBox.setModel(modelSalary);
         noOfLeavesComBox.setModel(modelNoOfLeaves);
         distanceComBox.setModel(modelDistance);
         noOfDepComBox.setModel(modelNoOfDep);
+        reasonToLeaveComBox.setModel(modelReasonToLeave);
         churnComBox.setModel(modelChurn);
         
         SynonymDictionary dictionary = new SynonymDictionary();
@@ -97,11 +110,15 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         maritalStatComBox.setSelectedIndex(dictionary.getIndex(StringConstants.MARITAL_STAT, header));
         havingDegreeComBox.setSelectedIndex(dictionary.getIndex(StringConstants.HAVING_DEGREE, header));
         jobRoleComBox.setSelectedIndex(dictionary.getIndex(StringConstants.JOB_ROLE, header));
+        departmentComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DEPARTMENT, header));
+        workFromComBox.setSelectedIndex(dictionary.getIndex(StringConstants.WORK_FROM, header));
+        workToComBox.setSelectedIndex(dictionary.getIndex(StringConstants.WORK_TO, header));
         tenureComBox.setSelectedIndex(dictionary.getIndex(StringConstants.TENURE, header));
         salaryComBox.setSelectedIndex(dictionary.getIndex(StringConstants.SALARY, header));
         noOfLeavesComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_LEAVES, header));
         distanceComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DISTANCE, header));
         noOfDepComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_DEPENDENTS, header));
+        reasonToLeaveComBox.setSelectedIndex(dictionary.getIndex(StringConstants.REASON_TO_LEAVE, header));
         churnComBox.setSelectedIndex(dictionary.getIndex(StringConstants.CHURN, header));
     }
     
@@ -144,6 +161,14 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         churnComBox = new javax.swing.JComboBox<>();
         jLabel17 = new javax.swing.JLabel();
+        workFromComBox = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        departmentComBox = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        reasonToLeaveComBox = new javax.swing.JComboBox<>();
+        workToComBox = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
 
@@ -161,31 +186,31 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Gender");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(370, 150, 43, 15);
+        jLabel1.setBounds(380, 150, 43, 15);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Marital Status");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(40, 190, 87, 15);
+        jLabel2.setBounds(30, 190, 87, 15);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Salary");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(40, 270, 37, 15);
+        jLabel3.setBounds(380, 310, 37, 15);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Job Role");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(40, 230, 53, 15);
+        jLabel4.setBounds(30, 230, 53, 15);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("No of Leaves");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(370, 270, 78, 15);
+        jLabel5.setBounds(30, 350, 78, 15);
 
         genderComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(genderComBox);
-        genderComBox.setBounds(490, 140, 220, 30);
+        genderComBox.setBounds(500, 140, 220, 30);
 
         maritalStatComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(maritalStatComBox);
@@ -197,11 +222,11 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
 
         salaryComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(salaryComBox);
-        salaryComBox.setBounds(140, 260, 220, 30);
+        salaryComBox.setBounds(500, 300, 220, 30);
 
         noOfLeavesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(noOfLeavesComBox);
-        noOfLeavesComBox.setBounds(490, 260, 220, 30);
+        noOfLeavesComBox.setBounds(140, 340, 220, 30);
 
         defineRulesBtn.setBackground(new java.awt.Color(255, 255, 255));
         defineRulesBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -213,30 +238,30 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
             }
         });
         jPanel1.add(defineRulesBtn);
-        defineRulesBtn.setBounds(550, 410, 157, 30);
+        defineRulesBtn.setBounds(550, 490, 157, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Distance");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(40, 310, 52, 15);
+        jLabel6.setBounds(380, 350, 52, 15);
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("No of Dependents");
+        jLabel7.setText("NoofDependents");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(370, 310, 111, 15);
+        jLabel7.setBounds(30, 390, 120, 15);
 
         distanceComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(distanceComBox);
-        distanceComBox.setBounds(140, 300, 220, 30);
+        distanceComBox.setBounds(500, 340, 220, 30);
 
         noOfDepComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(noOfDepComBox);
-        noOfDepComBox.setBounds(490, 300, 220, 30);
+        noOfDepComBox.setBounds(140, 380, 220, 30);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Employee ID");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(40, 110, 76, 15);
+        jLabel8.setBounds(30, 110, 76, 15);
 
         employeeIDComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(employeeIDComBox);
@@ -245,18 +270,18 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Employee Name");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(370, 110, 95, 15);
+        jLabel9.setBounds(380, 110, 95, 15);
 
         employeeNameComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(employeeNameComBox);
-        employeeNameComBox.setBounds(490, 100, 220, 30);
+        employeeNameComBox.setBounds(500, 100, 220, 30);
 
         jLabel10.setBackground(new java.awt.Color(51, 102, 255));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setOpaque(true);
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 400, 710, 50);
+        jLabel10.setBounds(20, 480, 710, 50);
 
         ageComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(ageComBox);
@@ -265,34 +290,34 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Age");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(40, 150, 36, 15);
+        jLabel11.setBounds(30, 150, 36, 15);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Having Degree");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(370, 190, 89, 15);
+        jLabel12.setBounds(380, 190, 89, 15);
 
         havingDegreeComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(havingDegreeComBox);
-        havingDegreeComBox.setBounds(490, 180, 220, 30);
+        havingDegreeComBox.setBounds(500, 180, 220, 30);
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("Tenure");
         jPanel1.add(jLabel13);
-        jLabel13.setBounds(370, 230, 42, 15);
+        jLabel13.setBounds(30, 310, 42, 15);
 
         tenureComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(tenureComBox);
-        tenureComBox.setBounds(490, 220, 220, 30);
+        tenureComBox.setBounds(140, 300, 220, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Churn");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(40, 350, 37, 15);
+        jLabel14.setBounds(30, 430, 37, 15);
 
         churnComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(churnComBox);
-        churnComBox.setBounds(140, 340, 220, 30);
+        churnComBox.setBounds(140, 420, 220, 30);
 
         jLabel17.setBackground(new java.awt.Color(51, 102, 255));
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -302,15 +327,51 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jPanel1.add(jLabel17);
         jLabel17.setBounds(14, 20, 720, 50);
 
+        workFromComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(workFromComBox);
+        workFromComBox.setBounds(140, 260, 220, 30);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel18.setText("Work From");
+        jPanel1.add(jLabel18);
+        jLabel18.setBounds(30, 270, 70, 15);
+
+        departmentComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(departmentComBox);
+        departmentComBox.setBounds(500, 220, 220, 30);
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel19.setText("Department");
+        jPanel1.add(jLabel19);
+        jLabel19.setBounds(380, 230, 100, 15);
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel20.setText("WorkTo");
+        jPanel1.add(jLabel20);
+        jLabel20.setBounds(380, 270, 60, 15);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setText("Reason to Leave");
+        jPanel1.add(jLabel21);
+        jLabel21.setBounds(380, 390, 120, 15);
+
+        reasonToLeaveComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(reasonToLeaveComBox);
+        reasonToLeaveComBox.setBounds(500, 380, 220, 30);
+
+        workToComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(workToComBox);
+        workToComBox.setBounds(500, 260, 220, 30);
+
         jLabel16.setBackground(new java.awt.Color(51, 102, 255));
         jLabel16.setOpaque(true);
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 80, 710, 310);
+        jLabel16.setBounds(20, 80, 710, 390);
 
         jLabel15.setBackground(new java.awt.Color(0, 0, 102));
         jLabel15.setOpaque(true);
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(0, 0, 750, 470);
+        jLabel15.setBounds(0, 0, 750, 610);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -320,7 +381,7 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -354,22 +415,25 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
             maritalStatComBox.getSelectedItem().toString(),
             havingDegreeComBox.getSelectedItem().toString(),            
             jobRoleComBox.getSelectedItem().toString(),
+            departmentComBox.getSelectedItem().toString(),
+            workFromComBox.getSelectedItem().toString(),
+            workToComBox.getSelectedItem().toString(),
             tenureComBox.getSelectedItem().toString(),
             salaryComBox.getSelectedItem().toString(),
             noOfLeavesComBox.getSelectedItem().toString(),
             distanceComBox.getSelectedItem().toString(),
             noOfDepComBox.getSelectedItem().toString(),
+            reasonToLeaveComBox.getSelectedItem().toString(),
             churnComBox.getSelectedItem().toString()
         };
         for (int i = NumberConstants.ZERO; 
-                i < StringConstants.ATTRIBUTES.length ; i++){
-            String attr = StringConstants.ATTRIBUTES[i];
+                i < StringConstants.ATTRIBUTES_TRAIN.length ; i++){
+            String attr = StringConstants.ATTRIBUTES_TRAIN[i];
             attribute attribute = new attribute(attr);
             attribute.setRules(StringConstants.RULES_LIST.get(attr));
             attribute.setMatchingField(mappedAttributes[i]);
             attributes.add(attribute);
-        }        
-        
+        }                
         dispose();
         new DefineRules(attributes, filePath, NumberConstants.TRAIN_DATA).setVisible(true);
     }//GEN-LAST:event_defineRulesBtnActionPerformed
@@ -394,6 +458,7 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ageComBox;
     private javax.swing.JComboBox<String> churnComBox;
     private javax.swing.JButton defineRulesBtn;
+    private javax.swing.JComboBox<String> departmentComBox;
     private javax.swing.JComboBox<String> distanceComBox;
     private javax.swing.JComboBox<String> employeeIDComBox;
     private javax.swing.JComboBox<String> employeeNameComBox;
@@ -408,7 +473,11 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -421,7 +490,10 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> maritalStatComBox;
     private javax.swing.JComboBox<String> noOfDepComBox;
     private javax.swing.JComboBox<String> noOfLeavesComBox;
+    private javax.swing.JComboBox<String> reasonToLeaveComBox;
     private javax.swing.JComboBox<String> salaryComBox;
     private javax.swing.JComboBox<String> tenureComBox;
+    private javax.swing.JComboBox<String> workFromComBox;
+    private javax.swing.JComboBox<String> workToComBox;
     // End of variables declaration//GEN-END:variables
 }

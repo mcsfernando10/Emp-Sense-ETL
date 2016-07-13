@@ -61,13 +61,17 @@ mappings['Having Degree'] = 'Having Degree', {'No': 0, 'Yes': 1}
 mappings['Job Role'] = 'Job Role', {'': 0, 'IT': 1,'IT Trainee': 2, 'Software Engineering Intern': 3,
     'IT Officer - Intern': 4, 'Developer Intern': 5, 'System Admin': 6,'Software Architecturer': 7,
     'Tech Lead': 8,'System Analyst': 9, 'QA Mananger': 10,'Software Engineer': 11,'IT Manager': 12,
-    'IT App Man': 13,'IT Project Leader': 14}
+    'IT App Man': 13,'IT Project Leader': 14,'HR Manager':15,
+    'Finance Manager':16,'Accountant':17,'Assistant Accountant':18}
+mappings['Department'] = 'Department', {'IT': 0, 'QA': 1,'Planning': 2, 'HR': 3,
+    'Financial': 4}
+mappings['Work From'] = 'Work From'
+mappings['Work To'] = 'Work To'
 mappings['Tenure'] = 'Tenure'
 mappings['Salary'] = 'Salary'
 mappings['No of Leaves'] = 'No of Leaves'
 mappings['Distance'] = 'Distance'
-mappings['No of Dependents'] = 'No of Dependents'
-mappings['Churn'] = 'Churn'
+mappings['No of Dependents'] = 'No of Dependents' 
 
 mappedRawDataTable = etl.fieldmap(rawDataTable, mappings)
 

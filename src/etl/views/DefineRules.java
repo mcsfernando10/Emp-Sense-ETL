@@ -11,7 +11,6 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CreateCleansedCSV;
 import etl.controllers.CreatingDBDialog;
-import etl.controllers.CreateSelectDBTableDialog;
 import etl.models.attribute;
 import java.awt.Color;
 import java.awt.event.KeyEvent;

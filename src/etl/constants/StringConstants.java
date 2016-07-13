@@ -75,11 +75,15 @@ public class StringConstants {
     public static final String MARITAL_STAT = "Marital Status";
     public static final String HAVING_DEGREE = "Having Degree";
     public static final String JOB_ROLE = "Job Role";
+    public static final String DEPARTMENT = "Department";
+    public static final String WORK_FROM = "Work From";
+    public static final String WORK_TO = "Work To";
     public static final String TENURE = "Tenure";
     public static final String SALARY = "Salary";
     public static final String NO_OF_LEAVES = "No of Leaves";
     public static final String DISTANCE = "Distance";
     public static final String NO_OF_DEPENDENTS = "No of Dependents";
+    public static final String REASON_TO_LEAVE = "Reason to Leave";
     public static final String CHURN = "Churn";
     
     //Rules
@@ -91,11 +95,18 @@ public class StringConstants {
     public static final String NUMBER_VALIDATION = "Number Validation";
     //*To add new attribute
     
-    public static final String[] ATTRIBUTES = new String[]{
+    public static final String[] ATTRIBUTES_TRAIN = new String[]{
         EMPLOYEE_ID, EMPLOYEE_NAME, AGE , GENDER, MARITAL_STAT, 
-        HAVING_DEGREE, JOB_ROLE, TENURE,
-        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS, CHURN
+        HAVING_DEGREE, JOB_ROLE, DEPARTMENT, WORK_FROM, WORK_TO,TENURE,
+        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS, REASON_TO_LEAVE,CHURN
     };
+    
+    public static final String[] ATTRIBUTES_PREDICT = new String[]{
+        EMPLOYEE_ID, EMPLOYEE_NAME, AGE , GENDER, MARITAL_STAT, 
+        HAVING_DEGREE, JOB_ROLE, DEPARTMENT, WORK_FROM, WORK_TO,TENURE,
+        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS
+    };
+    
     public static final Map<String, List<String>> RULES_LIST = 
             new HashMap<String, List<String>>(){
         {
@@ -185,6 +196,45 @@ public class StringConstants {
                     }
             );
             
+            put(DEPARTMENT, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(WORK_FROM, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(WORK_TO, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
             put(TENURE, 
                     new ArrayList<String>()
                     {
@@ -250,6 +300,19 @@ public class StringConstants {
                     }
             );
             
+            put(REASON_TO_LEAVE, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(REMOVE_DUPLICATES);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
             put(CHURN, 
                     new ArrayList<String>()
                     {
@@ -277,7 +340,8 @@ public class StringConstants {
     
     //Controllers
     //CreateCleanCSV
-    public static final String CLEANSED_DATA_PYTHON_PATH = "python src/etl/pythonCodes/cleanData.py";
+    public static final String CLEANSED_DATA_PYTHON_PATH_TRAIN = "python src/etl/pythonCodes/cleanData_Train.py";
+    public static final String CLEANSED_DATA_PYTHON_PATH_PREDICT = "python src/etl/pythonCodes/cleanData_Predict.py";
     public static final String CLEANSED_DATA_PATH = "src/etl/outputs/cleansed.csv";
     public static final String CLEANSED_RAW_DATA_PATH = "src/etl/outputs/rawData.csv";
     public static final String TRAIN_DATATABLE = "employeesIT_Train";
@@ -309,6 +373,5 @@ public class StringConstants {
     public static final String DB_USER_TEXT = "user";
     public static final String DB_USERNAME = "root";
     public static final String DB_USER_PASSWORD_TEXT = "password";
-    public static final String DB_USER_PASSWORD = "root123";
-    
+    public static final String DB_USER_PASSWORD = "root123";    
 }

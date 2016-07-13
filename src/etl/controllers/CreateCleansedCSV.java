@@ -45,11 +45,14 @@ public class CreateCleansedCSV implements Runnable{
     */
     public void executePythonFile(){  
         try {
-            /*Process p = Runtime.getRuntime().
-                    exec("python src/etl/pythonCodes/cleanData.py " + filePath);*/
-            
-            Process p = Runtime.getRuntime().
-                    exec(StringConstants.CLEANSED_DATA_PYTHON_PATH);
+            Process p;
+            if(selectedDBTable == NumberConstants.TRAIN_DATA){            
+                p = Runtime.getRuntime().
+                        exec(StringConstants.CLEANSED_DATA_PYTHON_PATH_TRAIN);
+            }else{
+                p = Runtime.getRuntime().
+                        exec(StringConstants.CLEANSED_DATA_PYTHON_PATH_PREDICT);
+            }
             
             BufferedReader stdInput = new BufferedReader(new
                  InputStreamReader(p.getInputStream()));
