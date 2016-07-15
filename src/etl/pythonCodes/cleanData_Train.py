@@ -72,9 +72,10 @@ mappings['Salary'] = 'Salary'
 mappings['No of Leaves'] = 'No of Leaves'
 mappings['Distance'] = 'Distance'
 mappings['No of Dependents'] = 'No of Dependents'
-mappings['Reason to Leave'] = 'Reason to Leave', {'Due to distance': 0, 'Due to salary problems': 1,
-    'Health Problem': 2, 'Due to Higher Education': 3, 'Left the country': 4,
-    'Personal reason':5}
+mappings['Reason to Leave'] = 'Reason to Leave', {'':0,'Family Problem':1,'Lack of benefits':2,
+    'Salary Problem':3,'Travelling Problem':4,
+    'Higher Education':5,'Travelling and Salary Problem':6,'Low salary and Lack of benefits':7,
+    'Personal Reason':8,'Left the country':9}
 mappings['Churn'] = 'Churn'
 
 mappedRawDataTable = etl.fieldmap(rawDataTable, mappings)

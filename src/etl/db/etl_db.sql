@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
   `Marital_Status` int DEFAULT NULL,
   `Having_Degree` int DEFAULT NULL,
   `Job_Role` int DEFAULT NULL,
-  `Department` varchar(100) DEFAULT NULL,
+  `Department` int DEFAULT NULL,
   `WorkFrom` DATETIME DEFAULT NULL,
   `WorkTo` DATETIME DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
   `No_of_Dependents` int(11) DEFAULT NULL,
-  `Reason_To_Leave` varchar(1000) DEFAULT NULL,
+  `Reason_To_Leave` int DEFAULT NULL,
   `churn` int
 ) 
 
