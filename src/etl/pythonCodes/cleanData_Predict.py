@@ -48,30 +48,27 @@ for x in reversed(range(length)):
 etl.tocsv(cleansedTable,'src/etl/outputs/cleansed.csv')
 
 #Create rawData Table
+dataTable = cleansedTable
 rawDataTable = cleansedTable
 
 mappings = OrderedDict()
 #mapping attributes
-mappings['Employee ID'] = 'Employee ID'
-mappings['Employee Name'] = 'Employee Name'
-mappings['Age'] = 'Age'
-mappings['Gender'] = 'Gender', {'Male': 0, 'Female': 1}
-mappings['Marital Status'] = 'Marital Status', {'Single': 0, 'Married': 1}
-mappings['Having Degree'] = 'Having Degree', {'No': 0, 'Yes': 1}
-mappings['Job Role'] = 'Job Role', {'': 0, 'IT': 1,'IT Trainee': 2, 'Software Engineering Intern': 3,
-    'IT Officer - Intern': 4, 'Developer Intern': 5, 'System Admin': 6,'Software Architecturer': 7,
-    'Tech Lead': 8,'System Analyst': 9, 'QA Mananger': 10,'Software Engineer': 11,'IT Manager': 12,
-    'IT App Man': 13,'IT Project Leader': 14,'HR Manager':15,
-    'Finance Manager':16,'Accountant':17,'Assistant Accountant':18}
-mappings['Department'] = 'Department', {'IT': 0, 'QA': 1,'Planning': 2, 'HR': 3,
-    'Financial': 4}
-mappings['Work From'] = 'Work From'
-mappings['Work To'] = 'Work To'
-mappings['Tenure'] = 'Tenure'
-mappings['Salary'] = 'Salary'
-mappings['No of Leaves'] = 'No of Leaves'
-mappings['Distance'] = 'Distance'
-mappings['No of Dependents'] = 'No of Dependents' 
+# go through each column (c = table)
+for i in range(length):
+    #get unique values for each column
+    uniqueValues = etl.aggregate(dataTable,dataTable[0][i])
+    #create unique value for each column
+    uniqueValArr = []
+    k = 0
+    for iterating_var in uniqueValues:
+        if (k != 0):
+            uniqueValArr.append(iterating_var[0])
+        k += 1
+    #create unique value map (assign value for each unique value)
+    uniqueValMap = {}
+    for n in range(len(uniqueValArr)):
+        uniqueValMap[uniqueValArr[n]] = n
+    mappings[dataTable[0][i]] = dataTable[0][i],uniqueValMap
 
 mappedRawDataTable = etl.fieldmap(rawDataTable, mappings)
 
