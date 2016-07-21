@@ -10,10 +10,13 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.dictionary.SynonymDictionary;
 import etl.models.attribute;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
@@ -30,6 +33,7 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     private final String filePath;
     private final String[] header;
     private List<attribute> attributes;
+    private List<JComboBox> comboBoxes;
     public AttributeMapper_Predict(String selectedFilePath,  
             String[] headers) {
         initComponents();
@@ -38,81 +42,75 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
                 
         this.filePath = selectedFilePath;
         this.header = headers;                
-        setComboboxModels();   
+        setAttributeMappers();   
     }
     
     /*
-    * @Method setComboboxModels 
-    * Set Combobox for attribtes to map them
+    * @Method setAttributeMappers 
+    * Display Comboboxes in layout dynamically
     */
-    private void setComboboxModels(){
-        DefaultComboBoxModel<String> modelEmployeeID 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelEmployeeName 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelAge 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelGender 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelMaritalStatus 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelHavingDegree 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelJobRole 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelDepartment 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelWorkFrom 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelWorkTo 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelTenure 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelSalary 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelNoOfLeaves 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelDistance 
-                = new DefaultComboBoxModel<>(header);
-        DefaultComboBoxModel<String> modelNoOfDep 
-                = new DefaultComboBoxModel<>(header);
+    private void setAttributeMappers(){
+        attributes = new ArrayList<>();
+        comboBoxes = new ArrayList<>();
+        mainPanel.setLayout(null);
         
-        employeeIDComBox.setModel(modelEmployeeID);
-        employeeNameComBox.setModel(modelEmployeeName);
-        ageComBox.setModel(modelAge);
-        genderComBox.setModel(modelGender);
-        maritalStatComBox.setModel(modelMaritalStatus);
-        havingDegreeComBox.setModel(modelHavingDegree);
-        jobRoleComBox.setModel(modelJobRole);
-        departmentComBox.setModel(modelDepartment);
-        workFromComBox.setModel(modelWorkFrom);
-        workToComBox.setModel(modelWorkTo);
-        tenureComBox.setModel(modelTenure);
-        salaryComBox.setModel(modelSalary);
-        noOfLeavesComBox.setModel(modelNoOfLeaves);
-        distanceComBox.setModel(modelDistance);
-        noOfDepComBox.setModel(modelNoOfDep);
+        int labelXpos = 25;
+        int labelYpos = -30;
+        int labelWidth = 120;
+        int labelHeight = 30;
+        
+        int comboxBoxXpos = 140;
+        int comboxBoxYpos = -30;
+        int comboxBoxWidth = 200;
+        int comboxBoxHeight = 30;
+        
+        int midGapX = 10;
+        int midGapY = 12;        
         
         SynonymDictionary dictionary = new SynonymDictionary();
-        
-        //Automate dropdown selection
-        employeeIDComBox.setSelectedIndex(dictionary.getIndex(StringConstants.EMPLOYEE_ID, header));
-        employeeNameComBox.setSelectedIndex(dictionary.getIndex(StringConstants.EMPLOYEE_NAME, header));
-        ageComBox.setSelectedIndex(dictionary.getIndex(StringConstants.AGE, header));
-        genderComBox.setSelectedIndex(dictionary.getIndex(StringConstants.GENDER, header));
-        maritalStatComBox.setSelectedIndex(dictionary.getIndex(StringConstants.MARITAL_STAT, header));
-        havingDegreeComBox.setSelectedIndex(dictionary.getIndex(StringConstants.HAVING_DEGREE, header));
-        jobRoleComBox.setSelectedIndex(dictionary.getIndex(StringConstants.JOB_ROLE, header));
-        departmentComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DEPARTMENT, header));
-        workFromComBox.setSelectedIndex(dictionary.getIndex(StringConstants.WORK_FROM, header));
-        workToComBox.setSelectedIndex(dictionary.getIndex(StringConstants.WORK_TO, header));
-        tenureComBox.setSelectedIndex(dictionary.getIndex(StringConstants.TENURE, header));
-        salaryComBox.setSelectedIndex(dictionary.getIndex(StringConstants.SALARY, header));
-        noOfLeavesComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_LEAVES, header));
-        distanceComBox.setSelectedIndex(dictionary.getIndex(StringConstants.DISTANCE, header));
-        noOfDepComBox.setSelectedIndex(dictionary.getIndex(StringConstants.NO_OF_DEPENDENTS, header));
-    }
-    
+        for(int i=NumberConstants.ZERO;
+                i<StringConstants.ATTRIBUTES_PREDICT.length;i++){
+            //Create Attribute
+            String attrName = StringConstants.ATTRIBUTES_PREDICT[i];
+            attribute attribute = new attribute(attrName);
+            attribute.setRules(StringConstants.RULES_LIST.get(attrName));
+            attributes.add(attribute);
+            
+            JLabel attrLable = new JLabel(attrName);
+            Font boldFont = new Font(attrLable.getFont().getName(),Font.BOLD,attrLable.getFont().getSize());
+            
+            attrLable.setFont(boldFont);
+            JComboBox attrComBox = new JComboBox();
+            //Left Side
+            if(i%2 != 1){
+                labelXpos = 25;
+                comboxBoxXpos = 140;
+                
+                labelYpos = labelYpos + labelHeight + midGapY ;
+                comboxBoxYpos = comboxBoxYpos + comboxBoxHeight + midGapY ;
+            } else { //Right side
+                labelXpos = comboxBoxXpos + comboxBoxWidth + midGapX;
+                comboxBoxXpos = labelXpos + labelWidth + midGapX;    
+            }
+            mainPanel.add(attrLable);
+            mainPanel.add(attrComBox);
+
+            attrLable.setLocation(labelXpos, labelYpos);
+            attrComBox.setLocation(comboxBoxXpos, comboxBoxYpos);
+
+            attrLable.setSize(labelWidth, labelHeight);
+            attrComBox.setSize(comboxBoxWidth, comboxBoxHeight);
+            
+            DefaultComboBoxModel<String> comboBoxModel 
+                = new DefaultComboBoxModel<>(header);
+            attrComBox.setModel(comboBoxModel);
+            
+            //Automate dropdown selection
+            attrComBox.setSelectedIndex(dictionary.getIndex(attrName, header));
+            comboBoxes.add(attrComBox);
+        }
+    } 
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,40 +121,10 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        employeeIDComBox = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        ageComBox = new javax.swing.JComboBox<>();
-        employeeNameComBox = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        genderComBox = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        maritalStatComBox = new javax.swing.JComboBox<>();
-        jobRoleComBox = new javax.swing.JComboBox<>();
-        salaryComBox = new javax.swing.JComboBox<>();
-        noOfLeavesComBox = new javax.swing.JComboBox<>();
         defineRulesBtn = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        distanceComBox = new javax.swing.JComboBox<>();
-        workToComBox = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
-        havingDegreeComBox = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        tenureComBox = new javax.swing.JComboBox<>();
+        mainPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        departmentComBox = new javax.swing.JComboBox<>();
-        jLabel20 = new javax.swing.JLabel();
-        noOfDepComBox = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        workFromComBox = new javax.swing.JComboBox<>();
-        jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -170,78 +138,6 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
-        employeeIDComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(employeeIDComBox);
-        employeeIDComBox.setBounds(150, 100, 220, 30);
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText("Employee ID");
-        jPanel1.add(jLabel8);
-        jLabel8.setBounds(30, 110, 76, 15);
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setText("Age");
-        jPanel1.add(jLabel11);
-        jLabel11.setBounds(30, 150, 36, 15);
-
-        ageComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(ageComBox);
-        ageComBox.setBounds(150, 140, 220, 30);
-
-        employeeNameComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(employeeNameComBox);
-        employeeNameComBox.setBounds(500, 100, 220, 30);
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel9.setText("Employee Name");
-        jPanel1.add(jLabel9);
-        jLabel9.setBounds(380, 110, 95, 15);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Gender");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(380, 150, 43, 15);
-
-        genderComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(genderComBox);
-        genderComBox.setBounds(500, 140, 220, 30);
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel2.setText("Marital Status");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(30, 190, 87, 15);
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setText("Salary");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(380, 310, 37, 15);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Job Role");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(30, 230, 53, 15);
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel5.setText("No of Leaves");
-        jPanel1.add(jLabel5);
-        jLabel5.setBounds(30, 350, 78, 15);
-
-        maritalStatComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(maritalStatComBox);
-        maritalStatComBox.setBounds(150, 180, 220, 30);
-
-        jobRoleComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jobRoleComBox);
-        jobRoleComBox.setBounds(150, 220, 220, 30);
-
-        salaryComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(salaryComBox);
-        salaryComBox.setBounds(500, 300, 220, 30);
-
-        noOfLeavesComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(noOfLeavesComBox);
-        noOfLeavesComBox.setBounds(150, 340, 220, 30);
-
         defineRulesBtn.setBackground(new java.awt.Color(255, 255, 255));
         defineRulesBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         defineRulesBtn.setForeground(new java.awt.Color(0, 51, 255));
@@ -254,41 +150,21 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
         jPanel1.add(defineRulesBtn);
         defineRulesBtn.setBounds(550, 450, 157, 30);
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Distance");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(380, 350, 52, 15);
+        mainPanel.setBackground(new java.awt.Color(51, 102, 255));
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("Work To");
-        jPanel1.add(jLabel7);
-        jLabel7.setBounds(380, 270, 51, 15);
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 710, Short.MAX_VALUE)
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 350, Short.MAX_VALUE)
+        );
 
-        distanceComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(distanceComBox);
-        distanceComBox.setBounds(500, 340, 220, 30);
-
-        workToComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(workToComBox);
-        workToComBox.setBounds(500, 260, 220, 30);
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel12.setText("Having Degree");
-        jPanel1.add(jLabel12);
-        jLabel12.setBounds(380, 190, 89, 15);
-
-        havingDegreeComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(havingDegreeComBox);
-        havingDegreeComBox.setBounds(500, 180, 220, 30);
-
-        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel13.setText("Tenure");
-        jPanel1.add(jLabel13);
-        jLabel13.setBounds(30, 310, 42, 15);
-
-        tenureComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(tenureComBox);
-        tenureComBox.setBounds(150, 300, 220, 30);
+        jPanel1.add(mainPanel);
+        mainPanel.setBounds(20, 80, 710, 350);
 
         jLabel10.setBackground(new java.awt.Color(51, 102, 255));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -304,38 +180,6 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
         jLabel16.setOpaque(true);
         jPanel1.add(jLabel16);
         jLabel16.setBounds(20, 20, 710, 50);
-
-        departmentComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(departmentComBox);
-        departmentComBox.setBounds(500, 220, 220, 30);
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel20.setText("No of Dependents");
-        jPanel1.add(jLabel20);
-        jLabel20.setBounds(30, 390, 120, 15);
-
-        noOfDepComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(noOfDepComBox);
-        noOfDepComBox.setBounds(150, 380, 220, 30);
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel17.setText("Department");
-        jPanel1.add(jLabel17);
-        jLabel17.setBounds(380, 230, 90, 15);
-
-        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel18.setText("Work From");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(30, 270, 111, 15);
-
-        workFromComBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(workFromComBox);
-        workFromComBox.setBounds(150, 260, 220, 30);
-
-        jLabel15.setBackground(new java.awt.Color(51, 102, 255));
-        jLabel15.setOpaque(true);
-        jPanel1.add(jLabel15);
-        jLabel15.setBounds(20, 80, 710, 350);
 
         jLabel14.setBackground(new java.awt.Color(0, 0, 102));
         jLabel14.setOpaque(true);
@@ -374,34 +218,15 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     */
     private void defineRulesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_defineRulesBtnActionPerformed
         //set mapped attribute with defined attribute
-        //Add attributes - *To add new attribute
-        attributes = new ArrayList<>();
-        String[] mappedAttributes = new String[]{
-            employeeIDComBox.getSelectedItem().toString(), 
-            employeeNameComBox.getSelectedItem().toString(),
-            ageComBox.getSelectedItem().toString(),
-            genderComBox.getSelectedItem().toString(),
-            maritalStatComBox.getSelectedItem().toString(),
-            havingDegreeComBox.getSelectedItem().toString(),            
-            jobRoleComBox.getSelectedItem().toString(),
-            departmentComBox.getSelectedItem().toString(),
-            workFromComBox.getSelectedItem().toString(),
-            workToComBox.getSelectedItem().toString(),
-            tenureComBox.getSelectedItem().toString(),
-            salaryComBox.getSelectedItem().toString(),
-            noOfLeavesComBox.getSelectedItem().toString(),
-            distanceComBox.getSelectedItem().toString(),
-            noOfDepComBox.getSelectedItem().toString()
-        };
-        for (int i = NumberConstants.ZERO; 
-                i < StringConstants.ATTRIBUTES_PREDICT.length ; i++){
-            String attr = StringConstants.ATTRIBUTES_TRAIN[i];
-            attribute attribute = new attribute(attr);
-            attribute.setRules(StringConstants.RULES_LIST.get(attr));
-            attribute.setMatchingField(mappedAttributes[i]);
-            attributes.add(attribute);
-        }        
-        
+        int noOfAttr = comboBoxes.size();
+        for (int i = NumberConstants.ZERO;
+            i < noOfAttr ; i++){
+            attribute attribute = attributes.remove(i);
+            attribute.setRules(StringConstants.RULES_LIST.get(attribute.getAttrName()));
+            String mappedAttr = comboBoxes.get(i).getSelectedItem().toString();
+            attribute.setMatchingField(mappedAttr);
+            attributes.add(i,attribute);            
+        }
         dispose();
         new DefineRules(attributes, filePath, NumberConstants.PREDICT_DATA).setVisible(true);
     }//GEN-LAST:event_defineRulesBtnActionPerformed
@@ -423,41 +248,11 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ageComBox;
     private javax.swing.JButton defineRulesBtn;
-    private javax.swing.JComboBox<String> departmentComBox;
-    private javax.swing.JComboBox<String> distanceComBox;
-    private javax.swing.JComboBox<String> employeeIDComBox;
-    private javax.swing.JComboBox<String> employeeNameComBox;
-    private javax.swing.JComboBox<String> genderComBox;
-    private javax.swing.JComboBox<String> havingDegreeComBox;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> jobRoleComBox;
-    private javax.swing.JComboBox<String> maritalStatComBox;
-    private javax.swing.JComboBox<String> noOfDepComBox;
-    private javax.swing.JComboBox<String> noOfLeavesComBox;
-    private javax.swing.JComboBox<String> salaryComBox;
-    private javax.swing.JComboBox<String> tenureComBox;
-    private javax.swing.JComboBox<String> workFromComBox;
-    private javax.swing.JComboBox<String> workToComBox;
+    private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }
