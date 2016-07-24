@@ -7,10 +7,9 @@ package model.view;
 
 import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
+import etl.controllers.CustomConfirmDialog;
 import etl.db.DBAccess;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -127,11 +126,6 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         autoRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         autoRadioBtn.setSelected(true);
         autoRadioBtn.setText("Automatically Select the Best Algorithm");
-        autoRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autoRadioBtnActionPerformed(evt);
-            }
-        });
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("<html>The best algorithm will be selected automatically for the prediction based on the efficiency</html>");
@@ -165,11 +159,6 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         modeSelect.add(manualRadioBtn);
         manualRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         manualRadioBtn.setText("Manually Select the Algorithm");
-        manualRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                manualRadioBtnActionPerformed(evt);
-            }
-        });
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("<html>Select the algorithm you prefer (K-Nearest Neighbours, Random Forest, Support Vector Machine)</html>");
@@ -228,22 +217,12 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         trainRadioBtn.setForeground(new java.awt.Color(255, 255, 255));
         trainRadioBtn.setSelected(true);
         trainRadioBtn.setText("Train");
-        trainRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                trainRadioBtnActionPerformed(evt);
-            }
-        });
 
         predictRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         trainPredictSelect.add(predictRadioBtn);
         predictRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         predictRadioBtn.setForeground(new java.awt.Color(255, 255, 255));
         predictRadioBtn.setText("Predict");
-        predictRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                predictRadioBtnActionPerformed(evt);
-            }
-        });
 
         applyBtn.setBackground(new java.awt.Color(102, 102, 255));
         applyBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -370,22 +349,6 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_applyBtnActionPerformed
 
-    private void manualRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manualRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_manualRadioBtnActionPerformed
-
-    private void autoRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autoRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_autoRadioBtnActionPerformed
-
-    private void predictRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_predictRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_predictRadioBtnActionPerformed
-
-    private void trainRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trainRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_trainRadioBtnActionPerformed
-
     /*
     * @Method formWindowClosing 
     * Prevent closing system and display home page
@@ -393,13 +356,17 @@ public class ModelMethodSelection extends javax.swing.JFrame {
     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        } 
+        } */
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(), 
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
     /**

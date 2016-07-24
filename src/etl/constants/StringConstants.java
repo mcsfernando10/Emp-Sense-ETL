@@ -325,9 +325,7 @@ public class StringConstants {
             );
         }
     };
-    
-    
-    
+        
     //Define Rules View
     public static final String RULE_ERROR = "This Rule is already exists";
     public static final String INVALID_RULE = "Please select a Rule";
@@ -362,6 +360,12 @@ public class StringConstants {
     public static final String DB_UPDATE_SUCCESS_MSG = "Successfully Updated the Database";
     public static final String SUCCESS_IMG_PATH = "src/etl/images/success_db.png";
     public static final String DB_CREATION_MSG = "Database Creation Done";
+    
+    //Select Train Predict Path from Model
+    public static final String PREDICT_TRAIN_SELECT_DIALOG_TITLE = "Select Type";
+    public static final String SELECT_PREDICT_DATASET = "Select dataset for prediction";
+    public static final String SELECT_PREDICT_MODEL = "Preceed with prediction";
+    public static final String PREDICT_TRAIN_SELECT_LABEL_TEXT = "How do you want to proceed?";
     
     //ReadJSON 
     public static final String EMPLOYEES_TEXT = "Employees";

@@ -9,6 +9,7 @@ import etl.commonViews.HomeView;
 import etl.commonViews.Login;
 import etl.constants.StringConstants;
 import static etl.controllers.CreateCleansedCSV.filePath;
+import etl.controllers.CustomConfirmDialog;
 import etl.readers.ReadOriginalExcelandWrite;
 import etl.readers.ReadOriginalJSONandWrite;
 import etl.readers.ReadOriginalCSVandWrite;
@@ -302,13 +303,17 @@ public class Extract extends javax.swing.JFrame {
     * @param  Action Event
     */
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        }
+        }*/
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(), 
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     /*
@@ -356,13 +361,17 @@ public class Extract extends javax.swing.JFrame {
     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        }        
+        }  */
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(),
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
     /*

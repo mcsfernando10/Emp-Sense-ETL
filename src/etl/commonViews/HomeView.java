@@ -109,7 +109,7 @@ public class HomeView extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(0, 0, 102));
         jLabel4.setOpaque(true);
         jPanel2.add(jLabel4);
-        jLabel4.setBounds(-10, -10, 670, 450);
+        jLabel4.setBounds(0, 0, 670, 450);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

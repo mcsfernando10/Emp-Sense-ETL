@@ -7,23 +7,14 @@ package model.view;
 
 import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
+import etl.controllers.CustomConfirmDialog;
 import etl.db.DBAccess;
-import static etl.readers.ReadCSV.selectedFilePath;
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
@@ -145,11 +136,6 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         knnRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         knnRadioBtn.setSelected(true);
         knnRadioBtn.setText("K Nearest Neighbours");
-        knnRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                knnRadioBtnActionPerformed(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,11 +168,6 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         algorithm.add(randomForestRadioBtn);
         randomForestRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         randomForestRadioBtn.setText("Random Forest");
-        randomForestRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                randomForestRadioBtnActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -219,11 +200,6 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         algorithm.add(svmRadioBtn);
         svmRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         svmRadioBtn.setText("Support Vector Machine");
-        svmRadioBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                svmRadioBtnActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -342,18 +318,6 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void knnRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_knnRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_knnRadioBtnActionPerformed
-
-    private void randomForestRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomForestRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_randomForestRadioBtnActionPerformed
-
-    private void svmRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_svmRadioBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_svmRadioBtnActionPerformed
-
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         String path = "D:/SLIIT/SoftwareIndustry";
         if(knnRadioBtn.isSelected()){
@@ -362,7 +326,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_KNN.py");
                     int i = p.waitFor();
                     System.out.println(i);
-                    JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                    //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
@@ -375,7 +339,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_RF.py");
                     int i = p.waitFor();
                     System.out.println(i);
-                    JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                    //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
@@ -388,7 +352,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_SVM.py");
                     int i = p.waitFor();
                     System.out.println(i);
-                    JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                    //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {
@@ -404,13 +368,17 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        }
+        }*/
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(), 
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
     /*

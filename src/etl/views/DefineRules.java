@@ -11,6 +11,7 @@ import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CreateCleansedCSV;
 import etl.controllers.CreatingDBDialog;
+import etl.controllers.CustomConfirmDialog;
 import etl.models.attribute;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
@@ -246,7 +247,7 @@ public class DefineRules extends javax.swing.JFrame {
         jLabel5.setBackground(new java.awt.Color(0, 0, 102));
         jLabel5.setOpaque(true);
         jPanel2.add(jLabel5);
-        jLabel5.setBounds(0, 0, 660, 520);
+        jLabel5.setBounds(0, 0, 660, 530);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,13 +395,17 @@ public class DefineRules extends javax.swing.JFrame {
     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        } 
+        } */
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(), 
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
     /*

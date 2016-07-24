@@ -219,9 +219,6 @@
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Automatically Select the Best Algorithm"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="autoRadioBtnActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -285,9 +282,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Manually Select the Algorithm"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="manualRadioBtnActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -354,9 +348,6 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Train"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trainRadioBtnActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="predictRadioBtn">
           <Properties>
@@ -374,9 +365,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Predict"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="predictRadioBtnActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="applyBtn">
           <Properties>

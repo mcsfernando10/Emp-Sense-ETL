@@ -209,7 +209,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setFocusable(false);
         jLabel7.setOpaque(true);
         jPanel2.add(jLabel7);
-        jLabel7.setBounds(0, 0, 520, 430);
+        jLabel7.setBounds(0, 0, 530, 430);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

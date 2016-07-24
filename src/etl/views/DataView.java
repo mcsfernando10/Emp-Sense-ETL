@@ -8,9 +8,9 @@ package etl.views;
 import etl.commonViews.HomeView;
 import etl.constants.StringConstants;
 import etl.controllers.CreateSelectDBTableDialog;
+import etl.controllers.CustomConfirmDialog;
 import etl.readers.ReadCSV;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 /**
@@ -183,7 +183,7 @@ public class DataView extends javax.swing.JFrame {
         
         //Select DB Table - Predict or Train Database
         CreateSelectDBTableDialog selectDBTable = new CreateSelectDBTableDialog(this,headers);
-        selectDBTable.setSize(300, 120); 
+        selectDBTable.setSize(300, 150); 
     }//GEN-LAST:event_mapAttrBtnActionPerformed
 
     /*
@@ -193,13 +193,17 @@ public class DataView extends javax.swing.JFrame {
     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        if (JOptionPane.showConfirmDialog(this, 
+        /*if (JOptionPane.showConfirmDialog(this, 
             StringConstants.CLOSE_WINDOW_QUESTION, StringConstants.CLOSE_WINDOW, 
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 dispose();
                 new HomeView().setVisible(true);
-        } 
+        } */
+        CustomConfirmDialog dialog = new CustomConfirmDialog(this, new HomeView(), 
+                StringConstants.CLOSE_WINDOW, StringConstants.CLOSE_WINDOW_QUESTION);
+        // set the size of the window
+        dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
