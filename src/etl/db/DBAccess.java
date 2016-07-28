@@ -91,7 +91,26 @@ public class DBAccess {
         }
     }
     
-     public List<Float> getAccuracy(){
+    public void insertUniqueReasons(String tableName,String[] reasonRow) {
+        try {            
+            int stringArrSize = reasonRow.length;
+            String query = "Insert into " + tableName + " values (";
+            for(int i=0;i<stringArrSize;i++){
+                if(i==stringArrSize-1)
+                    query += "'" + reasonRow[i] + "'";
+                else
+                    query += "'" + reasonRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public List<Float> getAccuracy(){
         List<Float> accuracyList = new ArrayList<Float>();
         try {
             String query = "Select * "
@@ -136,7 +155,7 @@ public class DBAccess {
             for(int i=0;i<stringArrSize;i++){
                 //Insert churn probability(0.0) and churn - false(0)
                 if(i==stringArrSize-1)
-                    query += "'" + employeeRow[i] + "', '0.0'";
+                    query += "'" + employeeRow[i] + "', '0.0',''";
                 else
                     query += "'" + employeeRow[i] + "',";
             }
@@ -156,7 +175,7 @@ public class DBAccess {
             for(int i=0;i<stringArrSize;i++){
                 //Insert churn - false(0)
                 if(i==stringArrSize-1)
-                    query += "'" + employeeRow[i] + "'";
+                    query += "'" + employeeRow[i] + "','-1'";
                 else if(i==stringArrSize-1)
                     break;
                 else

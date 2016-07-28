@@ -71,6 +71,14 @@ for i in range(length):
         uniqueValMap[uniqueValArr[n]] = n
     mappings[dataTable[0][i]] = dataTable[0][i],uniqueValMap
 
+reasonUniqueValues = etl.aggregate(dataTable,dataTable[0][15])
+
+reasonUniqueArr = []
+for i in range(len(reasonUniqueValues)):
+	if ( i!= 0 ):
+            reasonUniqueArr.append([i-1,reasonUniqueValues[i][0]])
+
+etl.tocsv(reasonUniqueArr,'src/etl/outputs/reasons.csv')
 
 mappedRawDataTable = etl.fieldmap(rawDataTable, mappings)
 

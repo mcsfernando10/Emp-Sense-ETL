@@ -83,6 +83,15 @@ public class CreateCleansedCSV implements Runnable{
     * Insert cleansed data into database
     */
     private void insertData(){
+        DBAccess dbAccess = new DBAccess();
+        //Insert unique reasons
+        ReadCSV.selectedFilePath = StringConstants.UNIQUE_REASONS_TO_LEAVE;
+        ReadCSV readerInsertUniqueReasons = new ReadCSV();
+        List<String[]> uniqueReasons = readerInsertUniqueReasons.readCSVFile();
+        for(int i = NumberConstants.ZERO; i < uniqueReasons.size();i++){
+            dbAccess.insertUniqueReasons("reasonUniques",uniqueReasons.get(i));
+        }
+        
         //To insert original values
         ReadCSV.selectedFilePath = StringConstants.CLEANSED_DATA_PATH;
         ReadCSV csvReaderForInsert = new ReadCSV();
@@ -93,7 +102,7 @@ public class CreateCleansedCSV implements Runnable{
         csvReaderForInsert = new ReadCSV();
         List<String[]> csvRawData = csvReaderForInsert.readCSVFile();
         int size = csvData.size();
-        DBAccess dbAccess = new DBAccess();
+        
         if(selectedDBTable == NumberConstants.TRAIN_DATA){
             for(int i = NumberConstants.ONE;i<size;i++){
                 String[] data = csvData.get(i);
@@ -109,6 +118,8 @@ public class CreateCleansedCSV implements Runnable{
                 dbDialog.setInsertProgress(size, i);
             }
         }
+        
+        
     }
     
     /*

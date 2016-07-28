@@ -354,6 +354,9 @@ public class StringConstants {
     public static final String PREDICT_DATASET = "Preciction Dataset";
     public static final String DONE_TXT = "Done";
     
+    //Insert unique Reasons To Leave
+    public static final String UNIQUE_REASONS_TO_LEAVE = "src/etl/outputs/reasons.csv";
+    
     //CreatingDBDialog
     public static final String WAITING_IMG_PATH = "src/etl/images/please_wait.gif";
     public static final String DB_INSERT_MSG = " Inserted into Database";

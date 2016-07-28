@@ -61,19 +61,19 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Train` (
   `Reason_To_Leave` varchar(1000) DEFAULT NULL,
   `churn` boolean,
   `probability` float DEFAULT 0.0
-) 
+);
 
 CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
-  `Employee_ID` varchar(100) DEFAULT NULL,
-  `Employee_Name` varchar(1000) DEFAULT NULL,
+  `Employee_ID` int(11) DEFAULT NULL,
+  `Employee_Name` int(11) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
   `Gender` int DEFAULT NULL,
   `Marital_Status` int DEFAULT NULL,
   `Having_Degree` int DEFAULT NULL,
   `Job_Role` int DEFAULT NULL,
   `Department` int DEFAULT NULL,
-  `WorkFrom` DATETIME DEFAULT NULL,
-  `WorkTo` DATETIME DEFAULT NULL,
+  `WorkFrom` int(11) DEFAULT NULL,
+  `WorkTo` int(11) DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
   `No_of_Dependents` int(11) DEFAULT NULL,
   `Reason_To_Leave` int DEFAULT NULL,
   `churn` int
-) 
+);
 
 --Data Predicting Tables
 CREATE TABLE IF NOT EXISTS `employeesIT_Predict` (
@@ -100,23 +100,30 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Predict` (
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
   `No_of_Dependents` int(11) DEFAULT NULL,
-  `probability` float DEFAULT 0.0
-) 
+  `probability` float DEFAULT 0.0,
+  `Reason_To_Leave` varchar(1000) DEFAULT NULL
+);
 
 CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Predict` (
-  `Employee_ID` varchar(100) DEFAULT NULL,
-  `Employee_Name` varchar(1000) DEFAULT NULL,
+  `Employee_ID` int(11) DEFAULT NULL,
+  `Employee_Name` int(11) DEFAULT NULL,
   `Age` int(11) DEFAULT NULL,
   `Gender` int DEFAULT NULL,
   `Marital_Status` int DEFAULT NULL,
   `Having_Degree` int DEFAULT NULL,
   `Job_Role` int DEFAULT NULL,
-  `Department` varchar(100) DEFAULT NULL,
-  `WorkFrom` DATETIME DEFAULT NULL,
-  `WorkTo` DATETIME DEFAULT NULL,
+  `Department` int(11) DEFAULT NULL,
+  `WorkFrom` int(11) DEFAULT NULL,
+  `WorkTo` int(11) DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
-  `No_of_Dependents` int(11) DEFAULT NULL
-) 
+  `No_of_Dependents` int(11) DEFAULT NULL,
+  `Reason_To_Leave` int DEFAULT NULL
+); 
+
+CREATE TABLE IF NOT EXISTS `reasonUniques` (
+  `id` int DEFAULT NULL,
+  `reason` varchar(1000) DEFAULT NULL
+);
