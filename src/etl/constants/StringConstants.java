@@ -356,6 +356,7 @@ public class StringConstants {
     
     //Insert unique Reasons To Leave
     public static final String UNIQUE_REASONS_TO_LEAVE = "src/etl/outputs/reasons.csv";
+    public static final String UNIQUE_REASON_DATATABLE = "reasonUniques";
     
     //CreatingDBDialog
     public static final String WAITING_IMG_PATH = "src/etl/images/please_wait.gif";

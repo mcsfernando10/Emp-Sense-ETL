@@ -89,7 +89,7 @@ public class CreateCleansedCSV implements Runnable{
         ReadCSV readerInsertUniqueReasons = new ReadCSV();
         List<String[]> uniqueReasons = readerInsertUniqueReasons.readCSVFile();
         for(int i = NumberConstants.ZERO; i < uniqueReasons.size();i++){
-            dbAccess.insertUniqueReasons("reasonUniques",uniqueReasons.get(i));
+            dbAccess.insertUniqueReasons(StringConstants.UNIQUE_REASON_DATATABLE,uniqueReasons.get(i));
         }
         
         //To insert original values
@@ -105,21 +105,17 @@ public class CreateCleansedCSV implements Runnable{
         
         if(selectedDBTable == NumberConstants.TRAIN_DATA){
             for(int i = NumberConstants.ONE;i<size;i++){
-                String[] data = csvData.get(i);
                 dbAccess.insertDataToTrainTable(StringConstants.TRAIN_DATATABLE,csvData.get(i));
                 dbAccess.insertRawDataToTrainTable(StringConstants.TRAIN_RAW_DATATABLE,csvRawData.get(i));
                 dbDialog.setInsertProgress(size, i);
             }
         } else {
             for(int i = NumberConstants.ONE;i<size;i++){
-                String[] data = csvData.get(i);
                 dbAccess.insertDataToPredictTable(StringConstants.PREDICT_DATATABLE,csvData.get(i));
                 dbAccess.insertRawDataToPredictTable(StringConstants.PREDICT_RAW_DATATABLE,csvRawData.get(i));
                 dbDialog.setInsertProgress(size, i);
             }
         }
-        
-        
     }
     
     /*
