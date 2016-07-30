@@ -121,8 +121,9 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        mainPanel = new javax.swing.JPanel();
         defineRulesBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        mainPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -138,6 +139,21 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
 
         jPanel1.setLayout(null);
 
+        defineRulesBtn.setBackground(new java.awt.Color(255, 255, 255));
+        defineRulesBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        defineRulesBtn.setForeground(new java.awt.Color(0, 51, 255));
+        defineRulesBtn.setText("Define Rules");
+        defineRulesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                defineRulesBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(defineRulesBtn);
+        defineRulesBtn.setBounds(550, 490, 157, 30);
+
+        jScrollPane1.setHorizontalScrollBar(null);
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(710, 390));
+
         mainPanel.setBackground(new java.awt.Color(51, 102, 255));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -151,20 +167,10 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
             .addGap(0, 390, Short.MAX_VALUE)
         );
 
-        jPanel1.add(mainPanel);
-        mainPanel.setBounds(20, 80, 710, 390);
+        jScrollPane1.setViewportView(mainPanel);
 
-        defineRulesBtn.setBackground(new java.awt.Color(255, 255, 255));
-        defineRulesBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        defineRulesBtn.setForeground(new java.awt.Color(0, 51, 255));
-        defineRulesBtn.setText("Define Rules");
-        defineRulesBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                defineRulesBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(defineRulesBtn);
-        defineRulesBtn.setBounds(550, 490, 157, 30);
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 80, 710, 390);
 
         jLabel10.setBackground(new java.awt.Color(51, 102, 255));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -184,17 +190,19 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jLabel15.setBackground(new java.awt.Color(0, 0, 102));
         jLabel15.setOpaque(true);
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(0, 0, 750, 610);
+        jLabel15.setBounds(0, -60, 750, 720);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 748, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 747, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         pack();
@@ -257,6 +265,7 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }

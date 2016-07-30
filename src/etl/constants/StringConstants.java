@@ -80,9 +80,15 @@ public class StringConstants {
     public static final String WORK_TO = "Work To";
     public static final String TENURE = "Tenure";
     public static final String SALARY = "Salary";
+    public static final String BONUS = "Bonus";
+    public static final String CLAIMS = "Claims";
+    public static final String WORKED_PROJECT = "Worked Project";
     public static final String NO_OF_LEAVES = "No of Leaves";
     public static final String DISTANCE = "Distance";
-    public static final String NO_OF_DEPENDENTS = "No of Dependents";
+    public static final String NO_OF_PARENTS = "No of Parents";
+    public static final String NO_OF_CHILDREN = "No of Children";
+    public static final String NO_OF_DEPENDENTS = "No of Children";
+    public static final String NO_OF_COMPLAINTS = "No of Complaints";
     public static final String REASON_TO_LEAVE = "Reason to Leave";
     public static final String CHURN = "Churn";
     
@@ -98,13 +104,16 @@ public class StringConstants {
     public static final String[] ATTRIBUTES_TRAIN = new String[]{
         EMPLOYEE_ID, EMPLOYEE_NAME, AGE , GENDER, MARITAL_STAT, 
         HAVING_DEGREE, JOB_ROLE, DEPARTMENT, WORK_FROM, WORK_TO,TENURE,
-        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS, REASON_TO_LEAVE,CHURN
+        SALARY, BONUS, CLAIMS, WORKED_PROJECT, NO_OF_LEAVES, DISTANCE, 
+        NO_OF_PARENTS, NO_OF_CHILDREN, NO_OF_COMPLAINTS, REASON_TO_LEAVE, CHURN
     };
+    
     
     public static final String[] ATTRIBUTES_PREDICT = new String[]{
         EMPLOYEE_ID, EMPLOYEE_NAME, AGE , GENDER, MARITAL_STAT, 
-        HAVING_DEGREE, JOB_ROLE, DEPARTMENT, WORK_FROM, WORK_TO,TENURE,
-        SALARY, NO_OF_LEAVES, DISTANCE, NO_OF_DEPENDENTS
+        HAVING_DEGREE, JOB_ROLE, DEPARTMENT, WORK_FROM, WORK_TO, TENURE,
+        SALARY, BONUS, CLAIMS, WORKED_PROJECT, NO_OF_LEAVES, DISTANCE, 
+        NO_OF_PARENTS, NO_OF_CHILDREN, NO_OF_COMPLAINTS
     };
     
     public static final Map<String, List<String>> RULES_LIST = 
@@ -261,6 +270,45 @@ public class StringConstants {
                     }
             );
             
+            put(BONUS, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(CLAIMS, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(WORKED_PROJECT, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
             put(NO_OF_LEAVES, 
                     new ArrayList<String>()
                     {
@@ -287,7 +335,33 @@ public class StringConstants {
                     }
             );
             
-            put(NO_OF_DEPENDENTS, 
+            put(NO_OF_PARENTS, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(NO_OF_CHILDREN, 
+                    new ArrayList<String>()
+                    {
+                        { 
+                            add(SELECT_A_RULE);
+                            add(REMOVE_NULL_ROWS);
+                            add(NUMBER_VALIDATION);
+                            add(FILL_MISSING_VALUES);
+                            add(SORT);
+                        };
+                    }
+            );
+            
+            put(NO_OF_COMPLAINTS, 
                     new ArrayList<String>()
                     {
                         { 

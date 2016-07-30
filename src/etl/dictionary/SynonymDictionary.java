@@ -29,8 +29,14 @@ public class SynonymDictionary {
         String[] synonymsForTenure = new String[]{"tenure","term","presidency","vice-presidential term","incumbency","administration","presidential term","episcopate","vice-presidency","term of office","advance","upgrade","kick upstairs","elevate","promote","raise","legal right","villeinage","freehold","land tenure","copyhold"};
         String[] synonymsForSalary = new String[]{"salary","wage","regular payment","take-home pay","remuneration","pay","minimum wage","payroll","merit pay","combat pay","pay packet","strike pay","sick pay","paysheet","earnings","pay envelope","double time","found","half-pay","living wage"};
         String[] synonymsForNoOfLeaves = new String[]{"leaves", "holidays"};
+        String[] synonymsForBonus = new String[]{"bonus"};
+        String[] synonymsForClaims = new String[]{"claims"};
+        String[] synonymsForWorkedProject = new String[]{"worked prject"};
         String[] synonymsForDistance = new String[]{"distance","focal length","hyperfocal distance","farawayness","closeness","distant","close","wavelength","spatial arrangement","span","nigh","nearness","leap","farness","way","milage","remoteness","mileage","elevation","far","spacing","yardage","separation","mean distance","minute","hour","interval","remove","wheelbase","near","hour angle","focal distance","piece","region","part","arm's length","altitude","leg","skip distance","light time","wingspread","length","gauge","wingspan","size","indifference","aloofness","time interval","interval","space","point in time","point","leave behind","outstrip","outdistance","hold","maintain","keep","distant"};
         String[] synonymsForDependents = new String[]{"dependents","independency","parasitic","unfree","reliant","babelike","symbiotic","mutually beneficial","myrmecophilous","interdependent","parasitical","bloodsucking","mutualist","underage","helpless","independence","leechlike","qualified","dependant","conditional","helplessness","reliance","dependency","state","dependance","contingency","subordination","helplessness","dependence","reliance","state","dependance","contingency","subordination","dependant","minion","charge","receiver","recipient","dependant","hooked","strung-out","addicted","drug-addicted","subordinate","subject","pendent","supported","pendant","dependent","qualified","conditional","Crown Colony","geographic region","geographical area","colony","geographic area","geographical region"};
+        String[] synonymsForNoOfParents = new String[]{"noofparents"};
+        String[] synonymsForNoOfChildren = new String[]{"noofchildren"};
+        String[] synonymsForNoOfComplaints = new String[]{"noofcomplaints"};
         String[] synonymsForReasonToLeave = new String[]{"reason to leave","reason", "reasons"};
         String[] synonymsForChurn = new String[]{"churn","stir","vessel","butter churn","move","roil","seethe","moil","roll","boil"};
         
@@ -46,9 +52,15 @@ public class SynonymDictionary {
         words.put(StringConstants.WORK_TO, synonymsForWorkTo);
         words.put(StringConstants.TENURE, synonymsForTenure);
         words.put(StringConstants.SALARY, synonymsForSalary);
+        words.put(StringConstants.BONUS, synonymsForBonus);
+        words.put(StringConstants.CLAIMS, synonymsForClaims);
+        words.put(StringConstants.WORKED_PROJECT, synonymsForWorkedProject);        
         words.put(StringConstants.NO_OF_LEAVES, synonymsForNoOfLeaves);
         words.put(StringConstants.DISTANCE, synonymsForDistance);
         words.put(StringConstants.NO_OF_DEPENDENTS, synonymsForDependents);
+        words.put(StringConstants.NO_OF_PARENTS, synonymsForNoOfParents);
+        words.put(StringConstants.NO_OF_CHILDREN, synonymsForNoOfChildren);        
+        words.put(StringConstants.NO_OF_COMPLAINTS, synonymsForNoOfComplaints);
         words.put(StringConstants.REASON_TO_LEAVE, synonymsForReasonToLeave);
         words.put(StringConstants.CHURN, synonymsForChurn);
     }

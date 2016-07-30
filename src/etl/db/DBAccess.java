@@ -5,7 +5,6 @@
  */
 package etl.db;
 
-import etl.constants.StringConstants;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

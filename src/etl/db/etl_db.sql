@@ -55,12 +55,17 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Train` (
   `WorkTo` DATETIME DEFAULT NULL,  
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
+  `Bonus` float(10,2) DEFAULT NULL,
+  `Claims` float(10,2) DEFAULT NULL,
+  `Worked Project` varchar(1000) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
-  `No_of_Dependents` int(11) DEFAULT NULL,
+  `No_of_Parents` int(11) DEFAULT NULL,
+  `No_of_Children` int(11) DEFAULT NULL,
+  `No_of_Complaints` int(11) DEFAULT NULL,
   `Reason_To_Leave` varchar(1000) DEFAULT NULL,
   `churn` boolean,
-  `probability` float DEFAULT 0.0
+  `probability` float(10,3) DEFAULT 0.0
 );
 
 CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
@@ -76,11 +81,16 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Train` (
   `WorkTo` int(11) DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
+  `Bonus` float(10,2) DEFAULT NULL,
+  `Claims` float(10,2) DEFAULT NULL,
+  `Worked Project` int(11) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
-  `No_of_Dependents` int(11) DEFAULT NULL,
+  `No_of_Parents` int(11) DEFAULT NULL,
+  `No_of_Children` int(11) DEFAULT NULL,
+  `No_of_Complaints` int(11) DEFAULT NULL,
   `Reason_To_Leave` int DEFAULT NULL,
-  `churn` int
+  `churn` int  
 );
 
 --Data Predicting Tables
@@ -97,10 +107,15 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Predict` (
   `WorkTo` DATETIME DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
+  `Bonus` float(10,2) DEFAULT NULL,
+  `Claims` float(10,2) DEFAULT NULL,
+  `Worked Project` varchar(1000) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
-  `No_of_Dependents` int(11) DEFAULT NULL,
-  `probability` float DEFAULT 0.0,
+  `No_of_Parents` int(11) DEFAULT NULL,
+  `No_of_Children` int(11) DEFAULT NULL,
+  `No_of_Complaints` int(11) DEFAULT NULL,
+  `probability` float(10,3) DEFAULT 0.0,
   `Reason_To_Leave` varchar(1000) DEFAULT NULL
 );
 
@@ -117,9 +132,14 @@ CREATE TABLE IF NOT EXISTS `employeesIT_Raw_Predict` (
   `WorkTo` int(11) DEFAULT NULL,
   `Tenure` int(11) DEFAULT NULL,
   `Salary` float(10,2) DEFAULT NULL,
+  `Bonus` float(10,2) DEFAULT NULL,
+  `Claims` float(10,2) DEFAULT NULL,
+  `Worked Project` int(11) DEFAULT NULL,
   `No_of_Leaves` int(11) DEFAULT NULL,
   `Distance` float(8,3) DEFAULT NULL,
-  `No_of_Dependents` int(11) DEFAULT NULL,
+  `No_of_Parents` int(11) DEFAULT NULL,
+  `No_of_Children` int(11) DEFAULT NULL,
+  `No_of_Complaints` int(11) DEFAULT NULL,
   `Reason_To_Leave` int DEFAULT NULL
 ); 
 
