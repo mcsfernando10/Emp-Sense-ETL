@@ -241,7 +241,7 @@ public class ModelMethodSelection extends javax.swing.JFrame {
             Process p;
             if(trainRadioBtn.isSelected()){
                 try {
-                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation_Train.py");
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Automation_Train.bat");
                     int i = p.waitFor();
                     System.out.println(i);
                     JOptionPane.showMessageDialog(null, "Done!! database updated!!");
@@ -262,11 +262,14 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         }else if(manualRadioBtn.isSelected()){
             if(trainRadioBtn.isSelected()){
                 String path = "D:/SLIIT/SoftwareIndustry";
-                Process p;
+                String path_reason = "D:/SLIIT/ITIndustry/Reason";
+                Process p, p_reason;
                 try {
-                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Accuracy_IT.py");
-                    int i = p.waitFor();
-                    System.out.println(i);
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Accuracy_IT_bat.bat");
+                    p.waitFor();
+                    p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Accuracy_IT_bat.bat");
+                    p_reason.waitFor();
+                    //System.out.println(i);
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (InterruptedException ex) {

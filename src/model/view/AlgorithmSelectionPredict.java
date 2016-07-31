@@ -33,12 +33,18 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         dbAccess = new DBAccess();
         
         List<Float> accuracy = new ArrayList<Float>();
-        accuracy = dbAccess.getAccuracy();
-        System.out.println(accuracy);
+        accuracy = dbAccess.getAccuracyForChurn();
         
         label_knn.setText(accuracy.get(0) * 100 + "%");
         label_rf.setText(accuracy.get(1) *100 + "%");
         label_svm.setText(accuracy.get(2) *100 + "%");
+        
+        List<Float> accuracy_reason = new ArrayList<Float>();
+        accuracy_reason = dbAccess.getAccuracyForReason();
+        
+        label_knn_reason.setText(accuracy_reason.get(0) * 100 + "%");
+        label_rf_reason.setText(accuracy_reason.get(1) *100 + "%");
+        label_svm_reason.setText(accuracy_reason.get(2) *100 + "%");
     }
     
 
@@ -54,9 +60,17 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         algorithm = new javax.swing.ButtonGroup();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         label_knn = new javax.swing.JLabel();
         label_rf = new javax.swing.JLabel();
         label_svm = new javax.swing.JLabel();
+        label_knn_reason = new javax.swing.JLabel();
+        label_rf_reason = new javax.swing.JLabel();
+        label_svm_reason = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         knnRadioBtn = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
@@ -87,7 +101,40 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jLabel1.setText("Algorithm Selection");
         jLabel1.setOpaque(true);
         jPanel6.add(jLabel1);
-        jLabel1.setBounds(10, 20, 430, 38);
+        jLabel1.setBounds(10, 20, 560, 38);
+
+        jLabel11.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Churn");
+        jLabel11.setOpaque(true);
+        jPanel6.add(jLabel11);
+        jLabel11.setBounds(300, 70, 130, 20);
+
+        jLabel10.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Reason");
+        jLabel10.setOpaque(true);
+        jPanel6.add(jLabel10);
+        jLabel10.setBounds(430, 70, 130, 20);
+
+        jLabel12.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel12.setOpaque(true);
+        jPanel6.add(jLabel12);
+        jLabel12.setBounds(430, 240, 2, 60);
+
+        jLabel13.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel13.setOpaque(true);
+        jPanel6.add(jLabel13);
+        jLabel13.setBounds(430, 350, 2, 60);
+
+        jLabel14.setBackground(new java.awt.Color(0, 0, 102));
+        jLabel14.setOpaque(true);
+        jPanel6.add(jLabel14);
+        jLabel14.setBounds(430, 120, 2, 70);
 
         label_knn.setBackground(new java.awt.Color(51, 102, 255));
         label_knn.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -95,7 +142,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_knn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_knn.setOpaque(true);
         jPanel6.add(label_knn);
-        label_knn.setBounds(300, 70, 130, 109);
+        label_knn.setBounds(300, 100, 130, 109);
 
         label_rf.setBackground(new java.awt.Color(51, 102, 255));
         label_rf.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -103,7 +150,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_rf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_rf.setOpaque(true);
         jPanel6.add(label_rf);
-        label_rf.setBounds(300, 190, 130, 97);
+        label_rf.setBounds(300, 220, 130, 97);
 
         label_svm.setBackground(new java.awt.Color(51, 102, 255));
         label_svm.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -111,7 +158,31 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_svm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_svm.setOpaque(true);
         jPanel6.add(label_svm);
-        label_svm.setBounds(300, 300, 130, 101);
+        label_svm.setBounds(300, 330, 130, 101);
+
+        label_knn_reason.setBackground(new java.awt.Color(51, 102, 255));
+        label_knn_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_knn_reason.setForeground(new java.awt.Color(255, 255, 255));
+        label_knn_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_knn_reason.setOpaque(true);
+        jPanel6.add(label_knn_reason);
+        label_knn_reason.setBounds(430, 100, 130, 109);
+
+        label_rf_reason.setBackground(new java.awt.Color(51, 102, 255));
+        label_rf_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_rf_reason.setForeground(new java.awt.Color(255, 255, 255));
+        label_rf_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_rf_reason.setOpaque(true);
+        jPanel6.add(label_rf_reason);
+        label_rf_reason.setBounds(430, 220, 130, 97);
+
+        label_svm_reason.setBackground(new java.awt.Color(51, 102, 255));
+        label_svm_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
+        label_svm_reason.setForeground(new java.awt.Color(255, 255, 255));
+        label_svm_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_svm_reason.setOpaque(true);
+        jPanel6.add(label_svm_reason);
+        label_svm_reason.setBounds(430, 330, 130, 101);
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -147,7 +218,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel2);
-        jPanel2.setBounds(20, 70, 271, 109);
+        jPanel2.setBounds(20, 100, 271, 109);
 
         jPanel3.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -182,7 +253,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel3);
-        jPanel3.setBounds(20, 190, 271, 97);
+        jPanel3.setBounds(20, 220, 271, 97);
 
         jPanel4.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -217,7 +288,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel4);
-        jPanel4.setBounds(20, 300, 271, 101);
+        jPanel4.setBounds(20, 330, 271, 101);
 
         jPanel5.setBackground(new java.awt.Color(51, 102, 255));
         jPanel5.setLayout(null);
@@ -232,25 +303,25 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
             }
         });
         jPanel5.add(submitBtn);
-        submitBtn.setBounds(330, 10, 81, 36);
+        submitBtn.setBounds(460, 10, 81, 36);
 
         jPanel6.add(jPanel5);
-        jPanel5.setBounds(10, 410, 430, 60);
+        jPanel5.setBounds(10, 440, 560, 60);
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 102));
         jLabel2.setOpaque(true);
         jPanel6.add(jLabel2);
-        jLabel2.setBounds(0, 0, 450, 490);
+        jLabel2.setBounds(0, 0, 590, 530);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
         );
 
         pack();
@@ -259,6 +330,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         String path = "D:/SLIIT/SoftwareIndustry";
+        String path_reason = "D:/SLIIT/ITIndustry/Reason";
         int algo_id = 0;
         if(knnRadioBtn.isSelected()){
             algo_id = 1;
@@ -269,11 +341,13 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         else if(svmRadioBtn.isSelected()){
             algo_id = 3;
         }
-        Process p;
+        Process p, p_reason;
         try {
-            p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/KNN.py " + algo_id);
-            int i = p.waitFor();
-            System.out.println(i);
+            p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_bat.bat " + algo_id);
+            p.waitFor();
+            p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Prediction_bat.bat " + algo_id);
+            p_reason.waitFor();
+            //System.out.println(i);
             //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
         } catch (IOException ex) {
             Logger.getLogger(AlgorithmSelectionPredict.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,6 +430,11 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup algorithm;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -367,8 +446,11 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton knnRadioBtn;
     private javax.swing.JLabel label_knn;
+    private javax.swing.JLabel label_knn_reason;
     private javax.swing.JLabel label_rf;
+    private javax.swing.JLabel label_rf_reason;
     private javax.swing.JLabel label_svm;
+    private javax.swing.JLabel label_svm_reason;
     private javax.swing.JRadioButton randomForestRadioBtn;
     private javax.swing.JButton submitBtn;
     private javax.swing.JRadioButton svmRadioBtn;

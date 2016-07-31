@@ -109,11 +109,28 @@ public class DBAccess {
         }
     }
     
-    public List<Float> getAccuracy(){
+    public List<Float> getAccuracyForChurn(){
         List<Float> accuracyList = new ArrayList<Float>();
         try {
             String query = "Select * "
                     + "from accuracy_confusion_mse";
+            PreparedStatement pst = 
+                    (PreparedStatement) connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                accuracyList.add(rs.getFloat("confusion_accuracy"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return accuracyList;
+    }
+    
+    public List<Float> getAccuracyForReason(){
+        List<Float> accuracyList = new ArrayList<Float>();
+        try {
+            String query = "Select * "
+                    + "from accuracy_confusion_mse_reason";
             PreparedStatement pst = 
                     (PreparedStatement) connection.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
