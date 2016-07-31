@@ -90,6 +90,20 @@ public class DBAccess {
         }
     }
     
+    public boolean isReasonInserted(int reasonId){
+        try {
+            String query = "Select * from reasonuniques where id ='" + reasonId + "'";
+            PreparedStatement pst =
+                    (PreparedStatement) connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()) {
+                return false;
+            }            
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
     public void insertUniqueReasons(String tableName,String[] reasonRow) {
         try {            
             int stringArrSize = reasonRow.length;

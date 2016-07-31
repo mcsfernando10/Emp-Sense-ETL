@@ -51,6 +51,8 @@ etl.tocsv(cleansedTable,'src/etl/outputs/cleansed.csv')
 dataTable = cleansedTable
 rawDataTable = cleansedTable
 
+reasonUniqueValues = etl.aggregate(dataTable,dataTable[0][20])
+
 mappings = OrderedDict()
 
 #mapping attributes
@@ -70,8 +72,6 @@ for i in range(length):
     for n in range(len(uniqueValArr)):
         uniqueValMap[uniqueValArr[n]] = n
     mappings[dataTable[0][i]] = dataTable[0][i],uniqueValMap
-
-reasonUniqueValues = etl.aggregate(dataTable,dataTable[0][15])
 
 reasonUniqueArr = []
 for i in range(len(reasonUniqueValues)):

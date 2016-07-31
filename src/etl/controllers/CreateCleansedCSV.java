@@ -89,7 +89,10 @@ public class CreateCleansedCSV implements Runnable{
         ReadCSV readerInsertUniqueReasons = new ReadCSV();
         List<String[]> uniqueReasons = readerInsertUniqueReasons.readCSVFile();
         for(int i = NumberConstants.ZERO; i < uniqueReasons.size();i++){
-            dbAccess.insertUniqueReasons(StringConstants.UNIQUE_REASON_DATATABLE,uniqueReasons.get(i));
+            if(dbAccess.isReasonInserted(Integer.parseInt(uniqueReasons.get(i)[0]))){
+                dbAccess.insertUniqueReasons(
+                        StringConstants.UNIQUE_REASON_DATATABLE,uniqueReasons.get(i));
+            }
         }
         
         //To insert original values
