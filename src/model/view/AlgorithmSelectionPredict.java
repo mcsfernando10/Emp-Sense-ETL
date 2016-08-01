@@ -103,7 +103,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jPanel6.add(jLabel1);
         jLabel1.setBounds(10, 20, 560, 38);
 
-        jLabel11.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel11.setBackground(new java.awt.Color(0, 0, 102));
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -112,7 +112,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jPanel6.add(jLabel11);
         jLabel11.setBounds(300, 70, 130, 20);
 
-        jLabel10.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel10.setBackground(new java.awt.Color(0, 0, 102));
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

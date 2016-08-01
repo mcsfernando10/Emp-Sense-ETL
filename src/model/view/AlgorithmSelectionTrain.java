@@ -129,7 +129,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jPanel6.add(jLabel1);
         jLabel1.setBounds(10, 20, 560, 38);
 
-        jLabel10.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel10.setBackground(new java.awt.Color(0, 0, 102));
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -138,7 +138,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jPanel6.add(jLabel10);
         jLabel10.setBounds(430, 70, 130, 20);
 
-        jLabel11.setBackground(new java.awt.Color(51, 102, 255));
+        jLabel11.setBackground(new java.awt.Color(0, 0, 102));
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -322,11 +322,13 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
             }  
         }
         if(randomForestRadioBtn.isSelected()){
-            Process p;
+            Process p, p_reason;
                 try {
-                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_RF.bat");
-                    int i = p.waitFor();
-                    System.out.println(i);
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Train_RF_bat.bat");
+                    p.waitFor();
+                    p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_RF_bat.bat");
+                    p_reason.waitFor();
+                    //System.out.println(i);
                     //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
@@ -337,7 +339,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         if(svmRadioBtn.isSelected()){
             Process p;
                 try {
-                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Prediction_SVM.bat");
+                    p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Train_SVM_bat.bat");
                     int i = p.waitFor();
                     System.out.println(i);
                     //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
