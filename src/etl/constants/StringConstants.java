@@ -420,6 +420,7 @@ public class StringConstants {
     public static final String TRAIN_RAW_DATATABLE = "employeesIT_Raw_Train";
     public static final String PREDICT_DATATABLE = "employeesIT_Predict";
     public static final String PREDICT_RAW_DATATABLE = "employeesIT_Raw_Predict";
+    public static final String PREDICT_FEATURE_DATATABLE = "employeesIT_Predict_Feature_Cont";
     
     //CreateCleanCSV
     public static final String DATATYPE_SELECT_DIALOG_TITLE = "Select Dataset Type";

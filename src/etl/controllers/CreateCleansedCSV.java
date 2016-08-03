@@ -115,7 +115,17 @@ public class CreateCleansedCSV implements Runnable{
         } else {
             for(int i = NumberConstants.ONE;i<size;i++){
                 dbAccess.insertDataToPredictTable(StringConstants.PREDICT_DATATABLE,csvData.get(i));
-                dbAccess.insertRawDataToPredictTable(StringConstants.PREDICT_RAW_DATATABLE,csvRawData.get(i));
+                dbAccess.insertRawDataToPredictTable(
+                        StringConstants.PREDICT_RAW_DATATABLE,csvRawData.get(i));
+                int arrContributionSize = 2*(csvData.get(i).length - 2) + 2;
+                String[] arrFeatureTableRow = new String[arrContributionSize];
+                arrFeatureTableRow[0] = csvData.get(i)[0];
+                arrFeatureTableRow[1] = csvData.get(i)[1];
+                for(int k=2;k<arrContributionSize;k++){
+                    arrFeatureTableRow[k] = "0.0";
+                }
+                dbAccess.insertDataToPredictFeatureContTable(
+                        StringConstants.PREDICT_FEATURE_DATATABLE, arrFeatureTableRow);
                 dbDialog.setInsertProgress(size, i);
             }
         }

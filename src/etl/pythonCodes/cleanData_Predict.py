@@ -53,7 +53,7 @@ rawDataTable = cleansedTable
 
 mappings = OrderedDict()
 #mapping attributes
-# go through each column (c = table)
+#go through each column (c = table)
 for i in range(length):
     #get unique values for each column
     uniqueValues = etl.aggregate(dataTable,dataTable[0][i])

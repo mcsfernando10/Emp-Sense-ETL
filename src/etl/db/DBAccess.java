@@ -220,5 +220,25 @@ public class DBAccess {
         }
     }
     
+    public void insertDataToPredictFeatureContTable(String tableName,String[] employeeRow) {
+        try {            
+            int stringArrSize = employeeRow.length;
+            String query = "Insert into " + tableName + " values (";
+            for(int i=0;i<stringArrSize;i++){
+                //Insert churn - false(0)
+                if(i==stringArrSize-1)
+                    query += "'" + employeeRow[i] + "'";
+                else
+                    query += "'" + employeeRow[i] + "',";
+            }
+            query += ")";
+            System.out.println(query);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
 }
