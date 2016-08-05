@@ -136,7 +136,7 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         autoRadioBtn.setBounds(70, 70, 271, 23);
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("<html>The best algorithm will be selected automatically for the prediction based on the efficiency</html>");
+        jLabel2.setText("<html>The best algorithm will be selected automatically for the prediction/train based on the efficiency</html>");
         jPanel5.add(jLabel2);
         jLabel2.setBounds(90, 90, 255, 50);
 

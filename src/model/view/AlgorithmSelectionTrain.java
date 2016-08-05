@@ -35,16 +35,16 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         List<Float> accuracy_churn = new ArrayList<Float>();
         accuracy_churn = dbAccess.getAccuracyForChurn();
         
-        label_knn.setText(accuracy_churn.get(0) * 100 + "%");
-        label_rf.setText(accuracy_churn.get(1) *100 + "%");
-        label_svm.setText(accuracy_churn.get(2) *100 + "%");
+        label_knn.setText(round(accuracy_churn.get(0) * 100,2) + "%");
+        label_rf.setText(round(accuracy_churn.get(1) * 100,2) + "%");
+        label_svm.setText(round(accuracy_churn.get(2) * 100,2) + "%");
         
         List<Float> accuracy_reason = new ArrayList<Float>();
         accuracy_reason = dbAccess.getAccuracyForReason();
         
-        label_knn_reason.setText(accuracy_reason.get(0) * 100 + "%");
-        label_rf_reason.setText(accuracy_reason.get(1) *100 + "%");
-        label_svm_reason.setText(accuracy_reason.get(2) *100 + "%");
+        label_knn_reason.setText(round(accuracy_reason.get(0) * 100,2) + "%");
+        label_rf_reason.setText(round(accuracy_reason.get(1) * 100,2) + "%");
+        label_svm_reason.setText(round(accuracy_reason.get(2) * 100,2) + "%");
         
         /*FileReader selectedFile = null;
         DecimalFormat df = new DecimalFormat("#.##");
@@ -72,7 +72,14 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         }*/
     }
     
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,6 +90,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     private void initComponents() {
 
         algorithm = new javax.swing.ButtonGroup();
+        Reason = new javax.swing.ButtonGroup();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -90,20 +98,26 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
+        knnRadioBtn = new javax.swing.JRadioButton();
+        randomForestRadioBtn = new javax.swing.JRadioButton();
+        svmRadioBtn = new javax.swing.JRadioButton();
+        rfRadio_reason = new javax.swing.JRadioButton();
+        svmRadio_reason = new javax.swing.JRadioButton();
+        knnRadio_reason = new javax.swing.JRadioButton();
         label_svm = new javax.swing.JLabel();
         label_svm_reason = new javax.swing.JLabel();
         label_rf = new javax.swing.JLabel();
         label_rf_reason = new javax.swing.JLabel();
         label_knn = new javax.swing.JLabel();
         label_knn_reason = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        knnRadioBtn = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        randomForestRadioBtn = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        svmRadioBtn = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
         submitBtn = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -162,6 +176,40 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jPanel6.add(jLabel14);
         jLabel14.setBounds(430, 240, 2, 60);
 
+        knnRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
+        algorithm.add(knnRadioBtn);
+        knnRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        knnRadioBtn.setSelected(true);
+        jPanel6.add(knnRadioBtn);
+        knnRadioBtn.setBounds(300, 100, 30, 21);
+
+        randomForestRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
+        algorithm.add(randomForestRadioBtn);
+        randomForestRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel6.add(randomForestRadioBtn);
+        randomForestRadioBtn.setBounds(300, 220, 21, 21);
+
+        svmRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
+        algorithm.add(svmRadioBtn);
+        svmRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel6.add(svmRadioBtn);
+        svmRadioBtn.setBounds(300, 330, 21, 21);
+
+        Reason.add(rfRadio_reason);
+        rfRadio_reason.setOpaque(false);
+        jPanel6.add(rfRadio_reason);
+        rfRadio_reason.setBounds(440, 220, 30, 21);
+
+        Reason.add(svmRadio_reason);
+        svmRadio_reason.setOpaque(false);
+        jPanel6.add(svmRadio_reason);
+        svmRadio_reason.setBounds(440, 330, 30, 21);
+
+        Reason.add(knnRadio_reason);
+        knnRadio_reason.setOpaque(false);
+        jPanel6.add(knnRadio_reason);
+        knnRadio_reason.setBounds(440, 100, 30, 21);
+
         label_svm.setBackground(new java.awt.Color(51, 102, 255));
         label_svm.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         label_svm.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,19 +258,26 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jPanel6.add(label_knn_reason);
         label_knn_reason.setBounds(430, 100, 130, 110);
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setText("Support Vector Machine");
+        jPanel6.add(jLabel15);
+        jLabel15.setBounds(40, 340, 167, 17);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel16.setText("Random Forest");
+        jPanel6.add(jLabel16);
+        jLabel16.setBounds(40, 230, 106, 17);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel17.setText("K Nearest Neighbours");
+        jPanel6.add(jLabel17);
+        jLabel17.setBounds(40, 110, 152, 17);
+
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("<html>A non-parametric method used for <br> classification where the input consists of <br> the k closest training examples in the <br> feature space</html>");
         jPanel6.add(jLabel3);
-        jLabel3.setBounds(40, 140, 241, 60);
-
-        knnRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
-        algorithm.add(knnRadioBtn);
-        knnRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        knnRadioBtn.setSelected(true);
-        knnRadioBtn.setText("K Nearest Neighbours");
-        jPanel6.add(knnRadioBtn);
-        knnRadioBtn.setBounds(40, 110, 177, 25);
+        jLabel3.setBounds(40, 130, 241, 60);
 
         jLabel9.setBackground(new java.awt.Color(51, 102, 255));
         jLabel9.setOpaque(true);
@@ -233,14 +288,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("<html>Random Forests are an ensemble learning <br> method for classification that operate by <br> constructing a multitude of decision trees</html>\n");
         jPanel6.add(jLabel4);
-        jLabel4.setBounds(40, 260, 247, 49);
-
-        randomForestRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
-        algorithm.add(randomForestRadioBtn);
-        randomForestRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        randomForestRadioBtn.setText("Random Forest");
-        jPanel6.add(randomForestRadioBtn);
-        randomForestRadioBtn.setBounds(40, 230, 131, 25);
+        jLabel4.setBounds(40, 250, 247, 49);
 
         jLabel7.setBackground(new java.awt.Color(51, 102, 255));
         jLabel7.setOpaque(true);
@@ -251,14 +299,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("<html>A representation od the examples as <br> points in space, mapped so that the <br> examples of the seperate categories are <br> divided by a clear gap</html>\n");
         jPanel6.add(jLabel5);
-        jLabel5.setBounds(40, 370, 247, 56);
-
-        svmRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
-        algorithm.add(svmRadioBtn);
-        svmRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        svmRadioBtn.setText("Support Vector Machine");
-        jPanel6.add(svmRadioBtn);
-        svmRadioBtn.setBounds(40, 340, 193, 25);
+        jLabel5.setBounds(40, 360, 247, 56);
 
         jLabel8.setBackground(new java.awt.Color(51, 102, 255));
         jLabel8.setOpaque(true);
@@ -307,12 +348,10 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         String path_reason = "D:/SLIIT/ITIndustry/Reason";
             
         if(knnRadioBtn.isSelected()){
-            Process p, p_reason;
+            Process p;
             try {
                 p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Train_KNN_bat.bat");
                 p.waitFor();
-                p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_KNN_bat.bat");
-                p_reason.waitFor();
                 //System.out.println(i);
                 //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
             } catch (IOException ex) {
@@ -322,12 +361,10 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
             }  
         }
         if(randomForestRadioBtn.isSelected()){
-            Process p, p_reason;
+            Process p;
                 try {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Train_RF_bat.bat");
                     p.waitFor();
-                    p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_RF_bat.bat");
-                    p_reason.waitFor();
                     //System.out.println(i);
                     //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
@@ -340,8 +377,46 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
             Process p;
                 try {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Train_SVM_bat.bat");
-                    int i = p.waitFor();
-                    System.out.println(i);
+                    p.waitFor();
+                    //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                } catch (IOException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        
+        if(knnRadio_reason.isSelected()){
+            Process p_reason;
+            try {
+                p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_KNN_bat.bat");
+                p_reason.waitFor();
+                //System.out.println(i);
+                //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+            } catch (IOException ex) {
+                Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+            }  
+        }
+        if(rfRadio_reason.isSelected()){
+            Process p_reason;
+                try {
+                    p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_RF_bat.bat");
+                    p_reason.waitFor();
+                    //System.out.println(i);
+                    //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
+                } catch (IOException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        if(svmRadio_reason.isSelected()){
+            Process p_reason;
+                try {
+                    p_reason = Runtime.getRuntime().exec("cmd /c start /wait " + path_reason + "/Train_SVM_bat.bat");
+                    p_reason.waitFor();
                     //JOptionPane.showMessageDialog(null, "Done!! database updated!!");
                 } catch (IOException ex) {
                     Logger.getLogger(AlgorithmSelectionTrain.class.getName()).log(Level.SEVERE, null, ex);
@@ -419,6 +494,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup Reason;
     private javax.swing.ButtonGroup algorithm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -426,6 +502,9 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -436,6 +515,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JRadioButton knnRadioBtn;
+    private javax.swing.JRadioButton knnRadio_reason;
     private javax.swing.JLabel label_knn;
     private javax.swing.JLabel label_knn_reason;
     private javax.swing.JLabel label_rf;
@@ -443,7 +523,9 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     private javax.swing.JLabel label_svm;
     private javax.swing.JLabel label_svm_reason;
     private javax.swing.JRadioButton randomForestRadioBtn;
+    private javax.swing.JRadioButton rfRadio_reason;
     private javax.swing.JButton submitBtn;
     private javax.swing.JRadioButton svmRadioBtn;
+    private javax.swing.JRadioButton svmRadio_reason;
     // End of variables declaration//GEN-END:variables
 }

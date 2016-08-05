@@ -157,6 +157,40 @@ public class DBAccess {
         return accuracyList;
     }
     
+    public List<String> getFeatureForChurn(){
+        List<String> featureList = new ArrayList<String>();
+        try {
+            String query = "Select * "
+                    + "from feature_importance_churn ORDER BY Importance DESC";
+            PreparedStatement pst = 
+                    (PreparedStatement) connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                featureList.add(rs.getString("Feature"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return featureList;
+    }
+    
+    public List<Float> getImportanceForChurn(){
+        List<Float> importanceList = new ArrayList<Float>();
+        try {
+            String query = "Select * "
+                    + "from feature_importance_churn ORDER BY Importance DESC";
+            PreparedStatement pst = 
+                    (PreparedStatement) connection.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                importanceList.add(rs.getFloat("Importance"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return importanceList;
+    }
+    
     public void insertTuningData(boolean value) {
         try {
             String query = "Insert into tune_user_selection values (" + value + ")";
