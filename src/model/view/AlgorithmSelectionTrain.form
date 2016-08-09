@@ -238,6 +238,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="Reason"/>
             </Property>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="opaque" type="boolean" value="false"/>
           </Properties>
           <Constraints>

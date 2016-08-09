@@ -58,8 +58,11 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_rf_reason.setText(round(accuracy_reason.get(1) * 100,2) + "%");
         label_svm_reason.setText(round(accuracy_reason.get(2) * 100,2) + "%");
         
+        BtnChurn.setText("<html><p>Churn<small style=\"font-size:6px\">&nbsp;&nbsp;▼</small></p></html>");
+        BtnReason.setText("<html><p>Reason<small style=\"font-size:6px\">&nbsp;&nbsp;▲</small></p></html>");
+        
         List<String> features = new ArrayList<String>();
-        features = dbAccess.getFeatureForChurn();
+        features = dbAccess.getFeature("feature_importance_churn","Importance_Churn","DESC","Feature");
         
         panel_feature.setLayout(new BoxLayout(panel_feature, BoxLayout.Y_AXIS));
         panel_feature.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -72,19 +75,34 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
             panel_feature.add(labels_feature[i]);
         }
         
-        List<Float> importance = new ArrayList<Float>();
-        importance = dbAccess.getImportanceForChurn();
+        List<Float> importance_churn = new ArrayList<Float>();
+        importance_churn = dbAccess.getImportance("feature_importance_churn","Importance_Churn","DESC","Importance_Churn");
         
-        panel_importance.setLayout(new BoxLayout(panel_importance, BoxLayout.Y_AXIS));
-        panel_importance.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panel_importance_churn.setLayout(new BoxLayout(panel_importance_churn, BoxLayout.Y_AXIS));
+        panel_importance_churn.setBorder(new EmptyBorder(10, 10, 10, 10));
         
-        JLabel[] labels_importance=new JLabel[importance.size()];
-        for(int i = 0; i < importance.size(); i++){
-            labels_importance[i] = new JLabel(importance.get(i) + "%", JLabel.LEFT);
-            labels_importance[i].setForeground(Color.WHITE);
-            labels_importance[i].setBorder(new EmptyBorder(4, 4, 4, 4));
-            panel_importance.add(labels_importance[i]);
+        JLabel[] labels_importance_churn=new JLabel[importance_churn.size()];
+        for(int i = 0; i < importance_churn.size(); i++){
+            labels_importance_churn[i] = new JLabel(importance_churn.get(i) + "%", JLabel.LEFT);
+            labels_importance_churn[i].setForeground(Color.WHITE);
+            labels_importance_churn[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_churn.add(labels_importance_churn[i]);
         }
+        
+        List<Float> importance_reason = new ArrayList<Float>();
+        importance_reason = dbAccess.getImportance("feature_importance_churn","Importance_Churn","DESC","Importance_Reason");
+        
+        panel_importance_reason.setLayout(new BoxLayout(panel_importance_reason, BoxLayout.Y_AXIS));
+        panel_importance_reason.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        JLabel[] labels_importance_reason=new JLabel[importance_reason.size()];
+        for(int i = 0; i < importance_reason.size(); i++){
+            labels_importance_reason[i] = new JLabel(importance_reason.get(i) + "%", JLabel.LEFT);
+            labels_importance_reason[i].setForeground(Color.WHITE);
+            labels_importance_reason[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_reason.add(labels_importance_reason[i]);
+        }
+        
         /*JLabel lab1 = new JLabel("User Name", JLabel.LEFT);
         JLabel lab2 = new JLabel("User Name", JLabel.LEFT);
         
@@ -144,8 +162,11 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         panel_feature = new javax.swing.JPanel();
-        panel_importance = new javax.swing.JPanel();
+        panel_importance_churn = new javax.swing.JPanel();
+        panel_importance_reason = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        BtnReason = new javax.swing.JButton();
+        BtnChurn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,7 +186,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jLabel1.setText("Algorithm Selection");
         jLabel1.setOpaque(true);
         jPanel6.add(jLabel1);
-        jLabel1.setBounds(10, 20, 550, 38);
+        jLabel1.setBounds(10, 30, 550, 38);
 
         jLabel11.setBackground(new java.awt.Color(0, 0, 102));
         jLabel11.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
@@ -174,7 +195,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jLabel11.setText("Churn");
         jLabel11.setOpaque(true);
         jPanel6.add(jLabel11);
-        jLabel11.setBounds(300, 70, 130, 20);
+        jLabel11.setBounds(300, 90, 130, 20);
 
         jLabel10.setBackground(new java.awt.Color(0, 0, 102));
         jLabel10.setFont(new java.awt.Font("Ubuntu", 1, 12)); // NOI18N
@@ -183,34 +204,35 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         jLabel10.setText("Reason");
         jLabel10.setOpaque(true);
         jPanel6.add(jLabel10);
-        jLabel10.setBounds(430, 70, 130, 20);
+        jLabel10.setBounds(430, 90, 130, 20);
 
         jLabel12.setBackground(new java.awt.Color(0, 0, 102));
         jLabel12.setOpaque(true);
         jPanel6.add(jLabel12);
-        jLabel12.setBounds(430, 240, 2, 60);
+        jLabel12.setBounds(430, 260, 2, 60);
 
         jLabel13.setBackground(new java.awt.Color(0, 0, 102));
         jLabel13.setOpaque(true);
         jPanel6.add(jLabel13);
-        jLabel13.setBounds(430, 350, 2, 60);
+        jLabel13.setBounds(430, 370, 2, 60);
 
         jLabel14.setBackground(new java.awt.Color(0, 0, 102));
         jLabel14.setOpaque(true);
         jPanel6.add(jLabel14);
-        jLabel14.setBounds(430, 120, 2, 70);
+        jLabel14.setBounds(430, 140, 2, 70);
 
         Reason.add(knnRadio_Reason);
+        knnRadio_Reason.setSelected(true);
         knnRadio_Reason.setOpaque(false);
         jPanel6.add(knnRadio_Reason);
-        knnRadio_Reason.setBounds(440, 100, 30, 21);
+        knnRadio_Reason.setBounds(440, 120, 30, 21);
 
         knnRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(knnRadioBtn);
         knnRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         knnRadioBtn.setSelected(true);
         jPanel6.add(knnRadioBtn);
-        knnRadioBtn.setBounds(300, 100, 21, 21);
+        knnRadioBtn.setBounds(300, 120, 21, 21);
 
         label_knn.setBackground(new java.awt.Color(51, 102, 255));
         label_knn.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -218,18 +240,18 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_knn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_knn.setOpaque(true);
         jPanel6.add(label_knn);
-        label_knn.setBounds(300, 100, 130, 109);
+        label_knn.setBounds(300, 120, 130, 109);
 
         Reason.add(rfRadio_Reason);
         rfRadio_Reason.setOpaque(false);
         jPanel6.add(rfRadio_Reason);
-        rfRadio_Reason.setBounds(440, 220, 30, 21);
+        rfRadio_Reason.setBounds(440, 240, 30, 21);
 
         randomForestRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(randomForestRadioBtn);
         randomForestRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel6.add(randomForestRadioBtn);
-        randomForestRadioBtn.setBounds(300, 220, 21, 21);
+        randomForestRadioBtn.setBounds(300, 240, 21, 21);
 
         label_rf.setBackground(new java.awt.Color(51, 102, 255));
         label_rf.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -237,18 +259,18 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_rf.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_rf.setOpaque(true);
         jPanel6.add(label_rf);
-        label_rf.setBounds(300, 220, 130, 97);
+        label_rf.setBounds(300, 240, 130, 97);
 
         svmRadioBtn.setBackground(new java.awt.Color(51, 102, 255));
         algorithm.add(svmRadioBtn);
         svmRadioBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jPanel6.add(svmRadioBtn);
-        svmRadioBtn.setBounds(300, 330, 30, 21);
+        svmRadioBtn.setBounds(300, 350, 30, 21);
 
         Reason.add(svmRadio_Reason);
         svmRadio_Reason.setOpaque(false);
         jPanel6.add(svmRadio_Reason);
-        svmRadio_Reason.setBounds(440, 330, 30, 21);
+        svmRadio_Reason.setBounds(440, 350, 30, 21);
 
         label_svm.setBackground(new java.awt.Color(51, 102, 255));
         label_svm.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -256,7 +278,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_svm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_svm.setOpaque(true);
         jPanel6.add(label_svm);
-        label_svm.setBounds(300, 330, 130, 101);
+        label_svm.setBounds(300, 350, 130, 101);
 
         label_knn_reason.setBackground(new java.awt.Color(51, 102, 255));
         label_knn_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -264,7 +286,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_knn_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_knn_reason.setOpaque(true);
         jPanel6.add(label_knn_reason);
-        label_knn_reason.setBounds(430, 100, 130, 109);
+        label_knn_reason.setBounds(430, 120, 130, 109);
 
         label_rf_reason.setBackground(new java.awt.Color(51, 102, 255));
         label_rf_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -272,7 +294,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_rf_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_rf_reason.setOpaque(true);
         jPanel6.add(label_rf_reason);
-        label_rf_reason.setBounds(430, 220, 130, 97);
+        label_rf_reason.setBounds(430, 240, 130, 97);
 
         label_svm_reason.setBackground(new java.awt.Color(51, 102, 255));
         label_svm_reason.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
@@ -280,7 +302,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         label_svm_reason.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         label_svm_reason.setOpaque(true);
         jPanel6.add(label_svm_reason);
-        label_svm_reason.setBounds(430, 330, 130, 101);
+        label_svm_reason.setBounds(430, 350, 130, 101);
 
         jPanel2.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -313,7 +335,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel2);
-        jPanel2.setBounds(11, 100, 280, 112);
+        jPanel2.setBounds(10, 120, 280, 112);
 
         jPanel3.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -346,7 +368,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel3);
-        jPanel3.setBounds(11, 220, 280, 97);
+        jPanel3.setBounds(10, 240, 280, 97);
 
         jPanel4.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -379,7 +401,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         );
 
         jPanel6.add(jPanel4);
-        jPanel4.setBounds(11, 330, 280, 101);
+        jPanel4.setBounds(10, 350, 280, 101);
 
         jPanel5.setBackground(new java.awt.Color(51, 102, 255));
         jPanel5.setLayout(null);
@@ -397,7 +419,7 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         submitBtn.setBounds(460, 10, 81, 36);
 
         jPanel6.add(jPanel5);
-        jPanel5.setBounds(10, 440, 550, 60);
+        jPanel5.setBounds(10, 460, 550, 60);
 
         jScrollPane1.setOpaque(false);
 
@@ -416,16 +438,29 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
             .addGap(0, 438, Short.MAX_VALUE)
         );
 
-        panel_importance.setBackground(new java.awt.Color(0, 0, 102));
+        panel_importance_churn.setBackground(new java.awt.Color(0, 0, 102));
 
-        javax.swing.GroupLayout panel_importanceLayout = new javax.swing.GroupLayout(panel_importance);
-        panel_importance.setLayout(panel_importanceLayout);
-        panel_importanceLayout.setHorizontalGroup(
-            panel_importanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panel_importance_churnLayout = new javax.swing.GroupLayout(panel_importance_churn);
+        panel_importance_churn.setLayout(panel_importance_churnLayout);
+        panel_importance_churnLayout.setHorizontalGroup(
+            panel_importance_churnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 79, Short.MAX_VALUE)
         );
-        panel_importanceLayout.setVerticalGroup(
-            panel_importanceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panel_importance_churnLayout.setVerticalGroup(
+            panel_importance_churnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        panel_importance_reason.setBackground(new java.awt.Color(0, 0, 102));
+
+        javax.swing.GroupLayout panel_importance_reasonLayout = new javax.swing.GroupLayout(panel_importance_reason);
+        panel_importance_reason.setLayout(panel_importance_reasonLayout);
+        panel_importance_reasonLayout.setHorizontalGroup(
+            panel_importance_reasonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 79, Short.MAX_VALUE)
+        );
+        panel_importance_reasonLayout.setVerticalGroup(
+            panel_importance_reasonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
@@ -436,42 +471,71 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(panel_feature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panel_importance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panel_importance_churn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_importance_reason, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panel_feature, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panel_importance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_importance_churn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_importance_reason, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
         jPanel6.add(jScrollPane1);
-        jScrollPane1.setBounds(570, 60, 250, 440);
+        jScrollPane1.setBounds(570, 80, 320, 440);
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 102));
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Feature Importance");
         jPanel6.add(jLabel9);
-        jLabel9.setBounds(580, 30, 240, 20);
+        jLabel9.setBounds(580, 30, 310, 20);
+
+        BtnReason.setForeground(new java.awt.Color(255, 255, 255));
+        BtnReason.setText("<html><p>Reason<small style=\\\"font-size:6px\\\">&nbsp;&nbsp;▲</small></p></html>");
+        BtnReason.setBorder(null);
+        BtnReason.setBorderPainted(false);
+        BtnReason.setContentAreaFilled(false);
+        BtnReason.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReasonActionPerformed(evt);
+            }
+        });
+        jPanel6.add(BtnReason);
+        BtnReason.setBounds(800, 60, 70, 20);
+
+        BtnChurn.setForeground(new java.awt.Color(255, 255, 255));
+        BtnChurn.setText("<html><p>Churn<small style=\\\"font-size:6px\\\">&nbsp;&nbsp;▼</small></p></html>");
+        BtnChurn.setBorder(null);
+        BtnChurn.setBorderPainted(false);
+        BtnChurn.setContentAreaFilled(false);
+        BtnChurn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnChurnActionPerformed(evt);
+            }
+        });
+        jPanel6.add(BtnChurn);
+        BtnChurn.setBounds(720, 60, 60, 20);
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 102));
         jLabel2.setOpaque(true);
         jPanel6.add(jLabel2);
-        jLabel2.setBounds(0, 0, 830, 530);
+        jLabel2.setBounds(0, 0, 920, 550);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
         pack();
@@ -543,6 +607,103 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
         dialog.setSize(300, 150);
     }//GEN-LAST:event_formWindowClosing
 
+    private void BtnChurnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChurnActionPerformed
+        
+        panel_feature.removeAll();
+        panel_importance_churn.removeAll();
+        panel_importance_reason.removeAll();
+        
+        BtnChurn.setText("<html><p>Churn<small style=\"font-size:6px\">&nbsp;&nbsp;▼</small></p></html>");
+        BtnReason.setText("<html><p>Reason<small style=\"font-size:6px\">&nbsp;&nbsp;▲</small></p></html>");
+        
+        List<String> features = new ArrayList<String>();
+        features = dbAccess.getFeature("feature_importance_churn","Importance_Churn","DESC","Feature");
+        
+        JLabel[] labels_feature=new JLabel[features.size()];
+        for(int i = 0; i < features.size(); i++){
+            labels_feature[i] = new JLabel(features.get(i), JLabel.LEFT);
+            labels_feature[i].setForeground(Color.WHITE);
+            labels_feature[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_feature.add(labels_feature[i]);
+        }
+        panel_feature.revalidate();
+        panel_feature.repaint();
+        
+        List<Float> importance_churn = new ArrayList<Float>();
+        importance_churn = dbAccess.getImportance("feature_importance_churn","Importance_Churn","DESC","Importance_Churn");
+        
+        JLabel[] labels_importance_churn=new JLabel[importance_churn.size()];
+        for(int i = 0; i < importance_churn.size(); i++){
+            labels_importance_churn[i] = new JLabel(importance_churn.get(i) + "%", JLabel.LEFT);
+            labels_importance_churn[i].setForeground(Color.WHITE);
+            labels_importance_churn[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_churn.add(labels_importance_churn[i]);
+        }
+        panel_importance_churn.revalidate();
+        panel_importance_churn.repaint();
+        
+        List<Float> importance_reason = new ArrayList<Float>();
+        importance_reason = dbAccess.getImportance("feature_importance_churn","Importance_Churn","DESC","Importance_Reason");
+        
+        JLabel[] labels_importance_reason=new JLabel[importance_reason.size()];
+        for(int i = 0; i < importance_reason.size(); i++){
+            labels_importance_reason[i] = new JLabel(importance_reason.get(i) + "%", JLabel.LEFT);
+            labels_importance_reason[i].setForeground(Color.WHITE);
+            labels_importance_reason[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_reason.add(labels_importance_reason[i]);
+        }
+        panel_importance_reason.revalidate();
+        panel_importance_reason.repaint();
+    }//GEN-LAST:event_BtnChurnActionPerformed
+
+    private void BtnReasonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReasonActionPerformed
+        panel_feature.removeAll();
+        panel_importance_reason.removeAll();
+        panel_importance_churn.removeAll();
+        
+        BtnChurn.setText("<html><p>Churn<small style=\"font-size:6px\">&nbsp;&nbsp;▲</small></p></html>");
+        BtnReason.setText("<html><p>Reason<small style=\"font-size:6px\">&nbsp;&nbsp;▼</small></p></html>");
+        
+        List<String> features = new ArrayList<String>();
+        features = dbAccess.getFeature("feature_importance_churn","Importance_Reason","DESC","Feature");
+        
+        JLabel[] labels_feature=new JLabel[features.size()];
+        for(int i = 0; i < features.size(); i++){
+            labels_feature[i] = new JLabel(features.get(i), JLabel.LEFT);
+            labels_feature[i].setForeground(Color.WHITE);
+            labels_feature[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_feature.add(labels_feature[i]);
+        }
+        panel_feature.revalidate();
+        panel_feature.repaint();
+        
+        List<Float> importance_reason = new ArrayList<Float>();
+        importance_reason = dbAccess.getImportance("feature_importance_churn","Importance_Reason","DESC","Importance_Reason");
+        
+        JLabel[] labels_importance_reason=new JLabel[importance_reason.size()];
+        for(int i = 0; i < importance_reason.size(); i++){
+            labels_importance_reason[i] = new JLabel(importance_reason.get(i) + "%", JLabel.LEFT);
+            labels_importance_reason[i].setForeground(Color.WHITE);
+            labels_importance_reason[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_reason.add(labels_importance_reason[i]);
+        }
+        panel_importance_reason.revalidate();
+        panel_importance_reason.repaint();
+        
+        List<Float> importance_churn = new ArrayList<Float>();
+        importance_churn = dbAccess.getImportance("feature_importance_churn","Importance_Reason","DESC","Importance_Churn");
+        
+        JLabel[] labels_importance_churn=new JLabel[importance_churn.size()];
+        for(int i = 0; i < importance_churn.size(); i++){
+            labels_importance_churn[i] = new JLabel(importance_churn.get(i) + "%", JLabel.LEFT);
+            labels_importance_churn[i].setForeground(Color.WHITE);
+            labels_importance_churn[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            panel_importance_churn.add(labels_importance_churn[i]);
+        }
+        panel_importance_churn.revalidate();
+        panel_importance_churn.repaint();
+    }//GEN-LAST:event_BtnReasonActionPerformed
+
     /*
     * @Method setWindowIcon 
     * Set Window Icon
@@ -595,6 +756,8 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnChurn;
+    private javax.swing.JButton BtnReason;
     private javax.swing.ButtonGroup Reason;
     private javax.swing.ButtonGroup algorithm;
     private javax.swing.JLabel jLabel1;
@@ -627,7 +790,9 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     private javax.swing.JLabel label_svm;
     private javax.swing.JLabel label_svm_reason;
     private javax.swing.JPanel panel_feature;
-    private javax.swing.JPanel panel_importance;
+    private javax.swing.JPanel panel_importance_churn;
+    private javax.swing.JPanel panel_importance_churn1;
+    private javax.swing.JPanel panel_importance_reason;
     private javax.swing.JRadioButton randomForestRadioBtn;
     private javax.swing.JRadioButton rfRadio_Reason;
     private javax.swing.JButton submitBtn;

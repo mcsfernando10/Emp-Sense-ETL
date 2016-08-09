@@ -206,6 +206,7 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
         svmRadio_reason.setBounds(440, 330, 30, 21);
 
         Reason.add(knnRadio_reason);
+        knnRadio_reason.setSelected(true);
         knnRadio_reason.setOpaque(false);
         jPanel6.add(knnRadio_reason);
         knnRadio_reason.setBounds(440, 100, 30, 21);

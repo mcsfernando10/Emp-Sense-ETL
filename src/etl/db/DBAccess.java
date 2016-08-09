@@ -157,16 +157,16 @@ public class DBAccess {
         return accuracyList;
     }
     
-    public List<String> getFeatureForChurn(){
+    public List<String> getFeature(String tableName, String OrderByColumn, String sortMethod, String returnColumn){
         List<String> featureList = new ArrayList<String>();
         try {
             String query = "Select * "
-                    + "from feature_importance_churn ORDER BY Importance DESC";
+                    + "from "+ tableName + " ORDER BY " + OrderByColumn + " " + sortMethod;
             PreparedStatement pst = 
                     (PreparedStatement) connection.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                featureList.add(rs.getString("Feature"));
+                featureList.add(rs.getString(returnColumn));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,16 +174,16 @@ public class DBAccess {
         return featureList;
     }
     
-    public List<Float> getImportanceForChurn(){
+    public List<Float> getImportance(String tableName, String OrderByColumn, String sortMethod, String returnColumn){
         List<Float> importanceList = new ArrayList<Float>();
         try {
             String query = "Select * "
-                    + "from feature_importance_churn ORDER BY Importance DESC";
+                    + "from "+ tableName + " ORDER BY " + OrderByColumn + " " + sortMethod;
             PreparedStatement pst = 
                     (PreparedStatement) connection.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                importanceList.add(rs.getFloat("Importance"));
+                importanceList.add(rs.getFloat(returnColumn));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBAccess.class.getName()).log(Level.SEVERE, null, ex);
