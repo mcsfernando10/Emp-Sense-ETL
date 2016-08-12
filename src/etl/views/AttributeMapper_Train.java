@@ -11,6 +11,7 @@ import etl.constants.StringConstants;
 import etl.controllers.CustomConfirmDialog;
 import etl.dictionary.SynonymDictionary;
 import etl.models.attribute;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
     private void setAttributeMappers(){
         attributes = new ArrayList<>();
         comboBoxes = new ArrayList<>();
-        mainPanel.setLayout(null);
+        //mainPanel.setLayout(null);
         
         int labelXpos = 25;
         int labelYpos = -30;
@@ -80,6 +81,7 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
             Font boldFont = new Font(attrLable.getFont().getName(),Font.BOLD,attrLable.getFont().getSize());
             
             attrLable.setFont(boldFont);
+            attrLable.setForeground(Color.WHITE);
             JComboBox attrComBox = new JComboBox();
             //Left Side
             if(i%2 != 1){
@@ -151,10 +153,11 @@ public class AttributeMapper_Train extends javax.swing.JFrame {
         jPanel1.add(defineRulesBtn);
         defineRulesBtn.setBounds(550, 490, 157, 30);
 
+        jScrollPane1.setBackground(new java.awt.Color(0, 0, 102));
         jScrollPane1.setHorizontalScrollBar(null);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(710, 390));
 
-        mainPanel.setBackground(new java.awt.Color(51, 102, 255));
+        mainPanel.setBackground(new java.awt.Color(0, 0, 102));
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);

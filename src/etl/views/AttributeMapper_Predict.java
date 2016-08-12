@@ -9,16 +9,21 @@ import etl.commonViews.HomeView;
 import etl.constants.NumberConstants;
 import etl.constants.StringConstants;
 import etl.controllers.CustomConfirmDialog;
+import etl.db.DBAccess;
 import etl.dictionary.SynonymDictionary;
 import etl.models.attribute;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
@@ -52,7 +57,7 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     private void setAttributeMappers(){
         attributes = new ArrayList<>();
         comboBoxes = new ArrayList<>();
-        mainPanel.setLayout(null);
+        //mainPanel1.setLayout(null);
         
         int labelXpos = 25;
         int labelYpos = -30;
@@ -65,7 +70,10 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
         int comboxBoxHeight = 30;
         
         int midGapX = 10;
-        int midGapY = 12;        
+        int midGapY = 12;       
+        
+        //mainPanel.setLayout(new GridLayout((StringConstants.ATTRIBUTES_PREDICT.length / 2)+1, 4));
+        //mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         
         SynonymDictionary dictionary = new SynonymDictionary();
         for(int i=NumberConstants.ZERO;
@@ -80,6 +88,7 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
             Font boldFont = new Font(attrLable.getFont().getName(),Font.BOLD,attrLable.getFont().getSize());
             
             attrLable.setFont(boldFont);
+            attrLable.setForeground(Color.WHITE);
             JComboBox attrComBox = new JComboBox();
             //Left Side
             if(i%2 != 1){
@@ -92,8 +101,8 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
                 labelXpos = comboxBoxXpos + comboxBoxWidth + midGapX;
                 comboxBoxXpos = labelXpos + labelWidth + midGapX;    
             }
-            mainPanel.add(attrLable);
-            mainPanel.add(attrComBox);
+            mainPanelOut.add(attrLable);
+            mainPanelOut.add(attrComBox);
 
             attrLable.setLocation(labelXpos, labelYpos);
             attrComBox.setLocation(comboxBoxXpos, comboxBoxYpos);
@@ -109,6 +118,21 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
             attrComBox.setSelectedIndex(dictionary.getIndex(attrName, header));
             comboBoxes.add(attrComBox);
         }
+         
+        /*DBAccess dbAccess = new DBAccess();
+        List<String> features = new ArrayList<String>();
+        features = dbAccess.getFeature("feature_importance_churn","Importance_Churn","DESC","Feature");
+        
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        
+        JLabel[] labels_feature=new JLabel[features.size()];
+        for(int i = 0; i < features.size(); i++){
+            labels_feature[i] = new JLabel(features.get(i), JLabel.LEFT);
+            labels_feature[i].setForeground(Color.WHITE);
+            labels_feature[i].setBorder(new EmptyBorder(4, 4, 4, 4));
+            mainPanel.add(labels_feature[i]);
+        }*/
     } 
        
     /**
@@ -122,9 +146,10 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         defineRulesBtn = new javax.swing.JButton();
-        mainPanel = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        mainPanelOut = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -148,30 +173,14 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
             }
         });
         jPanel1.add(defineRulesBtn);
-        defineRulesBtn.setBounds(550, 450, 157, 30);
-
-        mainPanel.setBackground(new java.awt.Color(51, 102, 255));
-
-        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
-        mainPanel.setLayout(mainPanelLayout);
-        mainPanelLayout.setHorizontalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 710, Short.MAX_VALUE)
-        );
-        mainPanelLayout.setVerticalGroup(
-            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 350, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(mainPanel);
-        mainPanel.setBounds(20, 80, 710, 350);
+        defineRulesBtn.setBounds(610, 450, 157, 30);
 
         jLabel10.setBackground(new java.awt.Color(51, 102, 255));
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setOpaque(true);
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(20, 440, 710, 50);
+        jLabel10.setBounds(20, 440, 760, 50);
 
         jLabel16.setBackground(new java.awt.Color(51, 102, 255));
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -179,18 +188,40 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
         jLabel16.setText("Map Attributes with Dataset");
         jLabel16.setOpaque(true);
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 20, 710, 50);
+        jLabel16.setBounds(20, 20, 760, 50);
+
+        jScrollPane2.setForeground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        mainPanelOut.setBackground(new java.awt.Color(0, 0, 102));
+        mainPanelOut.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout mainPanelOutLayout = new javax.swing.GroupLayout(mainPanelOut);
+        mainPanelOut.setLayout(mainPanelOutLayout);
+        mainPanelOutLayout.setHorizontalGroup(
+            mainPanelOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 741, Short.MAX_VALUE)
+        );
+        mainPanelOutLayout.setVerticalGroup(
+            mainPanelOutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 438, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(mainPanelOut);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(20, 80, 760, 350);
 
         jLabel14.setBackground(new java.awt.Color(0, 0, 102));
         jLabel14.setOpaque(true);
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(0, 0, 750, 510);
+        jLabel14.setBounds(0, 0, 800, 510);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 791, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,6 +288,7 @@ public class AttributeMapper_Predict extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel mainPanel;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel mainPanelOut;
     // End of variables declaration//GEN-END:variables
 }

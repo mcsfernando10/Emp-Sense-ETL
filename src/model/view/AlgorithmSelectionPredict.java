@@ -791,7 +791,6 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     private javax.swing.JLabel label_svm_reason;
     private javax.swing.JPanel panel_feature;
     private javax.swing.JPanel panel_importance_churn;
-    private javax.swing.JPanel panel_importance_churn1;
     private javax.swing.JPanel panel_importance_reason;
     private javax.swing.JRadioButton randomForestRadioBtn;
     private javax.swing.JRadioButton rfRadio_Reason;
