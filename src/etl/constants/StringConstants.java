@@ -85,7 +85,7 @@ public class StringConstants {
     public static final String WORKED_PROJECT = "Worked Project";
     public static final String NO_OF_LEAVES = "No of Leaves";
     public static final String DISTANCE = "Distance";
-    public static final String NO_OF_PARENTS = "No of Parents";
+    public static final String NO_OF_PARENTS = "Non School Going Dependents";
     public static final String NO_OF_CHILDREN = "No of Children";
     public static final String NO_OF_DEPENDENTS = "No of Children";
     public static final String NO_OF_COMPLAINTS = "No of Complaints";
