@@ -345,8 +345,8 @@ public class AlgorithmSelectionTrain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        String path = "D:/SLIIT/SoftwareIndustry";
-        String path_reason = "D:/SLIIT/ITIndustry/Reason";
+        String path = etl.constants.StringConstants.PREDICTION_PATH;
+        String path_reason = etl.constants.StringConstants.REASON_PATH;
             
         if(knnRadioBtn.isSelected()){
             Process p;

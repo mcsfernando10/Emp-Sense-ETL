@@ -543,8 +543,8 @@ public class AlgorithmSelectionPredict extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
-        String path = "D:/SLIIT/SoftwareIndustry";
-        String path_reason = "D:/SLIIT/ITIndustry/Reason";
+        String path = etl.constants.StringConstants.PREDICTION_PATH;
+        String path_reason = etl.constants.StringConstants.REASON_PATH;
         int algo_id_churn = 0;
         int algo_id_reason = 0;
         if(knnRadioBtn.isSelected()){

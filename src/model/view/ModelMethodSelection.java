@@ -237,7 +237,7 @@ public class ModelMethodSelection extends javax.swing.JFrame {
         }
         
         if(autoRadioBtn.isSelected()){
-            String path = "D:/SLIIT/SoftwareIndustry";
+            String path = etl.constants.StringConstants.PREDICTION_PATH;
             Process p;
             if(trainRadioBtn.isSelected()){
                 try {
@@ -261,8 +261,8 @@ public class ModelMethodSelection extends javax.swing.JFrame {
             }
         }else if(manualRadioBtn.isSelected()){
             if(trainRadioBtn.isSelected()){
-                String path = "D:/SLIIT/SoftwareIndustry";
-                String path_reason = "D:/SLIIT/ITIndustry/Reason";
+                String path = etl.constants.StringConstants.PREDICTION_PATH;
+                String path_reason = etl.constants.StringConstants.REASON_PATH;
                 Process p, p_reason;
                 try {
                     p = Runtime.getRuntime().exec("cmd /c start /wait " + path + "/Accuracy_IT_bat.bat");

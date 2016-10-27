@@ -92,6 +92,10 @@ public class StringConstants {
     public static final String REASON_TO_LEAVE = "Reason to Leave";
     public static final String CHURN = "Churn";
     
+    //Python
+    public static final String PREDICTION_PATH = "src/etl/pythonCodes/SoftwareIndustry";
+    public static final String REASON_PATH = "src/etl/pythonCodes/Reason";
+    
     //Rules
     public static final String SELECT_A_RULE = "Select a Rule";
     public static final String REMOVE_NULL_ROWS = "Remove Null Value Rows";
@@ -452,9 +456,9 @@ public class StringConstants {
     //Database
     public static final String DB_CLASS = "com.mysql.jdbc.Driver";
     public static final String DB_CONNECTION_PATH = "jdbc:mysql://localhost:3306/";
-    public static final String DB_NAME = "empsense";
+    public static final String DB_NAME = "empsense_software";
     public static final String DB_USER_TEXT = "user";
     public static final String DB_USERNAME = "root";
     public static final String DB_USER_PASSWORD_TEXT = "password";
-    public static final String DB_USER_PASSWORD = "root123";    
+    public static final String DB_USER_PASSWORD = "";    
 }
